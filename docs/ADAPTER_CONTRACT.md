@@ -19,6 +19,7 @@ The Antigravity adapter preserves the current Project Brain operating shape:
 ```text
 adapters/antigravity/skills/
 ├── CORE_PRINCIPLES.md
+├── ORCHESTRATION.md
 ├── SKILL_INDEX.md
 └── <original skill folder>/SKILL.md
 ```
@@ -32,6 +33,9 @@ The Codex adapter uses portable package names:
 ```text
 adapters/codex/skills/project-manager/SKILL.md
 ```
+
+Root system docs such as `CORE_PRINCIPLES.md` and `ORCHESTRATION.md` are copied
+into the adapter root.
 
 Each generated `SKILL.md` has frontmatter keys:
 
@@ -54,4 +58,3 @@ add Claude-specific metadata, but the source remains unchanged.
 
 Adapter files are generated. Manual edits are treated as drift. Fix `source/`
 or `catalog/skills.yaml`, then rebuild.
-

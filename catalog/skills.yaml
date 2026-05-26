@@ -69,7 +69,7 @@
     {
       "id": "project-manager",
       "source": "총괄매니저",
-      "version": "2.14.0",
+      "version": "2.15.0",
       "category": "orchestration",
       "adapterName": "project-manager",
       "description": "Use when continuing a project, restoring file-based context, creating work orders, reviewing results, updating decision logs, or coordinating agent handoffs."
@@ -85,10 +85,10 @@
     {
       "id": "coding-guide",
       "source": "코딩가이드",
-      "version": "1.5.0",
+      "version": "1.6.0",
       "category": "coding",
       "adapterName": "coding-guide",
-      "description": "Use when executing a work order, editing code, following project conventions, applying conditional TDD, verifying builds, or reporting implementation results."
+      "description": "Use when executing a work order, editing code, following project conventions, escalating unclear or impossible orders, applying conditional TDD, verifying builds, or reporting implementation results."
     },
     {
       "id": "content-planning",
@@ -100,4 +100,3 @@
     }
   ]
 }
-

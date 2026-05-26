@@ -1,10 +1,10 @@
 ---
 name: 스킬 인덱스
-version: "2.0.6"
+version: "2.0.7"
 description: Project Brain Skilltree의 요청 라우터이자 시스템 지도. Codex와 Antigravity가 어떤 상황에서 어떤 스킬을 읽고, 어떤 문서를 기준으로 판단해야 하는지 결정한다.
 ---
 
-# 스킬 인덱스 (Skill Router) v2.0.6
+# 스킬 인덱스 (Skill Router) v2.0.7
 
 > 새 AI 세션이 가장 먼저 읽어야 할 문서다.
 > 이 문서는 단순 목록이 아니라 "요청 → 스킬 → 문서 → 검증"을 연결하는 라우터다.
@@ -29,7 +29,7 @@ description: Project Brain Skilltree의 요청 라우터이자 시스템 지도.
 
 ```mermaid
 graph TD
-    A[00 Core\nCORE_PRINCIPLES + SKILL_INDEX] --> B[01 Router\n요청 분기]
+    A[00 Core\nCORE_PRINCIPLES + SKILL_INDEX + ORCHESTRATION] --> B[01 Router\n요청 분기]
     B --> C[02 Orchestrator\n총괄매니저]
     C --> D[03 Execution\n코딩/기획/디자인/콘텐츠]
     D --> E[04 Verification\n암행어사 + 출시점검]
@@ -67,8 +67,8 @@ graph TD
 | 1 | [오피스아워](오피스아워/SKILL.md) | v1.3.0 | 아이디어 검증 · 방향 설정 | 아이디어 (대화) | `PROJECT_BRIEF.md` |
 | 2 | [PRD생성](PRD생성/SKILL.md) | v1.1.1 | 실행 가능한 요구사항 명세 | `PROJECT_BRIEF.md` | `PRD_v1.0.md` |
 | 3 | [디자인시스템](디자인시스템/SKILL.md) | v2.3.0 | 디자인 토큰 · 스타일 규칙 · 안티-슬롭 · 프리뷰 | `PRD_v1.0.md` | `DESIGN_SYSTEM.md`, `DESIGN_PREVIEW.html` |
-| 4 | [총괄매니저](총괄매니저/SKILL.md) | v2.14.0 | 작업 분배 · 판단 · 기록 · 장기 결정 관리 | `_context.md` | `_order.md`, `_playbook.md`, `_context.md`, `DECISION_LOG.md`, `CHECKLIST.md` |
-| 5 | [코딩가이드](코딩가이드/SKILL.md) | v1.5.0 | 코딩 실행 계약 · 금지 패턴 · 검증 | `_order.md` | 코드 파일 + 작업 결과 |
+| 4 | [총괄매니저](총괄매니저/SKILL.md) | v2.15.0 | 작업 분배 · 판단 · 기록 · 장기 결정 관리 | `_context.md` | `_order.md`, `_playbook.md`, `_context.md`, `DECISION_LOG.md`, `CHECKLIST.md` |
+| 5 | [코딩가이드](코딩가이드/SKILL.md) | v1.6.0 | 코딩 실행 계약 · 에스컬레이션 · 금지 패턴 · 검증 | `_order.md` | 코드 파일 + 작업 결과 또는 반려/부분완료 보고 |
 | 6 | [출시점검](출시점검/SKILL.md) | v2.5.0 | 배포 품질 관문 · 런타임 스모크 테스트 | 코드 전체 | `_launch_check.md` |
 
 ---
@@ -91,6 +91,15 @@ graph TD
 | [콘텐츠기획](콘텐츠기획/SKILL.md) | v1.1.0 | 브랜드 인터뷰 + 키워드 리서치 + 캘린더 | 대화/브랜드 정보 | `BRAND_CONTEXT.md`, `CONTENT_PLAN.md` |
 | [블로그엔진](블로그엔진/SKILL.md) | v4.1.0 | 한국형 블로그 콘텐츠 퍼널 + 100점 채점 | 주제/키워드 | 완성 글 + 제목 5개 + 썸네일 카피 + 채점 + CHECKLIST |
 | [인스타엔진](인스타엔진/SKILL.md) | v3.2.0 | 인스타 운영 OS · 숏폼·캐러셀·광고·DM·성과 루프 | 블로그 글/주제/데이터 | 모드별 분리 파일 패키지 + 브리프 + 성과 기록 |
+
+---
+
+## System Documents
+
+| 문서 | 역할 |
+|------|------|
+| [CORE_PRINCIPLES.md](CORE_PRINCIPLES.md) | 최상위 원칙과 문서 우선순위 |
+| [ORCHESTRATION.md](ORCHESTRATION.md) | 멀티모델 운영 순환도와 모델 티어 가이드 |
 
 ---
 
@@ -170,6 +179,7 @@ graph TD
 
 | 버전 | 날짜 | 변경 내용 |
 |------|------|----------|
+| v2.0.7 | 2026-05-26 | 총괄매니저 v2.15.0, 코딩가이드 v1.6.0 에스컬레이션 프로토콜, ORCHESTRATION.md 멀티모델 문서 반영 |
 | v2.0.6 | 2026-05-26 | 블로그엔진 v4.1.0 반영: SKILL/REFERENCES/CHECKLIST 구조로 분리 |
 | v2.0.5 | 2026-05-26 | 총괄매니저 v2.14.0 반영: SKILL.md 400줄 이하 축소 |
 | v2.0.4 | 2026-05-26 | 총괄매니저 v2.13.0 반영: 2차 슬림화로 SKILL.md 실행면 축소 |

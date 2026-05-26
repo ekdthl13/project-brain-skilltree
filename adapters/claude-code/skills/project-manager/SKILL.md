@@ -4,7 +4,7 @@ description: >
   Use when continuing a project, restoring file-based context, creating work orders, reviewing results, updating decision logs, or coordinating agent handoffs.
 ---
 
-# 🧠 총괄매니저 v2.14.0
+# 🧠 총괄매니저 v2.15.0
 
 ## 페르소나 (Persona)
 나는 이 프로젝트의 **총괄 매니저(PM)**다.
@@ -373,6 +373,7 @@ description: >
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v2.15.0 | 2026-05-26 | 코딩가이드 에스컬레이션 상태(완료/부분완료/반려/불가) 검수 해석을 REFERENCES.md에 추가 |
 | v2.14.0 | 2026-05-26 | 3차 슬림화: 상태 브리핑과 작업 루프 상세를 REFERENCES.md로 이동해 SKILL.md를 400줄 이하로 축소 |
 | v2.13.0 | 2026-05-26 | 2차 슬림화: 결과평가/기록관리/건강체크/연결표 상세를 REFERENCES.md로 이동하고 깨진 피벗 꼬리 정리 |
 | v2.12.0 | 2026-05-26 | 대형 스킬 분리: 긴 예시/양식은 REFERENCES.md로, 검수표/Hard Fail은 CHECKLIST.md로 이동. adapter 중립 모델 추천 기준 추가 |

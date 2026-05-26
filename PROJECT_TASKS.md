@@ -2,14 +2,15 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **Phase 2-C: Documentation/Tooling Alignment**.
+Project Brain Skilltree is in **Phase 3-B: Runtime Usage Verification**.
 
-Approximate overall progress: **48%**.
+Approximate overall progress: **55%**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
 green, and the Codex and Antigravity adapters have both been installed locally.
-The remaining Layer 1 work is to finish documentation/tooling alignment and add
-the promised adapter diff report before deeper skill-content changes.
+Layer 1 cutover/documentation/tooling work is complete, and Phase 3-A skill
+content hardening drafts have been merged through `source/` and adapter
+generation.
 
 ## Installed State
 
@@ -35,9 +36,9 @@ the promised adapter diff report before deeper skill-content changes.
 | 1. GitHub canonical repo | Done | P0 / v0.1 | Create public repo with `source/`, adapters, catalog, docs, validation, and CI |
 | 2-A. Local install loop proof | Done | P1 / v0.2 | Prove installer dry-run, backup, and preservation behavior in test and Codex paths |
 | 2-B. Antigravity cutover | Done | P1 / v0.2 | Apply the generated Antigravity adapter only after backup, comparison, and rollback are clear |
-| 2-C. Documentation/tooling alignment | Active | P1/P2 / v0.2 | Sync status docs, clarify quality thresholds, add adapter diff report |
-| 3-A. Skill content hardening | Parallel draft | P2 / v0.2 | Merge escalation protocol and multi-model orchestration docs after Layer 1 |
-| 3-B. Runtime usage verification | Next after cutover | Success metrics | Confirm Antigravity/Codex actually discover and use generated adapters |
+| 2-C. Documentation/tooling alignment | Done | P1/P2 / v0.2 | Sync status docs, clarify quality thresholds, add adapter diff report |
+| 3-A. Skill content hardening | Done | P2 / v0.2 | Merge escalation protocol and multi-model orchestration docs after Layer 1 |
+| 3-B. Runtime usage verification | Active | Success metrics | Confirm Antigravity/Codex actually discover and use generated adapters |
 | 4. Structural refactor candidates | Deferred | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
 | 5. Pressure scenario automation | Pending | P2 / v0.2 | Turn documented failure scenarios into executable checks |
 | 6. Public polish and examples | Pending | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
@@ -146,62 +147,48 @@ the promised adapter diff report before deeper skill-content changes.
 - Smoke-tested installed Korean files by reading `SKILL_INDEX.md` and
   `암행어사/SKILL.md` with UTF-8.
 
-## Active Queue
+### Phase 2-C: Documentation/Tooling Alignment
 
-### Task 2-B.1: Antigravity Cutover Decision
-
-- [x] Re-read `docs/INSTALL.md` and `tools/install-adapter.js`.
-- [x] Re-run Antigravity destination dry-run.
-- [x] List the 14 conflicting managed entries.
-- [x] Confirm the out-of-place backup still exists.
-- [x] Compare current Antigravity destination against
-  `adapters/antigravity/skills`.
-- [x] Decide whether to install now, defer, or create a separate staging path.
-
-### Task 2-B.2: Antigravity Real Install
-
-- [x] Run `npm run check` immediately before install.
-- [x] Install Antigravity adapter only after explicit approval.
-- [x] Verify conflicting entries were moved into installer backup.
-- [x] Verify destination-only files were preserved.
-- [x] Verify generated adapter entries exist in the Antigravity destination.
-- [x] Record exact backup path with `%USERPROFILE%` placeholder, not private
-  local user paths.
-
-### Task 2-B.3: Antigravity Rollback Readiness
-
-- [x] Document how to restore from the out-of-place backup.
-- [x] Document how to restore from installer-created conflict backup.
-- [x] Confirm rollback instructions avoid destructive commands by default.
-- [x] Keep backup deletion out of scope until runtime verification succeeds.
-
-### Task 2-C.1: Documentation Alignment
-
-- [x] Update `PRD.md` current status to the latest verified commit and current
-  phase.
-- [x] Clarify the line-count rule: 400 lines is a split-review trigger; 500
-  lines is the validation failure threshold unless the policy changes.
-- [x] Resolve stale checkbox state in the historical Superpowers plan or mark
-  it as a historical implementation plan.
-- [x] Record the Layer 1 / Layer 2 workstream split in the task log.
-
-### Task 2-C.2: Adapter Diff Report
-
-- [x] Add a tool command that reports differences between generated adapters
-  and their source-derived expected output.
-- [x] Add package script documentation for the diff report.
-- [x] Include the diff report in the relevant quality or roadmap docs.
-- [x] Run `npm run check` after implementation.
-
-## Upcoming Queues
+- Updated PRD, task, roadmap, and quality-gate docs to match the verified
+  Antigravity cutover state.
+- Clarified the skill-size rule:
+  - 400 lines is a split-review trigger.
+  - 500 lines is the validation failure threshold.
+- Marked the historical Superpowers plan as historical implementation context
+  so stale checkboxes do not imply active work.
+- Added `tools/diff-adapters.js`.
+- Added `npm run diff:adapters`.
+- Included adapter diff reporting in `npm run check`.
+- Verified `npm run check` after implementation.
 
 ### Phase 3-A: Skill Content Hardening
 
-- [ ] Receive Antigravity draft for `코딩가이드` escalation protocol.
-- [ ] Receive Antigravity draft for multi-model orchestration docs.
-- [ ] Merge accepted drafts into `source/` only.
-- [ ] Rebuild adapters after merge.
-- [ ] Run `npm run check` before claiming completion.
+- Received Antigravity drafts from the installed Antigravity/Gemini skills
+  root:
+  - `draft_escalation_protocol.md`
+  - `draft_orchestration_protocol.md`
+- Merged the escalation protocol into `source/코딩가이드/SKILL.md`.
+- Added detailed escalation templates in
+  `source/코딩가이드/REFERENCES.md`.
+- Updated `source/총괄매니저/REFERENCES.md` so manager review sessions can
+  interpret worker statuses: complete, partial, returned, and impossible.
+- Added `source/ORCHESTRATION.md` as the official multi-model orchestration
+  protocol.
+- Updated adapter build and diff tooling so `ORCHESTRATION.md` is copied into
+  every generated adapter.
+- Installed the updated Antigravity adapter into
+  `%USERPROFILE%\.gemini\config\skills`.
+- Installer-created conflict backup:
+  `%USERPROFILE%\.gemini\config\skills.backup-20260526T072701`.
+- Verified the installed Antigravity adapter has zero missing files and zero
+  hash diffs against `adapters/antigravity/skills`.
+- Verified the two local draft files remained preserved in the destination.
+- Bumped:
+  - `코딩가이드` to v1.6.0
+  - `총괄매니저` to v2.15.0
+  - `SKILL_INDEX` to v2.0.7
+
+## Active Queue
 
 ### Phase 3-B: Runtime Usage Verification
 
@@ -214,6 +201,8 @@ the promised adapter diff report before deeper skill-content changes.
   project context.
 - [ ] Record any adapter wording mismatch discovered during live use.
 - [ ] Update `docs/INSTALL.md` with verified local install notes if needed.
+
+## Upcoming Queues
 
 ### Phase 4: Structural Refactor Candidates
 
@@ -319,15 +308,19 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - Codex adapter는 실제 Codex skills 경로에 설치되어 있다.
 - Antigravity/Gemini adapter도 실제 Antigravity skills 경로에 설치되어 있다.
 - Out-of-place backup과 installer conflict backup이 둘 다 보존되어 있다.
-- PROJECT_TASKS.md는 Layer 1/Layer 2 운영 큐와 PRD 전체 로드맵 기준으로
-  재정렬되어 있다.
+- Layer 1 cutover/documentation/tooling work is complete.
+- Phase 3-A Antigravity drafts were merged through source and adapters:
+  코딩가이드 v1.6.0, 총괄매니저 v2.15.0, SKILL_INDEX v2.0.7,
+  ORCHESTRATION.md.
+- Updated Antigravity adapter was installed with backup
+  `%USERPROFILE%\.gemini\config\skills.backup-20260526T072701`.
 
 다음 작업:
 1. PRD.md, PROJECT_TASKS.md, docs/INSTALL.md를 읽고 현재 위치를 복원
 2. npm run check
-3. Phase 3-A 초안이 도착하면 source/ 기준으로 머지 여부 검토
-4. 머지 후 npm run build:adapters && npm run check
-5. Runtime usage verification으로 Codex/Antigravity 트리거 동작 확인
+3. Runtime usage verification으로 Codex/Antigravity 트리거 동작 확인
+4. 발견되는 adapter wording mismatch를 PROJECT_TASKS.md와 관련 docs에 기록
+5. Phase 4 구조 리팩터 후보는 runtime verification 이후에만 판단
 ```
 
 ## Execution Log
@@ -399,3 +392,20 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - Added `tools/diff-adapters.js` and `npm run diff:adapters`.
 - Ran `npm run check`; adapter build, adapter diff, installer tests,
   validation, and audit all passed.
+
+### 2026-05-26: Phase 3-A Draft Merge
+
+- Reviewed Antigravity's two draft files from the installed skills root.
+- Accepted the escalation protocol direction, but split detailed templates into
+  `source/코딩가이드/REFERENCES.md` so the main `SKILL.md` stays below the
+  validation threshold.
+- Accepted the orchestration protocol as a root system document instead of a
+  standalone skill.
+- Updated adapter build and diff tooling to treat `ORCHESTRATION.md` as an
+  expected generated root document.
+- Ran `npm run check`; adapter build, adapter diff, installer tests,
+  validation, and audit all passed.
+- Installed the updated Antigravity adapter and verified it matched generated
+  output with zero missing files and zero hash diffs.
+- Confirmed the two draft files in the Antigravity destination were preserved.
+- Moved the operating queue to Phase 3-B runtime usage verification.

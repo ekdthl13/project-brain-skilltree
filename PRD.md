@@ -69,6 +69,7 @@ validated, and extended by future agents without needing this chat history.
 source/
   CORE_PRINCIPLES.md
   SKILL_INDEX.md
+  ORCHESTRATION.md
   <original skill folders>
 
 catalog/skills.yaml
@@ -162,12 +163,10 @@ tests/scenarios/
 ## Current Status
 
 - Public repo: `https://github.com/ekdthl13/project-brain-skilltree`
-- Latest GitHub Actions verified commit inspected at time of writing:
-  `cc41495`
-- GitHub Actions `validate`: passing
+- GitHub Actions `validate`: required on `main`
 - Local `npm run check`: passing
-- Current phase: Phase 2-C documentation/tooling alignment after Antigravity
-  cutover
+- Current phase: Phase 3-B runtime usage verification after skill-content
+  hardening
 
 ## Major Risks
 

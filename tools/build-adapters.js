@@ -81,11 +81,19 @@ function writePointer(dir, targetName) {
   );
 }
 
+function copyOptionalRootDoc(fileName, target) {
+  const source = path.join(sourceRoot, fileName);
+  if (fs.existsSync(source)) {
+    copyFile(source, path.join(target, fileName));
+  }
+}
+
 function buildAntigravity(catalog) {
   const target = path.join(adapterRoot, "antigravity", "skills");
   resetDir(target);
   copyFile(path.join(sourceRoot, "CORE_PRINCIPLES.md"), path.join(target, "CORE_PRINCIPLES.md"));
   copyFile(path.join(sourceRoot, "SKILL_INDEX.md"), path.join(target, "SKILL_INDEX.md"));
+  copyOptionalRootDoc("ORCHESTRATION.md", target);
   for (const skill of catalog.skills) {
     copyDir(path.join(sourceRoot, skill.source), path.join(target, skill.source));
   }
@@ -117,6 +125,7 @@ function buildPortableAdapter(catalog, targetName) {
   const skillsRoot = path.join(adapterRoot, targetName, "skills");
   resetDir(skillsRoot);
   copyFile(path.join(sourceRoot, "CORE_PRINCIPLES.md"), path.join(skillsRoot, "CORE_PRINCIPLES.md"));
+  copyOptionalRootDoc("ORCHESTRATION.md", skillsRoot);
   writeGeneratedIndex(skillsRoot, catalog, targetName);
 
   for (const skill of catalog.skills) {
@@ -145,4 +154,3 @@ function main() {
 }
 
 main();
-

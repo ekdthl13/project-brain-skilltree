@@ -64,6 +64,7 @@ and rebuild them.
 
 ```text
 CORE_PRINCIPLES + SKILL_INDEX
+  -> ORCHESTRATION
   -> 총괄매니저
   -> 코딩가이드 / PRD생성 / 디자인시스템 / 콘텐츠기획
   -> 블로그엔진 / 인스타엔진 / HyperFrames

@@ -8,6 +8,7 @@ Project Brain Skilltree has three layers.
 
 - `CORE_PRINCIPLES.md`: governing rules
 - `SKILL_INDEX.md`: router and system map
+- `ORCHESTRATION.md`: multi-model operating loop and handoff protocol
 - skill folders with `SKILL.md` and optional support files
 
 The source keeps the original Antigravity-style Korean operating model intact.
@@ -28,6 +29,7 @@ agent-facing names.
 - Codex adapter uses stable lowercase hyphen slugs and `name`/`description`
   frontmatter only.
 - Claude Code adapter follows the same portable skill package shape as Codex.
+- Root system docs such as `ORCHESTRATION.md` are copied into every adapter.
 
 Generated adapters are deleted and rebuilt on each run.
 
@@ -41,4 +43,3 @@ source/
   -> tools/validate-skilltree.js
   -> CI pass/fail
 ```
-

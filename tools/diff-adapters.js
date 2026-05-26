@@ -88,6 +88,13 @@ function addText(map, relPath, text) {
   addBuffer(map, relPath, Buffer.from(text, "utf8"));
 }
 
+function addOptionalRootDoc(map, relPath, sourceFileName) {
+  const file = path.join(sourceRoot, sourceFileName);
+  if (fs.existsSync(file)) {
+    addBuffer(map, relPath, fs.readFileSync(file));
+  }
+}
+
 function addCopiedTree(map, fromRoot, toRoot, options = {}) {
   for (const file of walkFiles(fromRoot)) {
     const rel = relative(fromRoot, file);
@@ -110,6 +117,7 @@ function expectedAdapters(catalog) {
     "antigravity/skills/SKILL_INDEX.md",
     fs.readFileSync(path.join(sourceRoot, "SKILL_INDEX.md"))
   );
+  addOptionalRootDoc(expected, "antigravity/skills/ORCHESTRATION.md", "ORCHESTRATION.md");
   for (const skill of catalog.skills) {
     addCopiedTree(
       expected,
@@ -126,6 +134,7 @@ function expectedAdapters(catalog) {
       path.join(targetRoot, "CORE_PRINCIPLES.md"),
       fs.readFileSync(path.join(sourceRoot, "CORE_PRINCIPLES.md"))
     );
+    addOptionalRootDoc(expected, path.join(targetRoot, "ORCHESTRATION.md"), "ORCHESTRATION.md");
     addText(expected, path.join(targetRoot, "SKILL_INDEX.md"), generatedIndex(catalog, targetName));
     for (const skill of catalog.skills) {
       const sourceDir = path.join(sourceRoot, skill.source);

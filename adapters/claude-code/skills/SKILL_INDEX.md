@@ -13,7 +13,7 @@ Edit the canonical source, then run `npm run build:adapters`.
 | inspector | 2.0.0 | verification | [SKILL.md](inspector/SKILL.md) |
 | office-hours | 1.3.0 | strategy | [SKILL.md](office-hours/SKILL.md) |
 | instagram-engine | 3.2.0 | content | [SKILL.md](instagram-engine/SKILL.md) |
-| project-manager | 2.14.0 | orchestration | [SKILL.md](project-manager/SKILL.md) |
+| project-manager | 2.15.0 | orchestration | [SKILL.md](project-manager/SKILL.md) |
 | launch-check | 2.5.0 | verification | [SKILL.md](launch-check/SKILL.md) |
-| coding-guide | 1.5.0 | coding | [SKILL.md](coding-guide/SKILL.md) |
+| coding-guide | 1.6.0 | coding | [SKILL.md](coding-guide/SKILL.md) |
 | content-planning | 1.1.0 | content | [SKILL.md](content-planning/SKILL.md) |
