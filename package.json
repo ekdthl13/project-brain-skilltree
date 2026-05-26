@@ -4,14 +4,17 @@
   "private": true,
   "description": "A portable, validated skilltree operating system for Antigravity, Codex, and Claude Code.",
   "scripts": {
+    "test": "node --test tools/*.test.js",
     "validate": "node tools/validate-skilltree.js",
     "build:adapters": "node tools/build-adapters.js",
     "audit": "node tools/audit-skilltree.js",
-    "check": "npm run build:adapters && npm run validate && npm run audit"
+    "install:antigravity": "node tools/install-adapter.js antigravity",
+    "install:codex": "node tools/install-adapter.js codex",
+    "install:claude": "node tools/install-adapter.js claude-code",
+    "check": "npm run build:adapters && npm run test && npm run validate && npm run audit"
   },
   "engines": {
     "node": ">=20"
   },
   "license": "MIT"
 }
-

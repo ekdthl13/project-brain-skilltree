@@ -80,3 +80,10 @@ file as supply-chain input. This repository blocks common unsafe patterns:
 
 See [SECURITY.md](SECURITY.md) and [docs/QUALITY_GATE.md](docs/QUALITY_GATE.md).
 
+## Next Reading
+
+- [Install Guide](docs/INSTALL.md)
+- [Adapter Contract](docs/ADAPTER_CONTRACT.md)
+- [Quality Gate](docs/QUALITY_GATE.md)
+- [Comparison](docs/COMPARISON.md)
+- [Contributing](CONTRIBUTING.md)
