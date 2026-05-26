@@ -27,13 +27,16 @@ node tools/install-adapter.js antigravity C:\path\to\antigravity\skills
 node tools/install-adapter.js claude-code C:\path\to\claude\skills
 ```
 
-If the destination already exists, the installer renames it to:
+If generated adapter entries already exist in the destination, the installer
+backs up only those conflicting managed entries to:
 
 ```text
 <destination>.backup-YYYYMMDDTHHMMSS
 ```
 
-Then it copies the generated adapter into the destination.
+Then it copies the generated adapter entries into the destination. Unrelated
+existing folders, such as system skills or other manually installed skills, are
+preserved.
 
 ## Install With Environment Variables
 
@@ -61,5 +64,5 @@ npm run install:codex
 - Rebuild adapters after source changes.
 - Run `npm run check` before install.
 - Keep generated adapter folders out of hand edits.
+- Do not point the installer at a filesystem root or repository root.
 - Review backups before deleting them.
-

@@ -50,11 +50,11 @@ test("installAdapter dry-run does not write destination", () => {
   assert.equal(fs.existsSync(dest), false);
 });
 
-test("installAdapter backs up an existing destination before replacing it", () => {
+test("installAdapter backs up conflicting managed entries before replacing them", () => {
   const root = tempDir();
   const dest = path.join(root, "skills");
   fs.mkdirSync(dest, { recursive: true });
-  fs.writeFileSync(path.join(dest, "old.txt"), "old", "utf8");
+  fs.writeFileSync(path.join(dest, "SKILL_INDEX.md"), "old", "utf8");
 
   const result = installAdapter({
     target: "codex",
@@ -63,8 +63,25 @@ test("installAdapter backs up an existing destination before replacing it", () =
     now: () => "20260526T133000"
   });
 
-  assert.equal(fs.existsSync(path.join(result.backupPath, "old.txt")), true);
+  assert.equal(fs.existsSync(path.join(result.backupPath, "SKILL_INDEX.md")), true);
   assert.equal(fs.existsSync(path.join(dest, "SKILL_INDEX.md")), true);
   assert.equal(fs.existsSync(path.join(dest, "project-manager", "SKILL.md")), true);
 });
 
+test("installAdapter preserves unrelated existing destination entries", () => {
+  const root = tempDir();
+  const dest = path.join(root, "skills");
+  const unrelated = path.join(dest, ".system");
+  fs.mkdirSync(unrelated, { recursive: true });
+  fs.writeFileSync(path.join(unrelated, "keep.txt"), "keep", "utf8");
+
+  installAdapter({
+    target: "codex",
+    destination: dest,
+    repoRoot,
+    now: () => "20260526T134500"
+  });
+
+  assert.equal(fs.existsSync(path.join(unrelated, "keep.txt")), true);
+  assert.equal(fs.existsSync(path.join(dest, "project-manager", "SKILL.md")), true);
+});

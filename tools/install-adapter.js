@@ -54,7 +54,48 @@ function copyDirectory(source, destination) {
   fs.cpSync(source, destination, { recursive: true });
 }
 
+function ensureBackupRoot(backupPath) {
+  if (!fs.existsSync(backupPath)) {
+    fs.mkdirSync(backupPath, { recursive: true });
+  }
+}
+
 function installAdapter(options) {
+  const plan = buildInstallPlan(options);
+  if (options.dryRun) {
+    return { ...plan, dryRun: true, installed: false };
+  }
+
+  fs.mkdirSync(plan.destination, { recursive: true });
+  for (const entry of fs.readdirSync(plan.source, { withFileTypes: true })) {
+    const sourceEntry = path.join(plan.source, entry.name);
+    const destinationEntry = path.join(plan.destination, entry.name);
+    if (fs.existsSync(destinationEntry)) {
+      ensureBackupRoot(plan.backupPath);
+      const backupEntry = path.join(plan.backupPath, entry.name);
+      if (fs.existsSync(backupEntry)) {
+        throw new Error(`Backup path already exists: ${backupEntry}`);
+      }
+      fs.renameSync(destinationEntry, backupEntry);
+    }
+    if (entry.isDirectory()) {
+      copyDirectory(sourceEntry, destinationEntry);
+    } else if (entry.isFile()) {
+      fs.copyFileSync(sourceEntry, destinationEntry);
+    }
+  }
+
+  if (plan.backupPath && fs.existsSync(plan.backupPath) && fs.readdirSync(plan.backupPath).length === 0) {
+    fs.rmdirSync(plan.backupPath);
+  }
+
+  if (plan.backupPath && fs.existsSync(plan.backupPath)) {
+    return { ...plan, dryRun: false, installed: true };
+  }
+  return { ...plan, backupPath: null, dryRun: false, installed: true };
+}
+
+function installAdapterReplaceAll(options) {
   const plan = buildInstallPlan(options);
   if (options.dryRun) {
     return { ...plan, dryRun: true, installed: false };
@@ -126,6 +167,6 @@ if (require.main === module) {
 module.exports = {
   buildInstallPlan,
   installAdapter,
+  installAdapterReplaceAll,
   resolveTargetSource
 };
-
