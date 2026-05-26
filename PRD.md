@@ -169,7 +169,9 @@ tests/scenarios/
   installs
 - Structural refactor candidate review: B안 approved, clarify boundaries and
   defer physical merge/split
-- Current phase: Phase 5 pressure scenario automation
+- Pressure scenario automation: initial static guardrails included in
+  `npm run check`
+- Current phase: Phase 6 public polish and examples
 
 ## Major Risks
 

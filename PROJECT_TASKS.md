@@ -2,9 +2,9 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **Phase 5: Pressure Scenario Automation**.
+Project Brain Skilltree is in **Phase 6: Public Polish and Examples**.
 
-Approximate overall progress: **68%**.
+Approximate overall progress: **74%**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
 green, and the Codex and Antigravity adapters have both been installed and
@@ -12,7 +12,8 @@ runtime-smoke-verified locally. Layer 1 cutover/documentation/tooling work,
 Phase 3-A skill hardening, Phase 3-B runtime usage verification, and Phase 4
 structural refactor candidate review are complete. The approved Phase 4
 decision is to keep `암행어사` and `출시점검` separate, clarify their boundaries,
-and defer physical core/plugin splitting.
+and defer physical core/plugin splitting. Phase 5 converted the pressure
+scenario docs into executable static guardrail tests inside `npm run check`.
 
 ## Installed State
 
@@ -42,8 +43,8 @@ and defer physical core/plugin splitting.
 | 3-A. Skill content hardening | Done | P2 / v0.2 | Merge escalation protocol and multi-model orchestration docs after Layer 1 |
 | 3-B. Runtime usage verification | Done | Success metrics | Confirm Antigravity/Codex actually discover and use generated adapters |
 | 4. Structural refactor candidates | Done | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
-| 5. Pressure scenario automation | Active | P2 / v0.2 | Turn documented failure scenarios into executable checks |
-| 6. Public polish and examples | Pending | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
+| 5. Pressure scenario automation | Done | P2 / v0.2 | Turn documented failure scenarios into executable checks |
+| 6. Public polish and examples | Active | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
 | 7. Release system | Pending | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
 | 8. Advanced quality system | Pending | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
 
@@ -56,7 +57,7 @@ and defer physical core/plugin splitting.
 | P0: Quality gate | Done | `npm run check` builds, tests, validates, audits |
 | P1: Safe local install | Done | Installer works; Codex and Antigravity are installed; backups are recorded |
 | P1: Session continuity | Done | PRD and task docs carry current phase, ownership, rollback, and next queues |
-| P2: Automated pressure testing | Pending | `tests/scenarios/` exists as docs; executable tests still needed |
+| P2: Automated pressure testing | Initial done | `tools/pressure-scenarios.test.js` runs static guardrail checks in `npm run check`; dynamic agent simulation remains future work |
 | P2: Public presentation | Pending | Core docs exist; examples, screenshots, and before/after are missing |
 | P3: Release system | Pending | No release tag, changelog, checksums, or packaged artifacts yet |
 
@@ -230,19 +231,23 @@ and defer physical core/plugin splitting.
 - Installed updated Antigravity and Codex adapters.
 - Verified both installed adapters have zero missing files and zero hash diffs.
 
-## Active Queue
-
 ### Phase 5: Pressure Scenario Automation
 
-- [ ] Inventory `tests/scenarios/*.md`.
-- [ ] Define executable scenario test format.
-- [ ] Add tests for "do not edit generated adapters directly".
-- [ ] Add tests for "do not claim completion without validation".
-- [ ] Add tests for "do not write private local user paths into public docs".
-- [ ] Add tests for adapter-specific wording boundaries.
-- [ ] Include pressure scenario tests in `npm run check`.
+- [x] Inventory `tests/scenarios/*.md`. (Checked 3 files)
+- [x] Define executable scenario test format. (Wrote static guardrails in `tools/pressure-scenarios.test.js`)
+- [x] Add tests for "do not edit generated adapters directly". (Verified edit bans in docs)
+- [x] Add tests for "do not claim completion without validation". (Verified scripts.check completeness)
+- [x] Add tests for "do not write private local user paths into public docs". (Blocked personal path patterns)
+- [x] Add tests for adapter-specific wording boundaries. (Blocked hardcoded local install paths in source skills)
+- [x] Include pressure scenario tests in `npm run check`. (Ran via tools/*.test.js inside npm run test)
+- Added `tools/pressure-scenarios.test.js`.
+- Updated `docs/QUALITY_GATE.md` to document automated behavioral checks.
+- PM review re-ran `npm run check`; adapter build, adapter diff, installer
+  tests, pressure scenario tests, validation, and audit all passed.
+- Limitation recorded: current pressure automation is static guardrail testing,
+  not dynamic agent behavior simulation.
 
-## Upcoming Queues
+## Active Queue
 
 ### Phase 6: Public Polish and Examples
 
@@ -253,6 +258,8 @@ and defer physical core/plugin splitting.
   collections.
 - [ ] Add screenshots or GIFs only after the local flow is stable.
 - [ ] Make README onboarding clear for a visitor who has not seen this chat.
+
+## Upcoming Queues
 
 ### Phase 7: Release System
 
@@ -339,13 +346,15 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - Phase 3-B Runtime Usage Verification is complete.
 - Phase 4 Structural Refactor Candidates is complete:
   B안(경계 명확화) 승인, 물리적 통합/core-plugin split 보류.
+- Phase 5 Pressure Scenario Automation is complete:
+  static guardrail tests are included in `npm run check`.
 
 다음 작업:
 1. PRD.md, PROJECT_TASKS.md, docs/INSTALL.md를 읽고 현재 위치를 복원
 2. npm run check
-3. Phase 5 Pressure Scenario Automation 시작
-4. tests/scenarios/*.md를 executable test format으로 전환할 최소 설계 작성
-5. adapter/source drift, validation bypass, local-path leakage 시나리오부터 자동화
+3. Phase 6 Public Polish and Examples 시작
+4. public visitor 기준 README/예시/온보딩 흐름 점검
+5. release tag는 Phase 7 전까지 보류
 ```
 
 ## Execution Log
@@ -458,3 +467,15 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   files and zero hash diffs.
 - Ran `npm run check`; all gates passed.
 - Moved the operating queue to Phase 5 pressure scenario automation.
+
+### 2026-05-26: Phase 5 Pressure Scenario Automation
+
+- Worker implemented `tools/pressure-scenarios.test.js` using `node:test`.
+- Converted the existing `tests/scenarios/*.md` expectations into executable
+  static guardrails.
+- Added checks for scenario markdown structure, complete `npm run check`
+  gates, private local path leakage, source skill install-root hardcoding, and
+  generated adapter edit-ban documentation.
+- Updated `docs/QUALITY_GATE.md` to document the automated behavioral checks.
+- PM review re-ran `npm run check`; all gates passed.
+- Moved the operating queue to Phase 6 public polish and examples.

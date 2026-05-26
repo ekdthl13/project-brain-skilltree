@@ -46,5 +46,7 @@ Pressure scenarios in `tests/scenarios/` define expected failure modes:
 - conflicting output packaging
 - agent-specific tool wording
 
-These scenarios are human-readable today and can be upgraded into automated
-subagent tests later.
+These scenarios are partially automated via `tools/pressure-scenarios.test.js`
+to prevent private local paths, check section requirements, verify check script
+completeness, enforce non-hardcoded installer roots, and ensure adapter edit
+bans. Future versions may upgrade them into fully interactive subagent tests.
