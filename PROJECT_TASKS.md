@@ -2,26 +2,49 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **Phase 2: Local Install Loop Transition**.
+Project Brain Skilltree is in **Phase 2-B: Antigravity Cutover Preparation**.
 
-Approximate overall progress: **40%**.
+Approximate overall progress: **42%**.
 
-The public canonical repository exists and passes CI. The next goal is to prove
-that the generated adapters can be safely installed and used locally without
-destroying existing agent skill directories.
+The public canonical repository exists, adapters build from `source/`, CI is
+green, and the Codex adapter has been installed locally. The remaining Phase 2
+work is to decide and execute the Antigravity/Gemini cutover safely, then move
+into runtime usage verification.
+
+## Installed State
+
+| Environment | Status | Notes |
+|-------------|--------|-------|
+| Codex | Installed | Generated adapter entries are installed under `%USERPROFILE%\.codex\skills`; `.system` was preserved |
+| Antigravity/Gemini | Pending cutover | Destination was backed up and dry-run reviewed; 14 existing managed entries conflict |
+| Claude Code | Not installed | Adapter generation exists, but local install has not been requested |
 
 ## Phase Map
 
-| Phase | Status | Goal |
-|-------|--------|------|
-| 0. Local audit and stabilization | Done | Identify drift, version mismatch, packaging conflicts, and oversized skills |
-| 1. GitHub canonical repo | Done | Create public repo with `source/`, adapters, catalog, docs, validation, and CI |
-| 2. Local install loop | Current | Safely install generated adapters into test and real local paths |
-| 3. Runtime usage verification | Pending | Confirm Antigravity/Codex actually discover and use the generated adapters |
-| 4. Pressure scenario automation | Pending | Turn documented failure scenarios into executable checks |
-| 5. Public polish and examples | Pending | Add examples, screenshots, clearer comparisons, and onboarding docs |
-| 6. Release system | Pending | Tag releases, write changelog, package artifacts, and publish checksums |
-| 7. Advanced quality system | Pending | Add scorecards, forward-testing, drift reports, and skill creation CLI support |
+| Phase | Status | PRD/Roadmap Link | Goal |
+|-------|--------|------------------|------|
+| 0. Local audit and stabilization | Done | PRD background | Identify drift, version mismatch, packaging conflicts, and oversized skills |
+| 1. GitHub canonical repo | Done | P0 / v0.1 | Create public repo with `source/`, adapters, catalog, docs, validation, and CI |
+| 2-A. Local install loop proof | Done | P1 / v0.2 | Prove installer dry-run, backup, and preservation behavior in test and Codex paths |
+| 2-B. Antigravity cutover | Active | P1 / v0.2 | Apply the generated Antigravity adapter only after backup, comparison, and rollback are clear |
+| 3. Runtime usage verification | Next | Success metrics | Confirm Antigravity/Codex actually discover and use generated adapters |
+| 4. Pressure scenario automation | Pending | P2 / v0.2 | Turn documented failure scenarios into executable checks |
+| 5. Public polish and examples | Pending | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
+| 6. Release system | Pending | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
+| 7. Advanced quality system | Pending | v0.3-v1.0 | Add scorecards, forward-testing, drift reports, and skill creation CLI support |
+
+## PRD Coverage Board
+
+| Requirement | Status | Evidence / Next Move |
+|-------------|--------|----------------------|
+| P0: Canonical public repo | Done | Public repo, `main`, `source/`, CI validate |
+| P0: Adapter generation | Done | Antigravity, Codex, and Claude Code adapters build from catalog/source |
+| P0: Quality gate | Done | `npm run check` builds, tests, validates, audits |
+| P1: Safe local install | Partial | Installer works; Codex installed; Antigravity cutover still pending |
+| P1: Session continuity | Partial | PRD and task docs exist; task doc now carries full roadmap queues |
+| P2: Automated pressure testing | Pending | `tests/scenarios/` exists as docs; executable tests still needed |
+| P2: Public presentation | Pending | Core docs exist; examples, screenshots, and before/after are missing |
+| P3: Release system | Pending | No release tag, changelog, checksums, or packaged artifacts yet |
 
 ## Completed Work
 
@@ -55,6 +78,8 @@ destroying existing agent skill directories.
   - `tests/scenarios/*.md`
 - Added public docs:
   - `README.md`
+  - `PRD.md`
+  - `PROJECT_TASKS.md`
   - `SECURITY.md`
   - `CONTRIBUTING.md`
   - `docs/ARCHITECTURE.md`
@@ -67,43 +92,149 @@ destroying existing agent skill directories.
   - local `npm run check` passes
   - GitHub Actions `validate` passes
 
-## Current Task Queue
+### Phase 2-A: Local Install Loop Proof
 
-### Task 2.1: Reconfirm Repo Health
+- Ran `npm run check` before install work.
+- Created a disposable install destination under `C:\tmp`.
+- Dry-ran and installed Codex adapter into the disposable destination.
+- Dry-ran and installed Antigravity adapter into the disposable destination.
+- Confirmed unrelated existing files were preserved.
+- Identified the real Codex skills directory.
+- Identified the real Antigravity/Gemini skills directory.
+- Dry-ran the real Codex destination.
+- Dry-ran the real Antigravity destination.
+- Installed the Codex adapter into the approved Codex destination.
+- Verified generated Codex adapter files exist in the destination.
+- Smoke-tested installed Codex adapter files by reading `project-manager`,
+  `inspector`, and `coding-guide` with UTF-8 Korean content.
+- Created and verified an out-of-place Antigravity backup before real
+  Antigravity install.
+- Confirmed GitHub Actions `validate` stayed green after recording the install
+  loop.
 
-- [x] Run `npm run check`.
-- [x] Confirm local git is clean or record pending docs-only edits.
-- [x] Confirm latest GitHub Actions run is green.
+## Active Queue
 
-### Task 2.2: Safe Install Test Path
+### Task 2-B.1: Antigravity Cutover Decision
 
-- [x] Create a disposable install destination under `C:\tmp`.
-- [x] Run Codex adapter install with `--dry-run`.
-- [x] Run Codex adapter install into the disposable destination.
-- [x] Confirm unrelated existing files are preserved.
-- [x] Repeat for Antigravity adapter.
+- [ ] Re-read `docs/INSTALL.md` and `tools/install-adapter.js`.
+- [ ] Re-run Antigravity destination dry-run.
+- [ ] List the 14 conflicting managed entries.
+- [ ] Confirm the out-of-place backup still exists.
+- [ ] Compare current Antigravity destination against
+  `adapters/antigravity/skills`.
+- [ ] Decide whether to install now, defer, or create a separate staging path.
 
-### Task 2.3: Real Destination Discovery
+### Task 2-B.2: Antigravity Real Install
 
-- [x] Identify actual Codex skills directory.
-- [x] Identify actual Antigravity/Gemini skills directory.
-- [x] Confirm whether each directory already contains non-Project Brain skills.
-- [x] Do not install yet if the destination contains unmanaged content that has
-  not been reviewed.
+- [ ] Run `npm run check` immediately before install.
+- [ ] Install Antigravity adapter only after explicit approval.
+- [ ] Verify conflicting entries were moved into installer backup.
+- [ ] Verify destination-only files were preserved.
+- [ ] Verify generated adapter entries exist in the Antigravity destination.
+- [ ] Record exact backup path with `%USERPROFILE%` placeholder, not private
+  local user paths.
 
-### Task 2.4: Real Destination Dry Run
+### Task 2-B.3: Antigravity Rollback Readiness
 
-- [x] Run dry-run for Codex destination.
-- [x] Run dry-run for Antigravity destination.
-- [x] Record expected backup paths.
-- [x] Confirm install scope with user before real install.
+- [ ] Document how to restore from the out-of-place backup.
+- [ ] Document how to restore from installer-created conflict backup.
+- [ ] Confirm rollback instructions avoid destructive commands by default.
+- [ ] Keep backup deletion out of scope until runtime verification succeeds.
 
-### Task 2.5: Real Install
+## Upcoming Queues
 
-- [x] Run actual adapter install for approved destinations.
-- [x] Verify backup behavior for approved destinations.
-- [x] Verify generated adapter files exist in approved destinations.
-- [x] Run a minimal agent-discovery smoke test if available.
+### Phase 3: Runtime Usage Verification
+
+- [ ] Start a fresh Codex session and confirm `project-manager` can trigger.
+- [ ] Confirm Codex can read Korean source-derived skill content without
+  encoding issues.
+- [ ] Start or refresh Antigravity/Gemini and confirm `총괄매니저` can trigger
+  after cutover.
+- [ ] Verify `암행어사`, `코딩가이드`, and `출시점검` routing behavior in a real
+  project context.
+- [ ] Record any adapter wording mismatch discovered during live use.
+- [ ] Update `docs/INSTALL.md` with verified local install notes if needed.
+
+### Phase 4: Pressure Scenario Automation
+
+- [ ] Inventory `tests/scenarios/*.md`.
+- [ ] Define executable scenario test format.
+- [ ] Add tests for "do not edit generated adapters directly".
+- [ ] Add tests for "do not claim completion without validation".
+- [ ] Add tests for "do not write private local user paths into public docs".
+- [ ] Add tests for adapter-specific wording boundaries.
+- [ ] Include pressure scenario tests in `npm run check`.
+
+### Phase 5: Public Polish and Examples
+
+- [ ] Add a minimal example project bootstrap.
+- [ ] Add before/after showing local folder drift versus GitHub canonical root.
+- [ ] Add example install transcript using placeholders.
+- [ ] Add comparison examples against Superpowers-style and generic prompt
+  collections.
+- [ ] Add screenshots or GIFs only after the local flow is stable.
+- [ ] Make README onboarding clear for a visitor who has not seen this chat.
+
+### Phase 6: Release System
+
+- [ ] Create `CHANGELOG.md`.
+- [ ] Define versioning rules for source skills, adapter contract, and tool
+  scripts.
+- [ ] Prepare `v0.1.0` release checklist.
+- [ ] Package adapter artifacts.
+- [ ] Generate checksums for release artifacts.
+- [ ] Tag and publish a GitHub Release after CI passes.
+
+### Phase 7: Advanced Quality System
+
+- [ ] Add adapter drift report command.
+- [ ] Add skill quality scorecard.
+- [ ] Add subagent forward-testing harness.
+- [ ] Add manifest stability checks for future schema changes.
+- [ ] Explore a new-skill creation CLI that updates source, catalog, and router
+  files together.
+
+## Operating Rules For Future Sessions
+
+- Edit `source/` only for skill content changes.
+- Do not hand-edit generated adapter files.
+- Run `npm run build:adapters` after source or catalog edits.
+- Run `npm run check` before claiming completion.
+- Treat install operations as potentially destructive until dry-run and backup
+  behavior are verified.
+- Record local paths with placeholders such as `%USERPROFILE%`; do not write
+  private local user paths into public docs.
+- Keep this file focused on current state and next actions. Move long evidence
+  or audit output to a dedicated report when it grows too large.
+
+## Definition Of Done
+
+### Phase 2
+
+- Test-path installs work for Codex and Antigravity adapters.
+- Codex real install is complete and verified.
+- Antigravity real install is complete only after explicit approval.
+- Existing unrelated skills are preserved.
+- Backup and rollback paths are recorded.
+- A future session can install from the GitHub repo without reading this chat.
+
+### Project v0.2
+
+- Safe local install works for Codex and Antigravity.
+- Adapter diff reports exist.
+- Pressure scenario fixtures are executable or have an implementation plan.
+
+### Project v0.3
+
+- Public examples explain real project bootstraps.
+- Release packaging and checksums exist.
+- Forward-testing harness has an initial implementation.
+
+### Project v1.0
+
+- Skill manifest schema is stable.
+- Adapter contract is stable.
+- Full CI quality gate is required for release tags.
 
 ## Next Session Prompt
 
@@ -114,35 +245,23 @@ C:\tmp\project-brain-skilltree 에서 계속 작업하자.
 GitHub repo는 https://github.com/ekdthl13/project-brain-skilltree 이고,
 source/ 가 canonical root, adapters/ 는 생성물이다.
 
-먼저 PRD.md와 PROJECT_TASKS.md를 읽고 현재 위치를 복원해줘.
-그 다음:
-1. npm run check
-2. install-adapter dry-run 테스트 경로 검증
-3. Codex/Antigravity 실제 설치 경로 점검
-4. 실제 설치 전 백업/비교 계획 제시
+현재 상태:
+- Codex adapter는 실제 Codex skills 경로에 설치되어 있다.
+- Antigravity/Gemini adapter는 dry-run과 out-of-place backup까지 끝났고,
+  실제 cutover는 아직 보류 중이다.
+- PROJECT_TASKS.md는 PRD 전체 로드맵 기준으로 재정렬되어 있다.
+
+다음 작업:
+1. PRD.md, PROJECT_TASKS.md, docs/INSTALL.md를 읽고 현재 위치를 복원
+2. npm run check
+3. Antigravity cutover dry-run 재확인
+4. 충돌/백업/롤백 계획을 다시 확인
+5. 승인되면 Antigravity adapter 실제 설치
 ```
 
-## Operating Rules For Future Sessions
+## Execution Log
 
-- Edit `source/` only for skill content changes.
-- Do not hand-edit generated adapter files.
-- Run `npm run build:adapters` after source or catalog edits.
-- Run `npm run check` before claiming completion.
-- Treat install operations as potentially destructive until dry-run and backup
-  behavior are verified.
-- Keep this file updated at phase boundaries.
-
-## Definition Of Done For Phase 2
-
-- Test-path installs work for Codex and Antigravity adapters.
-- Real destination dry-runs are reviewed.
-- Real installs are completed only after explicit approval.
-- Existing unrelated skills are preserved.
-- A future session can install from GitHub repo without reading this chat.
-
-## Phase 2 Execution Log
-
-### 2026-05-26: Local install loop transition
+### 2026-05-26: Phase 2-A Local Install Loop Proof
 
 - Restored current state from `README.md`, `PRD.md`, `PROJECT_TASKS.md`, and
   `docs/INSTALL.md`.
@@ -186,3 +305,12 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   managed entries and should be reviewed as a larger cutover.
 - Confirmed the pushed `validate` GitHub Actions workflow completed
   successfully for the Phase 2 log commit.
+
+### 2026-05-26: Roadmap Task Document Upgrade
+
+- Reframed this file from a Phase 2-only checklist into a PRD-wide operating
+  queue.
+- Split Phase 2 into completed install-loop proof and active Antigravity
+  cutover work.
+- Added PRD coverage, installed-state, active queue, upcoming queues, and
+  milestone-specific definitions of done.
