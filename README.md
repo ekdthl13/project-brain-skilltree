@@ -82,6 +82,8 @@ See [SECURITY.md](SECURITY.md) and [docs/QUALITY_GATE.md](docs/QUALITY_GATE.md).
 
 ## Next Reading
 
+- [Product Requirements](PRD.md)
+- [Project Tasks](PROJECT_TASKS.md)
 - [Install Guide](docs/INSTALL.md)
 - [Adapter Contract](docs/ADAPTER_CONTRACT.md)
 - [Quality Gate](docs/QUALITY_GATE.md)
