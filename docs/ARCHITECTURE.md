@@ -43,3 +43,22 @@ source/
   -> tools/validate-skilltree.js
   -> CI pass/fail
 ```
+
+---
+
+## Structural Refactoring Gates
+
+To prevent breaking agent installers, SKILL_INDEX routing, and local adapter discovery, any structural change (merging, renaming, splitting, or directory restructuring) must satisfy the following checklist before pull requests are approved:
+
+1. **Discovery Backwards Compatibility**:
+   - Verify that all target editor environments (Antigravity, Codex, Claude Code) still automatically discover and load the skills from the new directory structure.
+   - Do not nest skills into subdirectories (e.g., `source/core/` or `source/plugins/`) unless it is verified that the installer and editor scan paths recursively.
+2. **Catalog and Trigger Sync**:
+   - Ensure the `catalog/skills.yaml` entry is updated with correct relative `source` paths.
+   - All trigger descriptions in the catalog must match the new trigger definitions in `SKILL.md` frontmatter.
+3. **Routing Integrity**:
+   - The primary router inside `SKILL_INDEX.md` must be updated with the correct relative paths to all altered skills.
+   - Run `npm run check` and verify that the validation tool does not report broken links or orphaned router listings.
+4. **Preservation and Dry-Run Check**:
+   - Run `tools/install-adapter.test.js` to ensure the installation logic properly backs up, updates, or preserves files without creating stray directories.
+

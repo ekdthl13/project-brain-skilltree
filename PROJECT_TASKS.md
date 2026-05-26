@@ -2,23 +2,24 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **Phase 4: Structural Refactor Candidates**.
+Project Brain Skilltree is in **Phase 5: Pressure Scenario Automation**.
 
-Approximate overall progress: **62%**.
+Approximate overall progress: **68%**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
 green, and the Codex and Antigravity adapters have both been installed and
 runtime-smoke-verified locally. Layer 1 cutover/documentation/tooling work,
-Phase 3-A skill hardening, and Phase 3-B runtime usage verification are
-complete. Structural refactor candidates can now be evaluated without changing
-catalog or adapter structure until an explicit decision is made.
+Phase 3-A skill hardening, Phase 3-B runtime usage verification, and Phase 4
+structural refactor candidate review are complete. The approved Phase 4
+decision is to keep `암행어사` and `출시점검` separate, clarify their boundaries,
+and defer physical core/plugin splitting.
 
 ## Installed State
 
 | Environment | Status | Notes |
 |-------------|--------|-------|
-| Codex | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.codex\skills`; `.system` was preserved; latest backup `%USERPROFILE%\.codex\skills.backup-20260526T074200` |
-| Antigravity/Gemini | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.gemini\config\skills`; latest backup `%USERPROFILE%\.gemini\config\skills.backup-20260526T072701` |
+| Codex | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.codex\skills`; `.system` was preserved; latest backup `%USERPROFILE%\.codex\skills.backup-20260526T080509` |
+| Antigravity/Gemini | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.gemini\config\skills`; latest backup `%USERPROFILE%\.gemini\config\skills.backup-20260526T080421` |
 | Claude Code | Not installed | Adapter generation exists, but local install has not been requested |
 
 ## Workstream Ownership
@@ -40,8 +41,8 @@ catalog or adapter structure until an explicit decision is made.
 | 2-C. Documentation/tooling alignment | Done | P1/P2 / v0.2 | Sync status docs, clarify quality thresholds, add adapter diff report |
 | 3-A. Skill content hardening | Done | P2 / v0.2 | Merge escalation protocol and multi-model orchestration docs after Layer 1 |
 | 3-B. Runtime usage verification | Done | Success metrics | Confirm Antigravity/Codex actually discover and use generated adapters |
-| 4. Structural refactor candidates | Active | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
-| 5. Pressure scenario automation | Pending | P2 / v0.2 | Turn documented failure scenarios into executable checks |
+| 4. Structural refactor candidates | Done | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
+| 5. Pressure scenario automation | Active | P2 / v0.2 | Turn documented failure scenarios into executable checks |
 | 6. Public polish and examples | Pending | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
 | 7. Release system | Pending | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
 | 8. Advanced quality system | Pending | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
@@ -212,19 +213,24 @@ catalog or adapter structure until an explicit decision is made.
 - Re-ran `npm run check`; adapter build, adapter diff, installer tests,
   validation, and audit all passed.
 
-## Active Queue
-
 ### Phase 4: Structural Refactor Candidates
 
-- [ ] Re-evaluate whether `암행어사` and `출시점검` should be merged or only
-  have clearer role boundaries.
-- [ ] Re-evaluate whether `source/` should split into `core/` and plugin packs.
-- [ ] Estimate catalog, adapter slug, router, installer, and docs impact before
-  any structural change.
-- [ ] Do not rename, move, merge, or split skills until the impact estimate is
-  reviewed and approved.
+- Accepted the worker impact-analysis commit after PM review.
+- Added [structural_refactor_impact.md](docs/structural_refactor_impact.md).
+- Added structural refactoring gates to `docs/ARCHITECTURE.md`.
+- Added slug stability and directory constraints to `docs/ADAPTER_CONTRACT.md`.
+- Clarified the boundary between `암행어사` and `출시점검` without merging,
+  moving, renaming, or splitting any skill directories.
+- Decision: choose B안, boundary clarification; defer physical skill merge and
+  core/plugin split.
+- PM review patch: replaced local file URL links with portable
+  relative links before push.
+- Re-ran `npm run check`; adapter build, adapter diff, installer tests,
+  validation, and audit all passed.
+- Installed updated Antigravity and Codex adapters.
+- Verified both installed adapters have zero missing files and zero hash diffs.
 
-## Upcoming Queues
+## Active Queue
 
 ### Phase 5: Pressure Scenario Automation
 
@@ -235,6 +241,8 @@ catalog or adapter structure until an explicit decision is made.
 - [ ] Add tests for "do not write private local user paths into public docs".
 - [ ] Add tests for adapter-specific wording boundaries.
 - [ ] Include pressure scenario tests in `npm run check`.
+
+## Upcoming Queues
 
 ### Phase 6: Public Polish and Examples
 
@@ -325,17 +333,19 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   코딩가이드 v1.6.0, 총괄매니저 v2.15.0, SKILL_INDEX v2.0.7,
   ORCHESTRATION.md.
 - Updated Antigravity adapter was installed with backup
-  `%USERPROFILE%\.gemini\config\skills.backup-20260526T072701`.
+  `%USERPROFILE%\.gemini\config\skills.backup-20260526T080421`.
 - Updated Codex adapter was installed with backup
-  `%USERPROFILE%\.codex\skills.backup-20260526T074200`.
+  `%USERPROFILE%\.codex\skills.backup-20260526T080509`.
 - Phase 3-B Runtime Usage Verification is complete.
+- Phase 4 Structural Refactor Candidates is complete:
+  B안(경계 명확화) 승인, 물리적 통합/core-plugin split 보류.
 
 다음 작업:
 1. PRD.md, PROJECT_TASKS.md, docs/INSTALL.md를 읽고 현재 위치를 복원
 2. npm run check
-3. Phase 4 구조 리팩터 후보를 검토하되, catalog/adapter 구조 변경은 영향도 산정 전 시작하지 않기
-4. `암행어사`/`출시점검`은 통합보다 경계 명확화부터 검토
-5. core/plugin split은 구조 변경 비용을 산정한 뒤 보류/진행 판단
+3. Phase 5 Pressure Scenario Automation 시작
+4. tests/scenarios/*.md를 executable test format으로 전환할 최소 설계 작성
+5. adapter/source drift, validation bypass, local-path leakage 시나리오부터 자동화
 ```
 
 ## Execution Log
@@ -435,3 +445,16 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   Code adapters list root system documents.
 - Ran `npm run check`; all gates passed.
 - Moved the operating queue to Phase 4 structural refactor candidate review.
+
+### 2026-05-26: Phase 4 Structural Refactor Candidate Review
+
+- Worker produced a structural refactor impact report and local commit.
+- PM review approved B안: keep `암행어사` and `출시점검` separate, clarify
+  boundaries, and defer source/core + source/plugins splitting.
+- PM review found local file URL links in public docs and amended
+  them to portable relative links before push.
+- Installed updated adapters into Antigravity and Codex.
+- Verified both installed adapters match generated output with zero missing
+  files and zero hash diffs.
+- Ran `npm run check`; all gates passed.
+- Moved the operating queue to Phase 5 pressure scenario automation.

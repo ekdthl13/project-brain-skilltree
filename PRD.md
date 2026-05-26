@@ -167,7 +167,9 @@ tests/scenarios/
 - Local `npm run check`: passing
 - Runtime usage verification: passing for Antigravity/Gemini and Codex local
   installs
-- Current phase: Phase 4 structural refactor candidate review
+- Structural refactor candidate review: B안 approved, clarify boundaries and
+  defer physical merge/split
+- Current phase: Phase 5 pressure scenario automation
 
 ## Major Risks
 
