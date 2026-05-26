@@ -2,22 +2,23 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **Phase 3-B: Runtime Usage Verification**.
+Project Brain Skilltree is in **Phase 4: Structural Refactor Candidates**.
 
-Approximate overall progress: **55%**.
+Approximate overall progress: **62%**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
-green, and the Codex and Antigravity adapters have both been installed locally.
-Layer 1 cutover/documentation/tooling work is complete, and Phase 3-A skill
-content hardening drafts have been merged through `source/` and adapter
-generation.
+green, and the Codex and Antigravity adapters have both been installed and
+runtime-smoke-verified locally. Layer 1 cutover/documentation/tooling work,
+Phase 3-A skill hardening, and Phase 3-B runtime usage verification are
+complete. Structural refactor candidates can now be evaluated without changing
+catalog or adapter structure until an explicit decision is made.
 
 ## Installed State
 
 | Environment | Status | Notes |
 |-------------|--------|-------|
-| Codex | Installed | Generated adapter entries are installed under `%USERPROFILE%\.codex\skills`; `.system` was preserved |
-| Antigravity/Gemini | Installed | Generated adapter entries are installed under `%USERPROFILE%\.gemini\config\skills`; installer conflict backup exists |
+| Codex | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.codex\skills`; `.system` was preserved; latest backup `%USERPROFILE%\.codex\skills.backup-20260526T074200` |
+| Antigravity/Gemini | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.gemini\config\skills`; latest backup `%USERPROFILE%\.gemini\config\skills.backup-20260526T072701` |
 | Claude Code | Not installed | Adapter generation exists, but local install has not been requested |
 
 ## Workstream Ownership
@@ -26,7 +27,7 @@ generation.
 |-------|-------|-------|------|
 | Layer 1: Infrastructure | Codex | Antigravity cutover, docs alignment, adapter diff report | Finish before structural skill refactors |
 | Layer 2: Skill content | Antigravity drafts, Codex validates/merges | Coding-guide escalation and multi-model orchestration docs | Merge through `source/`, then rebuild adapters and run `npm run check` |
-| Structural refactors | Deferred | `암행어사`/`출시점검` boundary, core/plugin split | Decide only after Layer 1 and diff tooling are stable |
+| Structural refactors | Decision gate | `암행어사`/`출시점검` boundary, core/plugin split | Evaluate impact first; do not rename or move skills before approval |
 
 ## Phase Map
 
@@ -38,8 +39,8 @@ generation.
 | 2-B. Antigravity cutover | Done | P1 / v0.2 | Apply the generated Antigravity adapter only after backup, comparison, and rollback are clear |
 | 2-C. Documentation/tooling alignment | Done | P1/P2 / v0.2 | Sync status docs, clarify quality thresholds, add adapter diff report |
 | 3-A. Skill content hardening | Done | P2 / v0.2 | Merge escalation protocol and multi-model orchestration docs after Layer 1 |
-| 3-B. Runtime usage verification | Active | Success metrics | Confirm Antigravity/Codex actually discover and use generated adapters |
-| 4. Structural refactor candidates | Deferred | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
+| 3-B. Runtime usage verification | Done | Success metrics | Confirm Antigravity/Codex actually discover and use generated adapters |
+| 4. Structural refactor candidates | Active | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
 | 5. Pressure scenario automation | Pending | P2 / v0.2 | Turn documented failure scenarios into executable checks |
 | 6. Public polish and examples | Pending | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
 | 7. Release system | Pending | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
@@ -188,21 +189,30 @@ generation.
   - `총괄매니저` to v2.15.0
   - `SKILL_INDEX` to v2.0.7
 
-## Active Queue
-
 ### Phase 3-B: Runtime Usage Verification
 
-- [ ] Start a fresh Codex session and confirm `project-manager` can trigger.
-- [ ] Confirm Codex can read Korean source-derived skill content without
-  encoding issues.
-- [ ] Start or refresh Antigravity/Gemini and confirm `총괄매니저` can trigger
-  after cutover.
-- [ ] Verify `암행어사`, `코딩가이드`, and `출시점검` routing behavior in a real
-  project context.
-- [ ] Record any adapter wording mismatch discovered during live use.
-- [ ] Update `docs/INSTALL.md` with verified local install notes if needed.
+- Accepted Antigravity/Gemini runtime verification report as PASS.
+- Verified the Antigravity installation shows:
+  - `SKILL_INDEX.md` v2.0.7
+  - root `ORCHESTRATION.md`
+  - `코딩가이드` v1.6.0 with STEP 1.5 escalation protocol
+  - `코딩가이드/REFERENCES.md`
+  - `총괄매니저` v2.15.0
+  - worker result status interpretation in `총괄매니저/REFERENCES.md`
+  - UTF-8 Korean text without encoding breakage
+  - preserved draft files in the Antigravity destination
+- Installed the updated Codex adapter into `%USERPROFILE%\.codex\skills`.
+- Installer-created Codex backup:
+  `%USERPROFILE%\.codex\skills.backup-20260526T074200`.
+- Verified the installed Codex adapter has zero missing files and zero hash
+  diffs against `adapters/codex/skills`.
+- Found and fixed a portable adapter discoverability gap: generated Codex and
+  Claude Code `SKILL_INDEX.md` files now list root system docs such as
+  `CORE_PRINCIPLES.md` and `ORCHESTRATION.md`.
+- Re-ran `npm run check`; adapter build, adapter diff, installer tests,
+  validation, and audit all passed.
 
-## Upcoming Queues
+## Active Queue
 
 ### Phase 4: Structural Refactor Candidates
 
@@ -211,8 +221,10 @@ generation.
 - [ ] Re-evaluate whether `source/` should split into `core/` and plugin packs.
 - [ ] Estimate catalog, adapter slug, router, installer, and docs impact before
   any structural change.
-- [ ] Do not start this phase until adapter diff reporting and runtime
-  verification are stable.
+- [ ] Do not rename, move, merge, or split skills until the impact estimate is
+  reviewed and approved.
+
+## Upcoming Queues
 
 ### Phase 5: Pressure Scenario Automation
 
@@ -305,8 +317,8 @@ GitHub repo는 https://github.com/ekdthl13/project-brain-skilltree 이고,
 source/ 가 canonical root, adapters/ 는 생성물이다.
 
 현재 상태:
-- Codex adapter는 실제 Codex skills 경로에 설치되어 있다.
-- Antigravity/Gemini adapter도 실제 Antigravity skills 경로에 설치되어 있다.
+- Codex adapter는 실제 Codex skills 경로에 설치되어 있고 runtime smoke를 통과했다.
+- Antigravity/Gemini adapter도 실제 Antigravity skills 경로에 설치되어 있고 runtime smoke를 통과했다.
 - Out-of-place backup과 installer conflict backup이 둘 다 보존되어 있다.
 - Layer 1 cutover/documentation/tooling work is complete.
 - Phase 3-A Antigravity drafts were merged through source and adapters:
@@ -314,13 +326,16 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   ORCHESTRATION.md.
 - Updated Antigravity adapter was installed with backup
   `%USERPROFILE%\.gemini\config\skills.backup-20260526T072701`.
+- Updated Codex adapter was installed with backup
+  `%USERPROFILE%\.codex\skills.backup-20260526T074200`.
+- Phase 3-B Runtime Usage Verification is complete.
 
 다음 작업:
 1. PRD.md, PROJECT_TASKS.md, docs/INSTALL.md를 읽고 현재 위치를 복원
 2. npm run check
-3. Runtime usage verification으로 Codex/Antigravity 트리거 동작 확인
-4. 발견되는 adapter wording mismatch를 PROJECT_TASKS.md와 관련 docs에 기록
-5. Phase 4 구조 리팩터 후보는 runtime verification 이후에만 판단
+3. Phase 4 구조 리팩터 후보를 검토하되, catalog/adapter 구조 변경은 영향도 산정 전 시작하지 않기
+4. `암행어사`/`출시점검`은 통합보다 경계 명확화부터 검토
+5. core/plugin split은 구조 변경 비용을 산정한 뒤 보류/진행 판단
 ```
 
 ## Execution Log
@@ -409,3 +424,14 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   output with zero missing files and zero hash diffs.
 - Confirmed the two draft files in the Antigravity destination were preserved.
 - Moved the operating queue to Phase 3-B runtime usage verification.
+
+### 2026-05-26: Phase 3-B Runtime Usage Verification
+
+- Received PASS report from Antigravity/Gemini runtime verification.
+- Treated the report as sufficient evidence for Antigravity installed-root
+  discovery, UTF-8 readability, protocol availability, and draft preservation.
+- Reinstalled and smoke-tested the Codex adapter.
+- Fixed portable generated `SKILL_INDEX.md` discoverability so Codex and Claude
+  Code adapters list root system documents.
+- Ran `npm run check`; all gates passed.
+- Moved the operating queue to Phase 4 structural refactor candidate review.

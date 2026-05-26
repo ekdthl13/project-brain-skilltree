@@ -3,6 +3,13 @@
 This file is generated from `catalog/skills.yaml` and `source/`.
 Edit the canonical source, then run `npm run build:adapters`.
 
+## System Documents
+
+| Document | Path |
+|----------|------|
+| CORE_PRINCIPLES.md | [CORE_PRINCIPLES.md](CORE_PRINCIPLES.md) |
+| ORCHESTRATION.md | [ORCHESTRATION.md](ORCHESTRATION.md) |
+
 | Skill | Version | Category | Path |
 |-------|---------|----------|------|
 | hyperframes | 2.0.0 | media | [SKILL.md](hyperframes/SKILL.md) |

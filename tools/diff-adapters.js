@@ -67,11 +67,21 @@ function generatedIndex(catalog, targetName) {
   const rows = catalog.skills
     .map((skill) => `| ${skill.adapterName} | ${skill.version} | ${skill.category} | [SKILL.md](${skill.adapterName}/SKILL.md) |`)
     .join("\n");
+  const systemDocs = ["CORE_PRINCIPLES.md", "ORCHESTRATION.md"]
+    .filter((fileName) => fs.existsSync(path.join(sourceRoot, fileName)))
+    .map((fileName) => `| ${fileName} | [${fileName}](${fileName}) |`)
+    .join("\n");
   return [
     `# Generated ${targetName} Skill Index`,
     "",
     "This file is generated from `catalog/skills.yaml` and `source/`.",
     "Edit the canonical source, then run `npm run build:adapters`.",
+    "",
+    "## System Documents",
+    "",
+    "| Document | Path |",
+    "|----------|------|",
+    systemDocs,
     "",
     "| Skill | Version | Category | Path |",
     "|-------|---------|----------|------|",

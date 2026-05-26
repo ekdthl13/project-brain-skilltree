@@ -35,7 +35,7 @@ adapters/codex/skills/project-manager/SKILL.md
 ```
 
 Root system docs such as `CORE_PRINCIPLES.md` and `ORCHESTRATION.md` are copied
-into the adapter root.
+into the adapter root and listed in the generated `SKILL_INDEX.md`.
 
 Each generated `SKILL.md` has frontmatter keys:
 

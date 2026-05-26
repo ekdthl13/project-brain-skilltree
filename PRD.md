@@ -165,8 +165,9 @@ tests/scenarios/
 - Public repo: `https://github.com/ekdthl13/project-brain-skilltree`
 - GitHub Actions `validate`: required on `main`
 - Local `npm run check`: passing
-- Current phase: Phase 3-B runtime usage verification after skill-content
-  hardening
+- Runtime usage verification: passing for Antigravity/Gemini and Codex local
+  installs
+- Current phase: Phase 4 structural refactor candidate review
 
 ## Major Risks
 
