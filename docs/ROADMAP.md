@@ -10,7 +10,7 @@
 ## v0.2
 
 - Add installer scripts for local Antigravity and Codex paths.
-- Add adapter diff reports.
+- Add `npm run diff:adapters` and `reports/adapter-diff.md`.
 - Add automated pressure scenario fixtures.
 
 ## v0.3
@@ -24,4 +24,3 @@
 - Stable skill manifest schema.
 - Stable adapter contract.
 - Full CI quality gate required for release tags.
-

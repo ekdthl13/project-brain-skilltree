@@ -21,10 +21,13 @@ The quality gate is the definition of "no obvious holes."
 - Catalog version must match source `version`.
 - `SKILL_INDEX.md` must mention every source skill.
 - Generated adapters must be rebuilt before validation passes.
+- `npm run diff:adapters` must report no missing, changed, or extra generated
+  adapter files.
 
 ## Size Checks
 
-- `SKILL.md` should stay below 500 lines.
+- `SKILL.md` over 400 lines triggers split-review into support files.
+- `SKILL.md` over 500 lines fails validation.
 - Long examples, templates, checklists, and catalogs belong in support files.
 
 ## Security Checks
@@ -45,4 +48,3 @@ Pressure scenarios in `tests/scenarios/` define expected failure modes:
 
 These scenarios are human-readable today and can be upgraded into automated
 subagent tests later.
-

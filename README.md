@@ -43,6 +43,12 @@ Run the full gate before publishing:
 npm run check
 ```
 
+Report generated adapter drift without changing source:
+
+```bash
+npm run diff:adapters
+```
+
 ## Install Targets
 
 After `npm run build:adapters`, use the generated folders:

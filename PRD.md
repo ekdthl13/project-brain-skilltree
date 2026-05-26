@@ -162,10 +162,12 @@ tests/scenarios/
 ## Current Status
 
 - Public repo: `https://github.com/ekdthl13/project-brain-skilltree`
-- Latest verified commit at time of writing: `4431111`
+- Latest GitHub Actions verified commit inspected at time of writing:
+  `cc41495`
 - GitHub Actions `validate`: passing
 - Local `npm run check`: passing
-- Current phase: transition from public repo foundation to local install loop
+- Current phase: Phase 2-C documentation/tooling alignment after Antigravity
+  cutover
 
 ## Major Risks
 
@@ -179,11 +181,10 @@ tests/scenarios/
 
 ## Next Milestone
 
-Close the local install loop:
+Close Layer 1 infrastructure alignment:
 
-1. Re-run `npm run check`.
-2. Install adapter into a safe test path with `--dry-run`.
-3. Install adapter into a safe test path for real.
-4. Dry-run the real Codex and Antigravity destinations.
-5. Review backup plan before touching real local skills directories.
-
+1. Keep the Antigravity cutover backup and rollback paths documented.
+2. Align PRD, task, roadmap, and quality-gate docs with the current state.
+3. Add adapter diff reporting so generated adapter drift is visible.
+4. Run `npm run check`.
+5. Move into runtime usage verification and skill-content hardening.

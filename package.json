@@ -7,11 +7,12 @@
     "test": "node --test tools/*.test.js",
     "validate": "node tools/validate-skilltree.js",
     "build:adapters": "node tools/build-adapters.js",
+    "diff:adapters": "node tools/diff-adapters.js",
     "audit": "node tools/audit-skilltree.js",
     "install:antigravity": "node tools/install-adapter.js antigravity",
     "install:codex": "node tools/install-adapter.js codex",
     "install:claude": "node tools/install-adapter.js claude-code",
-    "check": "npm run build:adapters && npm run test && npm run validate && npm run audit"
+    "check": "npm run build:adapters && npm run diff:adapters && npm run test && npm run validate && npm run audit"
   },
   "engines": {
     "node": ">=20"

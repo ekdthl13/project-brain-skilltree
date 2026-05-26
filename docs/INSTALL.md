@@ -66,3 +66,20 @@ npm run install:codex
 - Keep generated adapter folders out of hand edits.
 - Do not point the installer at a filesystem root or repository root.
 - Review backups before deleting them.
+
+## Rollback Guidance
+
+If a real install needs to be rolled back, keep the current destination and all
+backups until runtime verification succeeds.
+
+Recommended rollback sequence:
+
+1. Stop or restart the agent environment so it is not reading the skills folder.
+2. Rename the current destination to a quarantine path such as
+   `<destination>.quarantine-YYYYMMDDTHHMMSS`.
+3. Copy the selected backup folder back to the original destination path.
+4. Re-open the agent and verify the expected skills can trigger.
+
+Use the out-of-place backup for a full pre-install restore. Use the
+installer-created `<destination>.backup-YYYYMMDDTHHMMSS` folder when you only
+need the conflicting managed entries that were replaced during install.
