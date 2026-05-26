@@ -1,0 +1,103 @@
+{
+  "version": "0.1.0",
+  "canonicalRoot": "source",
+  "skills": [
+    {
+      "id": "hyperframes",
+      "source": "HyperFrames",
+      "version": "2.0.0",
+      "category": "media",
+      "adapterName": "hyperframes",
+      "description": "Use when creating or reviewing HTML-based video compositions, storyboards, motion scenes, previews, renders, or HyperFrames production workflows."
+    },
+    {
+      "id": "prd-generator",
+      "source": "PRD생성",
+      "version": "1.1.1",
+      "category": "planning",
+      "adapterName": "prd-generator",
+      "description": "Use when turning a project brief or idea into an executable PRD with scope boundaries, acceptance criteria, risks, and downstream implementation inputs."
+    },
+    {
+      "id": "design-system",
+      "source": "디자인시스템",
+      "version": "2.3.0",
+      "category": "design",
+      "adapterName": "design-system",
+      "description": "Use when defining or checking design tokens, anti-slop UI rules, accessibility constraints, visual system docs, or design preview artifacts."
+    },
+    {
+      "id": "blog-engine",
+      "source": "블로그엔진",
+      "version": "4.1.0",
+      "category": "content",
+      "adapterName": "blog-engine",
+      "description": "Use when planning, drafting, scoring, or improving Korean blog content, SEO articles, titles, CTAs, thumbnails, or content quality checklists."
+    },
+    {
+      "id": "skill-builder",
+      "source": "스킬생성기",
+      "version": "2.0.0",
+      "category": "meta",
+      "adapterName": "skill-builder",
+      "description": "Use when creating, updating, validating, or pressure-testing Project Brain skills, skill packages, router entries, and skill quality gates."
+    },
+    {
+      "id": "inspector",
+      "source": "암행어사",
+      "version": "2.0.0",
+      "category": "verification",
+      "adapterName": "inspector",
+      "description": "Use when auditing projects, ideas, PRDs, codebases, skilltrees, or agent harnesses for contradictions, missing pieces, risks, drift, and weak assumptions."
+    },
+    {
+      "id": "office-hours",
+      "source": "오피스아워",
+      "version": "1.3.0",
+      "category": "strategy",
+      "adapterName": "office-hours",
+      "description": "Use when evaluating a raw idea, clarifying business direction, deciding GO/PIVOT/STOP, or producing an initial project brief."
+    },
+    {
+      "id": "instagram-engine",
+      "source": "인스타엔진",
+      "version": "3.2.0",
+      "category": "content",
+      "adapterName": "instagram-engine",
+      "description": "Use when operating Instagram content workflows including short-form scripts, carousel posts, campaign briefs, DM flows, ads, and performance loops."
+    },
+    {
+      "id": "project-manager",
+      "source": "총괄매니저",
+      "version": "2.14.0",
+      "category": "orchestration",
+      "adapterName": "project-manager",
+      "description": "Use when continuing a project, restoring file-based context, creating work orders, reviewing results, updating decision logs, or coordinating agent handoffs."
+    },
+    {
+      "id": "launch-check",
+      "source": "출시점검",
+      "version": "2.5.0",
+      "category": "verification",
+      "adapterName": "launch-check",
+      "description": "Use when performing pre-release quality checks, runtime smoke tests, GO/NO-GO launch decisions, deployment readiness reviews, or release risk triage."
+    },
+    {
+      "id": "coding-guide",
+      "source": "코딩가이드",
+      "version": "1.5.0",
+      "category": "coding",
+      "adapterName": "coding-guide",
+      "description": "Use when executing a work order, editing code, following project conventions, applying conditional TDD, verifying builds, or reporting implementation results."
+    },
+    {
+      "id": "content-planning",
+      "source": "콘텐츠기획",
+      "version": "1.1.0",
+      "category": "content",
+      "adapterName": "content-planning",
+      "description": "Use when interviewing for brand context, planning content strategy, mapping keywords, building calendars, or preparing blog and social content inputs."
+    }
+  ]
+}
+
