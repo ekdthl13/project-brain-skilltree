@@ -71,39 +71,39 @@ destroying existing agent skill directories.
 
 ### Task 2.1: Reconfirm Repo Health
 
-- [ ] Run `npm run check`.
-- [ ] Confirm local git is clean or record pending docs-only edits.
+- [x] Run `npm run check`.
+- [x] Confirm local git is clean or record pending docs-only edits.
 - [ ] Confirm latest GitHub Actions run is green.
 
 ### Task 2.2: Safe Install Test Path
 
-- [ ] Create a disposable install destination under `C:\tmp`.
-- [ ] Run Codex adapter install with `--dry-run`.
-- [ ] Run Codex adapter install into the disposable destination.
-- [ ] Confirm unrelated existing files are preserved.
-- [ ] Repeat for Antigravity adapter.
+- [x] Create a disposable install destination under `C:\tmp`.
+- [x] Run Codex adapter install with `--dry-run`.
+- [x] Run Codex adapter install into the disposable destination.
+- [x] Confirm unrelated existing files are preserved.
+- [x] Repeat for Antigravity adapter.
 
 ### Task 2.3: Real Destination Discovery
 
-- [ ] Identify actual Codex skills directory.
-- [ ] Identify actual Antigravity/Gemini skills directory.
-- [ ] Confirm whether each directory already contains non-Project Brain skills.
-- [ ] Do not install yet if the destination contains unmanaged content that has
+- [x] Identify actual Codex skills directory.
+- [x] Identify actual Antigravity/Gemini skills directory.
+- [x] Confirm whether each directory already contains non-Project Brain skills.
+- [x] Do not install yet if the destination contains unmanaged content that has
   not been reviewed.
 
 ### Task 2.4: Real Destination Dry Run
 
-- [ ] Run dry-run for Codex destination.
-- [ ] Run dry-run for Antigravity destination.
-- [ ] Record expected backup paths.
-- [ ] Confirm install scope with user before real install.
+- [x] Run dry-run for Codex destination.
+- [x] Run dry-run for Antigravity destination.
+- [x] Record expected backup paths.
+- [x] Confirm install scope with user before real install.
 
 ### Task 2.5: Real Install
 
-- [ ] Run actual adapter install for approved destinations.
-- [ ] Verify backups exist where conflicts were found.
-- [ ] Verify generated adapter files exist in destination.
-- [ ] Run a minimal agent-discovery smoke test if available.
+- [x] Run actual adapter install for approved destinations.
+- [x] Verify backup behavior for approved destinations.
+- [x] Verify generated adapter files exist in approved destinations.
+- [x] Run a minimal agent-discovery smoke test if available.
 
 ## Next Session Prompt
 
@@ -140,3 +140,47 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - Existing unrelated skills are preserved.
 - A future session can install from GitHub repo without reading this chat.
 
+## Phase 2 Execution Log
+
+### 2026-05-26: Local install loop transition
+
+- Restored current state from `README.md`, `PRD.md`, `PROJECT_TASKS.md`, and
+  `docs/INSTALL.md`.
+- Confirmed the starting branch state was clean: `main...origin/main`.
+- Ran `npm run check`; adapter build, 5 installer tests, validation, and audit
+  all completed successfully.
+- After adding local install notes, `npm run check` intentionally caught private
+  user paths in this task log; the log now uses `%USERPROFILE%` placeholders.
+- Created disposable install root:
+  `C:\tmp\project-brain-install-test-phase2-20260526`.
+- Dry-ran and installed the Codex adapter into the disposable destination.
+- Dry-ran and installed the Antigravity adapter into the disposable destination.
+- Confirmed each disposable destination contained 15 generated adapter entries
+  plus one unrelated sentinel skill after install.
+- Confirmed unrelated sentinel skills were preserved and no backup folders were
+  created when there were no conflicting managed entries.
+- Discovered real Codex destination:
+  `%USERPROFILE%\.codex\skills`.
+  - Existing destination-only item before install: `.system`.
+  - Conflicting adapter entries before install: none.
+- Discovered real Antigravity/Gemini destination:
+  `%USERPROFILE%\.gemini\config\skills`.
+  - Destination-only item before install: `_skilltree_audit_2026-05-26.md`.
+  - Conflicting adapter entries before install: 14.
+- Dry-ran the real Codex destination. The destination existed, so the dry-run
+  printed a possible backup path, but there were no conflicting adapter entries.
+- Installed the Codex adapter into `%USERPROFILE%\.codex\skills`.
+- Verified the Codex destination now contains 15 generated adapter entries plus
+  the existing `.system` directory.
+- Verified no Codex backup folder was created because there were no conflicts.
+- Smoke-tested installed Codex adapter files by reading `project-manager`,
+  `inspector`, and `coding-guide` SKILL files with UTF-8 Korean content.
+- Dry-ran the real Antigravity destination and recorded the possible backup
+  path: `%USERPROFILE%\.gemini\config\skills.backup-20260526T050141`.
+- Created an out-of-place Antigravity backup before any real Antigravity
+  install:
+  `C:\tmp\project-brain-install-backups\antigravity-skills-20260526T1402`.
+- Verified the Antigravity backup matches the current destination by top-level
+  item count, file count, and SHA-256 hashes.
+- Held the real Antigravity install because the destination has 14 conflicting
+  managed entries and should be reviewed as a larger cutover.
