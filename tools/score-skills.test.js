@@ -27,7 +27,7 @@ test("score-skills calculateScore computes expected scores", () => {
     "Perfect output format."
   ].join("\n");
 
-  const skill = { source: "Perfect", version: "1.0.0" };
+  const skill = { source: "Perfect", version: "1.0.0", description: "Use when doing perfect things." };
   const res = calculateScore(skill, perfectContent, dir, "1.0.0");
 
   assert.equal(res.total, 90); // 20 FM, 20 Lines, 20 Trigger, 20 Output, 0 Support (no support file yet), 10 Version
@@ -55,7 +55,7 @@ test("score-skills calculateScore handles line limit transitions", () => {
   }
   const content = linesArray.join("\n");
 
-  const skill = { source: "Limit", version: "1.0.0" };
+  const skill = { source: "Limit", version: "1.0.0", description: "Use when checking limits." };
   const res = calculateScore(skill, content, dir, "1.0.0");
 
   assert.equal(res.breakdown.lineCount, 10); // 401-500 lines awards 10 points

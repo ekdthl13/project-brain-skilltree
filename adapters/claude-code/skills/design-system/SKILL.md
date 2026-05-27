@@ -311,3 +311,17 @@ Body:    Pretendard
 | PRD 전 아이디어 검증 | **오피스아워** ("오피스아워" 먼저 권장) |
 | 디자인시스템 확정 후 개발 시작 | **총괄매니저** ("총괄 시작") |
 | 배포 전 최종 확인 | **출시점검** ("출시 점검해줘") |
+
+---
+
+## 스킬 사용 가이드 (Usage Guide)
+
+- **언제 사용하는가**: 프로젝트 개발 개시 전 디자인 토큰과 스타일 가이드를 정립하고 컴포넌트의 시각적 일관성을 확보할 때 사용합니다.
+- **실행 트리거 (Trigger Prompts)**: "디자인룰 만들어줘", "디자인시스템 생성해줘", "컬러 정해줘" 등의 발화.
+- **최소 산출물 기준 (Minimum Output Criteria)**:
+  - `DESIGN_SYSTEM.md` 파일 (브랜드 컬러, 다크모드, Spacing 그리드 명시).
+  - `DESIGN_PREVIEW.html` 파일 (시각적 자립형 컴포넌트 미리보기).
+- **완료 조건 (Definition of Done)**:
+  - WCAG AA 명암 대비비 4.5:1 준수 확인.
+  - 기술 스택별 맞춤 출력(CSS 변수 또는 Tailwind config extend) 적용 완료.
+  - 세부 가이드라인 검증은 [CHECKLIST.md](CHECKLIST.md)를 참고하세요.

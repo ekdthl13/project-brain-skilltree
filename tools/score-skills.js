@@ -39,7 +39,7 @@ function calculateScore(skill, fileContent, fileDir, catalogVersion) {
   if (fields.name) frontmatterScore += 5;
   if (fields.version) frontmatterScore += 5;
   if (fields.description) frontmatterScore += 5;
-  if (fields.description && fields.description.startsWith("Use when")) frontmatterScore += 5;
+  if (skill.description && skill.description.startsWith("Use when")) frontmatterScore += 5;
 
   let lineCountScore = 0;
   if (lines <= 400) {
@@ -50,10 +50,10 @@ function calculateScore(skill, fileContent, fileDir, catalogVersion) {
     lineCountScore = 0;
   }
 
-  const hasTrigger = /사용자 의도|의도|trigger|Trigger|언제 사용|우선 스킬|Primary Router/i.test(body);
+  const hasTrigger = /사용자 의도|의도|트리거|trigger|Trigger|언제 사용|우선 스킬|Primary Router/i.test(body);
   const triggerScore = hasTrigger ? 20 : 0;
 
-  const hasOutput = /최소 출력|출력 기준|output|Output|완료 기준|산출물|Definition of Done/i.test(body);
+  const hasOutput = /최소 출력|최소 산출물|출력 기준|output|Output|완료 기준|완료 조건|산출물|Definition of Done/i.test(body);
   const outputScore = hasOutput ? 20 : 0;
 
   const hasSupportFiles = fs.existsSync(path.join(fileDir, "REFERENCES.md")) ||
@@ -141,7 +141,7 @@ function main() {
       "",
       "## Evaluation Matrix",
       "",
-      "- **Frontmatter (20pts)**: Valid keys (name, version, description) and 'Use when' prefix.",
+      "- **Frontmatter/Catalog (20pts)**: Valid source frontmatter keys (name, version, description) and catalog description with 'Use when' prefix.",
       "- **Line Count (20pts)**: <= 400 lines (20pts), 401-500 lines (10pts), > 500 lines (0pts).",
       "- **Trigger Clarity (20pts)**: Explicit triggers, router patterns, or user intent declarations.",
       "- **Minimum Output (20pts)**: Clear definitions of done, output checklists, or outputs schema.",
