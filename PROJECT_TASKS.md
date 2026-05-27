@@ -2,18 +2,19 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **Phase 8: Advanced Quality System** (Phase 8-B skill quality hardening complete, scorecard average 97.5/100, dynamic forward-testing harness pending, release tag/publish gate pending).
+Project Brain Skilltree is in **v0.1.0 Release Preflight** (Phase 6, 7-A, 8-A, and 8-B complete; scorecard average 97.5/100; release tag/publish gate pending).
 
-Approximate overall progress: **94%**.
+Approximate overall progress: **96%**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
 green, and the Codex and Antigravity adapters have both been installed and
 runtime-smoke-verified locally. Phase 8-A established the advanced quality
 system foundation, and Phase 8-B raised the skill scorecard average from
 70.0/100 to 97.5/100 by hardening source skills and adding focused support
-checklists. Dynamic forward-testing and release publication remain pending. The
-approved Phase 4 decision is to keep `암행어사` and `출시점검` separate, clarify
-their boundaries, and defer physical core/plugin splitting.
+checklists. A GitHub Actions Node24 preflight is being applied before the first
+release tag. Dynamic forward-testing and release publication remain pending.
+The approved Phase 4 decision is to keep `암행어사` and `출시점검` separate,
+clarify their boundaries, and defer physical core/plugin splitting.
 
 ## Installed State
 
@@ -45,8 +46,8 @@ their boundaries, and defer physical core/plugin splitting.
 | 4. Structural refactor candidates | Done | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
 | 5. Pressure scenario automation | Done | P2 / v0.2 | Turn documented failure scenarios into executable checks |
 | 6. Public polish and examples | Done | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
-| 7. Release system | Active (7-A Done) | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
-| 8. Advanced Quality System | Active (8-B Done) | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
+| 7. Release system | Active (preflight) | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
+| 8. Advanced Quality System | Foundation done (8-B) | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
 
 ## PRD Coverage Board
 
@@ -59,7 +60,7 @@ their boundaries, and defer physical core/plugin splitting.
 | P1: Session continuity | Done | PRD and task docs carry current phase, ownership, rollback, and next queues |
 | P2: Automated pressure testing | Initial done | `tools/pressure-scenarios.test.js` runs static guardrail checks in `npm run check`; dynamic agent simulation remains future work |
 | P2: Public presentation | Initial done | README onboarding, minimal example project, before/after drift docs, install transcript, and comparison examples exist; screenshots/GIFs are deferred |
-| P3: Release system | Foundation done | Changelog, release checklist, versioning rules, and local checksum helper exist; release tag, GitHub Release, and packaged artifacts remain pending |
+| P3: Release system | Preflight active | Changelog, release checklist, versioning rules, local checksum helper, and Node24 workflow preflight exist; release tag, GitHub Release, and packaged artifacts remain pending |
 
 ## Completed Work
 
@@ -249,11 +250,17 @@ their boundaries, and defer physical core/plugin splitting.
 
 ## Active Queue
 
-### Phase 7 & 8: Release and Dynamic Testing (Pending Gates)
+### v0.1.0 Release Preflight (Current)
 
-- [ ] Tag and publish a GitHub Release after CI passes (Pending PM Approval).
-- [ ] Package adapter artifacts archive (Deferred to release step).
-- [ ] Add subagent forward-testing harness (Dynamic agent simulation runner).
+- [x] Apply GitHub Actions Node24 preflight env to `validate.yml`.
+- [ ] Confirm GitHub Actions `validate` succeeds on the Node24 preflight commit.
+- [ ] Package adapter artifact archive during the release step.
+- [ ] Generate final release checksums during the release step.
+- [ ] Tag and publish GitHub Release only after explicit PM approval.
+
+### Post-v0.1.0 Candidates
+
+- [ ] Add subagent forward-testing harness (dynamic agent simulation runner).
 - [ ] Explore a new-skill creation CLI that updates source, catalog, and router.
 
 ## Completed Queue (Phase 8-A: Advanced Quality Foundation)
@@ -522,3 +529,9 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - [x] Added `CHECKLIST.md` support files for `PRD생성`, `디자인시스템`, `암행어사`, `오피스아워`, `출시점검` skills to ensure main SKILL.md files stay well below the 500-line hard ceiling.
 - [x] Updated `tools/score-skills.test.js` to resolve mock skill description property validation failure.
 - [x] Ran `npm run check` and `npm run score:skills` to verify all 17 tests pass successfully with an average scorecard rating of 97.5/100.
+
+### 2026-05-27: v0.1.0 Release Preflight
+
+- [x] Reviewed the GitHub Actions Node20 deprecation warning as an infrastructure warning, not a skilltree release blocker.
+- [x] Added `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` to `.github/workflows/validate.yml` so JavaScript actions are tested with Node24 before the first release tag.
+- [x] Reorganized the active queue so the v0.1.0 release preflight tasks are visible separately from post-release dynamic testing work.
