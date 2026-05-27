@@ -16,8 +16,9 @@
 ## v0.3
 
 - Add subagent forward-testing harness.
-- Add release packaging and checksums.
-- Add public examples showing real project bootstraps.
+- Release system foundation and checksum helpers (Completed).
+- Final release tag, GitHub Release, and adapter artifact archives (Pending PM Approval).
+- Add public examples showing real project bootstraps (Completed).
 
 ## v1.0
 

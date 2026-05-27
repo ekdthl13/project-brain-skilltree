@@ -2,16 +2,15 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **Phase 7: Release System**.
+Project Brain Skilltree is in **Phase 7: Release System** (Phase 7-A Release system foundation complete, tag/publish gate pending).
 
-Approximate overall progress: **82%**.
+Approximate overall progress: **85%**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
 green, and the Codex and Antigravity adapters have both been installed and
-runtime-smoke-verified locally. Layer 1-5 milestones are complete. Phase 6 completed
-public onboarding spine including minimal examples, before/after drift docs,
-mock installation transcripts, comparative guide expansion, and direct Markdown links
-to 12 canonical skill sources. The approved Phase 4 decision is to keep `암행어사` and `출시점검` separate, clarify their boundaries,
+runtime-smoke-verified locally. Phase 7-A established the release system foundation
+by writing release guidelines, semantic versioning rules, strict approval gates,
+and a standalone checksum generator. Remote pushes, tags, and publication are pending approval. The approved Phase 4 decision is to keep `암행어사` and `출시점검` separate, clarify their boundaries,
 and defer physical core/plugin splitting. Phase 5 converted the pressure
 scenario docs into executable static guardrail tests inside `npm run check`.
 
@@ -45,7 +44,7 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 | 4. Structural refactor candidates | Done | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
 | 5. Pressure scenario automation | Done | P2 / v0.2 | Turn documented failure scenarios into executable checks |
 | 6. Public polish and examples | Done | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
-| 7. Release system | Active | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
+| 7. Release system | Active (7-A Done) | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
 | 8. Advanced quality system | Pending | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
 
 ## PRD Coverage Board
@@ -59,7 +58,7 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 | P1: Session continuity | Done | PRD and task docs carry current phase, ownership, rollback, and next queues |
 | P2: Automated pressure testing | Initial done | `tools/pressure-scenarios.test.js` runs static guardrail checks in `npm run check`; dynamic agent simulation remains future work |
 | P2: Public presentation | Initial done | README onboarding, minimal example project, before/after drift docs, install transcript, and comparison examples exist; screenshots/GIFs are deferred |
-| P3: Release system | Pending | No release tag, changelog, checksums, or packaged artifacts yet |
+| P3: Release system | Foundation done | Changelog, release checklist, versioning rules, and local checksum helper exist; release tag, GitHub Release, and packaged artifacts remain pending |
 
 ## Completed Work
 
@@ -251,13 +250,12 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 
 ### Phase 7: Release System
 
-- [ ] Create `CHANGELOG.md`.
-- [ ] Define versioning rules for source skills, adapter contract, and tool
-  scripts.
-- [ ] Prepare `v0.1.0` release checklist.
-- [ ] Package adapter artifacts.
-- [ ] Generate checksums for release artifacts.
-- [ ] Tag and publish a GitHub Release after CI passes.
+- [x] Create `CHANGELOG.md` (v0.1.0-rc.1 - TBD).
+- [x] Define versioning rules for source skills, adapter contract, and tool scripts (documented in docs/RELEASE.md).
+- [x] Prepare release checklist (documented in docs/RELEASE.md).
+- [x] Generate checksums helper tools (`tools/prepare-release.js` and reports output).
+- [ ] Tag and publish a GitHub Release after CI passes (Pending PM Approval).
+- [ ] Package adapter artifacts archive (Deferred to release step).
 
 ## Completed Queue (Phase 6: Public Polish and Examples)
 
@@ -492,3 +490,14 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - [x] Updated `README.md` to organize onboarding flow and added direct file links to 12 canonical skill sources.
 - [x] Ran `npm run check`; all gates passed cleanly.
 - [x] Completed Phase 6 and moved the queue to Phase 7: Release System.
+
+### 2026-05-27: Phase 7-A Release System Foundation
+
+- [x] Created `CHANGELOG.md` at root summarizing development milestones of Phase 1-6.
+- [x] Created `docs/RELEASE.md` outlining versioning rules, checklists, rollback guidelines, and strict approval gates.
+- [x] Implemented `tools/prepare-release.js` to scan generated adapters, compute SHA-256 hashes, and output release manifests.
+- [x] Registered `prepare:release` command script in `package.json`.
+- [x] Created unit tests for checksum hashing functions in `tools/prepare-release.test.js`.
+- [x] Updated `docs/ROADMAP.md` to distinguish between foundation and release publication.
+- [x] Ran `npm run check` and verified all tests pass.
+- [x] Completed Phase 7-A. Final tag release and push are pending PM approval.
