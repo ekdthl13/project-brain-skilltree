@@ -14,12 +14,39 @@ npm run new:skill -- --id research-helper --source "Research Helper" --category 
 - `catalog/skills.yaml`
 - `source/SKILL_INDEX.md`
 
-The command does not edit generated adapter folders directly. After creating a skill, run:
+The command does not edit generated adapter folders directly. After creating a skill, follow the verification flow below.
+
+## Post-Creation Verification
+
+After `npm run new:skill` finishes, run these steps in order:
+
+### 1. Build adapters
+
+Regenerate the adapter directories so they include the new skill:
 
 ```bash
 npm run build:adapters
+```
+
+### 2. Run the quality gate
+
+Verify that the new skill passes all validation, audit, and test checks:
+
+```bash
 npm run check
 ```
+
+### 3. Run forward tests (conditional)
+
+If the new skill changes any forward-testing scenario behavior—such as adding
+a new JSON fixture under `tests/scenarios/` or modifying runner
+expectations—run the forward-testing suite:
+
+```bash
+npm run test:forward
+```
+
+> Skip this step if the new skill does not affect forward-testing fixtures or runner logic.
 
 ## Options
 

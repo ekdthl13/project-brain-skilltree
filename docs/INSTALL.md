@@ -95,14 +95,15 @@ Ensure there is no adapter drift and the quality gate is green:
 ```bash
 $ npm run check
 
-> project-brain-skilltree@0.1.0 check
+> project-brain-skilltree@0.4.0 check
 > npm run build:adapters && npm run diff:adapters && npm run test && npm run validate && npm run audit
 
 Built 12 skills for antigravity, codex, and claude-code.
 Adapter diff passed. Wrote reports/adapter-diff.md.
-✔ installAdapter dry-run does not write destination (0.8698ms)
+✔ installAdapter dry-run does not write destination ...
 ...
-ℹ pass 10
+ℹ tests 49
+ℹ pass 49
 Skilltree validation passed.
 Wrote reports/skilltree-audit.md
 ```

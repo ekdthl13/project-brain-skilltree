@@ -41,6 +41,9 @@ test("Forward-testing fixture structure integrity", () => {
     assert.equal(fixture.assertions.checkCommand, "npm run check", `${filename}: Fixture assertions checkCommand must be npm run check`);
     assert.ok(Array.isArray(fixture.assertions.expectedAllowedWrites), `${filename}: Fixture assertions expectedAllowedWrites must be array`);
     assert.ok(Array.isArray(fixture.assertions.forbiddenWrites), `${filename}: Fixture assertions forbiddenWrites must be array`);
+    if (fixture.assertions.requiredWrites !== undefined) {
+      assert.ok(Array.isArray(fixture.assertions.requiredWrites), `${filename}: Fixture assertions requiredWrites must be array`);
+    }
     assert.ok(Array.isArray(fixture.assertions.requiredCommands), `${filename}: Fixture assertions requiredCommands must be array`);
     assert.ok(Array.isArray(fixture.assertions.forbiddenCommands), `${filename}: Fixture assertions forbiddenCommands must be array`);
     assert.equal(typeof fixture.assertions.expectedCheckExitCode, "number", `${filename}: Fixture assertions expectedCheckExitCode must be number`);

@@ -28,11 +28,17 @@
 - Add `npm run new:skill` to create draft source skills, update the catalog, and add a router/index mention.
 - Publish GitHub Release `v0.3.0` with adapter artifacts and checksums.
 
-## v0.4.0 or v1.0.0 (Next Direction - To Be Decided)
+## v0.4.0 (Operational Hardening - Released)
 
-- Decide whether to prioritize operational hardening or stable contract preparation.
-- Preserve the `v0.3.0` release as the public baseline.
+- Simplify README onboarding into a 3-minute external-user path.
+- Refresh install, new-skill, and release docs against the v0.3.0 baseline.
+- Add practical forward-testing scenarios for common agent mistakes.
+- Produce a Core / Domain / Personal separation impact analysis without changing physical `source/` layout.
+- Establish bilingual terminology guidance for public docs and adapter discoverability.
+- Draft v1.0.0 stable-contract freeze criteria without locking them prematurely.
+- Preserve the `v0.3.0` release as the previous public baseline.
 - Keep `npm run check` and `npm run test:forward` as mandatory release gates.
+- Publish GitHub Release `v0.4.0` with adapter artifacts and checksums.
 
 ## v1.0.0 (Stable Release)
 

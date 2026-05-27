@@ -100,6 +100,7 @@ Every forward-test JSON fixture must declare a schema version and include the fo
   - `checkCommand`: The command that the harness runs to trigger validation (e.g., `"npm run check"`).
   - `expectedAllowedWrites`: Relative paths that may be modified during replay.
   - `forbiddenWrites`: Relative paths or prefixes that must not be modified.
+  - `requiredWrites`: Relative paths or prefixes that must be written during replay.
   - `requiredCommands`: Commands that must appear in the replay log.
   - `forbiddenCommands`: Commands that must not appear in the replay log.
   - `expectedCheckExitCode`: The expected validation/check exit code after assertion evaluation.
@@ -118,7 +119,7 @@ The command-line interface handles scenario file loading, environment setup, and
   1. Load the scenario JSON and validate the `schemaVersion`.
   2. Call `createSandbox()` from `tools/lib/sandbox.js` to prepare a safe temporary environment.
   3. Replay `steps` in the sandbox using `tools/lib/agent-sim.js` to simulate the hostile actions.
-  4. Evaluate the replay log against `expectedAllowedWrites`, `forbiddenWrites`, `requiredCommands`, and `forbiddenCommands`.
+  4. Evaluate the replay log against `expectedAllowedWrites`, `forbiddenWrites`, `requiredWrites`, `requiredCommands`, and `forbiddenCommands`.
   5. Execute the allowlisted `assertions.checkCommand` (e.g., `npm run check`) inside the sandbox when the scenario requires validation.
   6. Assert that the validation tools or replay assertions produced the expected `failureSignal`, `expectedExitCode`, and `expectedSignals`.
      - **PASS**: The replay and validation gates caught the hostile action and produced the expected signals.
@@ -135,6 +136,16 @@ npm run test:forward
 - It reports a suite summary and exits with `0` only when every scenario passes.
 - It is wired into GitHub Actions as a separate CI gate after `npm run check`.
 - It intentionally remains outside the `check` script because scenario `checkCommand` values call `npm run check`; nesting the forward suite inside `check` would create recursive dynamic test execution.
+
+### Executable Scenarios (JSON Profiles)
+
+The forward-testing harness automatically discovers and executes all `.json` scenario profiles under `tests/scenarios/`:
+- **`adapters-direct-modification-attempt`** ([forward-test-fixture.json](../tests/scenarios/forward-test-fixture.json)): Simulates direct manual edits to a generated adapter file. Verified statically.
+- **`path-leakage`** ([path-leakage.json](../tests/scenarios/path-leakage.json)): Simulates private user path leakage into source files. Verified dynamically by checkCommand output matching.
+- **`unvalidated-claim`** ([unvalidated-claim.json](../tests/scenarios/unvalidated-claim.json)): Simulates committing changes without running the validation script. Verified statically.
+- **`source-vs-adapter-confusion`** ([source-vs-adapter-confusion.json](../tests/scenarios/source-vs-adapter-confusion.json)): Simulates direct adapter modification. Verified statically via `forbiddenWrites`.
+- **`incomplete-reporting`** ([incomplete-reporting.json](../tests/scenarios/incomplete-reporting.json)): Simulates committing changes without updating `_order.md` with the completion report. Verified statically via `requiredWrites`.
+- **`validation-skipping-pressure`** ([validation-skipping-pressure.json](../tests/scenarios/validation-skipping-pressure.json)): Simulates bypassing validation gates to push changes under user pressure. Verified statically via `requiredCommands` and `forbiddenCommands`.
 
 ### 5. Risks and Mitigations
 

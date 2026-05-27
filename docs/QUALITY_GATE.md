@@ -39,12 +39,12 @@ The quality gate is the definition of "no obvious holes."
 
 ## Behavioral Checks
 
-Pressure scenarios in `tests/scenarios/` define expected failure modes:
+Pressure scenarios defined as executable JSON profiles in `tests/scenarios/` evaluate key agent rules:
 
-- source-of-truth confusion
-- skipping validation under pressure
-- conflicting output packaging
-- agent-specific tool wording
+- **source-vs-adapter-confusion**: Direct modification of generated adapters instead of canonical source.
+- **incomplete-reporting**: Committing work without writing a completion report to `_order.md`.
+- **validation-skipping-pressure**: Attempting to bypass quality gates (like `npm run check`) under time pressure.
+- **path-leakage**: Leaking local user paths into source files.
 
 These scenarios are partially automated via `tools/pressure-scenarios.test.js`
 to prevent private local paths, check section requirements, verify check script

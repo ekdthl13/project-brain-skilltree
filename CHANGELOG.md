@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-05-27
+
+### Added
+- Bilingual public terminology guidance in `docs/terminology.md`.
+- Core / Domain / Personal separation impact analysis in `docs/separation_impact_analysis.md`.
+- v1.0 stable-contract freeze checklist in `docs/v1_freeze_checklist.md`.
+- Forward-testing scenarios for source-vs-adapter confusion, incomplete worker reporting, and validation-skipping pressure.
+- `requiredWrites` assertions in the forward-testing runner to verify required file write behavior before blocked commands.
+
+### Changed
+- README onboarding is now a shorter clone-to-install path for external users.
+- Install and new-skill CLI docs are aligned with the v0.3.0 tooling baseline and current validation output.
+- Release docs now require both `npm run check` and `npm run test:forward` before release tags.
+- `PROJECT_TASKS.md` is now a compact state board with historical detail archived under `docs/history/`.
+- Roadmap and PRD now position v0.4.0 operational hardening before v1.0 stable-contract preparation.
+- `package.json` version is now `0.4.0`.
+
+### Fixed
+- Forward-test fixtures now explicitly assert forbidden `git commit` and `git push` command violations where relevant.
+
 ## [0.3.0] - 2026-05-27
 
 ### Added

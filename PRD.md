@@ -169,8 +169,8 @@ tests/scenarios/
 - Structural refactor candidate review: B안 approved (boundary clarification, deferred physical split)
 - Pressure scenario automation: static guardrails in `npm run check` plus deterministic JSON forward-tests in `npm run test:forward`
 - Creation tooling: `npm run new:skill` creates canonical source skills and updates catalog/router entries
-- Release system: `v0.1.0` and `v0.3.0` successfully released with tagged GitHub Releases and checksum artifacts
-- Current phase: post-v0.3.0 milestone selection and stable-contract planning
+- Release system: `v0.1.0`, `v0.3.0`, and `v0.4.0` successfully released with tagged GitHub Releases and checksum artifacts
+- Current phase: v0.4.0 operational hardening release complete; v1.0.0 stable-contract preparation is the next-session focus
 
 ## Major Risks
 
@@ -181,12 +181,14 @@ tests/scenarios/
 | Korean source skills are less discoverable in Codex/Claude | Catalog creates English hyphen adapter names and trigger descriptions |
 | Public repo looks like a prompt dump | PRD, tasks, comparison, adapter contract, and quality gate frame it as an operating system |
 | Validation misses behavioral failures | Static pressure checks and deterministic JSON forward-tests run locally and in CI |
+| External users find the system too heavy | v0.4.0 focuses on quickstart simplification, terminology polish, and installation/release UX |
 
 ## Next Milestone
 
-Choose the post-v0.3.0 direction:
+Prepare v1.0.0 stable-contract work in a new session:
 
-1. Decide whether the next tracked milestone is v0.4.0 operational hardening or v1.0.0 stable contract preparation.
-2. Re-read `PROJECT_TASKS.md`, `docs/ROADMAP.md`, and `CHANGELOG.md` before issuing new implementation orders.
-3. Keep `npm run check` and `npm run test:forward` as required gates before future release tags.
-4. Preserve the published `v0.3.0` tag and release assets as the public baseline.
+1. Freeze the skill manifest schema only after reviewing `docs/v1_freeze_checklist.md`.
+2. Confirm adapter contract stability, slug preservation, and release policy requirements.
+3. Keep physical Core / Domain / Personal restructuring out of scope until after the stable contract decision.
+4. Keep `npm run check` and `npm run test:forward` as required gates before future release tags.
+5. Preserve the published `v0.3.0` and `v0.4.0` tags and release assets as public baselines.

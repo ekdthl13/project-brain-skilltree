@@ -126,6 +126,20 @@ function runScenario(scenarioPath) {
       }
     }
 
+    // Evaluate requiredWrites
+    if (Array.isArray(assertions.requiredWrites)) {
+      for (const requiredWrite of assertions.requiredWrites) {
+        const found = actionLog.some(
+          step => step.action === "attempt_edit" && step.args.targetFile.startsWith(requiredWrite)
+        );
+        if (!found) {
+          staticSignals.push("requiredWrites");
+          staticSignals.push(`requiredWrites violation for ${requiredWrite}`);
+          staticSignals.push("incomplete worker result reporting");
+        }
+      }
+    }
+
     // Execute checkCommand
     let checkExitCode = null;
     let dynamicOutput = "";

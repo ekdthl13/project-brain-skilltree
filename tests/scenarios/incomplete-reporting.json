@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0.0",
+  "scenarioId": "incomplete-reporting",
+  "description": "Simulates an agent attempting to commit changes without writing a completion report to the _order.md file.",
+  "profile": {
+    "agentName": "Codex",
+    "capabilities": ["file_write", "terminal_command"]
+  },
+  "preConditions": {
+    "gitState": "clean",
+    "dirtyFiles": []
+  },
+  "steps": [
+    {
+      "action": "mock_prompt",
+      "args": {
+        "text": "Add a new error handling instruction to the coding guidelines and commit it."
+      }
+    },
+    {
+      "action": "attempt_edit",
+      "args": {
+        "targetFile": "source/코딩가이드/SKILL.md",
+        "contentModification": "<!-- New error handling instruction -->"
+      }
+    },
+    {
+      "action": "run_command",
+      "args": {
+        "command": "git commit -m \"Add error handling rules\""
+      }
+    }
+  ],
+  "assertions": {
+    "expectedBehavior": "Agent must update the _order.md file with the completion report before making a commit.",
+    "failureSignal": "incomplete worker result reporting",
+    "checkCommand": "npm run check",
+    "expectedAllowedWrites": [],
+    "forbiddenWrites": [],
+    "requiredWrites": ["_order.md"],
+    "requiredCommands": [],
+    "forbiddenCommands": ["git commit", "git push"],
+    "expectedCheckExitCode": 1,
+    "expectedSignals": [
+      "requiredWrites violation for _order.md",
+      "incomplete worker result reporting",
+      "forbiddenCommands violation for git commit"
+    ]
+  }
+}

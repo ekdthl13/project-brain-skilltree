@@ -1,6 +1,6 @@
 # Project Brain Skilltree
 
-[![Release](https://img.shields.io/github/v/release/ekdthl13/project-brain-skilltree?label=Release&color=blue)](https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.3.0)
+[![Release](https://img.shields.io/github/v/release/ekdthl13/project-brain-skilltree?label=Release&color=blue)](https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.4.0)
 [![CI Status](https://github.com/ekdthl13/project-brain-skilltree/actions/workflows/validate.yml/badge.svg)](https://github.com/ekdthl13/project-brain-skilltree/actions/workflows/validate.yml)
 
 Project Brain Skilltree is a portable skill operating system for agentic work. It keeps one canonical source tree and builds tool-specific adapters for Antigravity/Gemini, Codex, and Claude Code.
@@ -28,50 +28,35 @@ Most skill collections optimize for one agent. Project Brain Skilltree optimizes
 
 ---
 
-## How to Try (Minimal Flow)
+## Quickstart (3 minutes)
 
-To build the adapters, run checks, and install, execute the following commands:
-
-### 1. Build Adapters
-Compile the human-readable canonical source files into agent-specific adapters:
 ```bash
+# 1. Clone and set up
+git clone https://github.com/ekdthl13/project-brain-skilltree.git
+cd project-brain-skilltree
+
+# 2. Build adapters from source
 npm run build:adapters
-```
 
-### 2. Run Quality Gates
-Verify that all links, versions, structure, and security parameters pass the validation checks:
-```bash
+# 3. Run quality gates (builds, tests, validates, audits)
 npm run check
-```
 
-Run the deterministic forward-testing scenarios:
-```bash
-npm run test:forward
-```
-
-Create a draft skill in `source/` and register it in the catalog:
-```bash
-npm run new:skill -- --id research-helper --source "Research Helper" --description "Use when gathering research inputs for a project."
-```
-
-### 3. Dry-Run Installation
-Test the installer without writing any files to verify which files will be replaced, backed up, or preserved:
-```bash
-# For Antigravity/Gemini
+# 4. Dry-run to preview what will change
 node tools/install-adapter.js antigravity /path/to/gemini/skills --dry-run
 
-# For Codex
-node tools/install-adapter.js codex /path/to/codex/skills --dry-run
-
-# For Claude Code
-node tools/install-adapter.js claude-code /path/to/claude/skills --dry-run
-```
-
-### 4. Perform Installation
-Install the compiled skills adapter into the agent directory:
-```bash
+# 5. Install (backs up conflicts automatically)
 node tools/install-adapter.js antigravity /path/to/gemini/skills
 ```
+
+Replace `antigravity` with `codex` or `claude-code` for other agent targets. See [docs/INSTALL.md](docs/INSTALL.md) for environment variables, rollback steps, and full transcript examples.
+
+### Additional Commands
+
+| Command | Purpose |
+|---------|---------|
+| `npm run test:forward` | Run deterministic forward-testing scenarios |
+| `npm run new:skill -- --id <id> --source "<Name>" --description "Use when ..."` | Create a new skill in `source/` and register it in the catalog |
+| `npm run score:skills` | Score all skills against the quality scorecard |
 
 ---
 
@@ -155,5 +140,8 @@ See [docs/QUALITY_GATE.md](docs/QUALITY_GATE.md) for more details.
 - [Adapter Contract](docs/ADAPTER_CONTRACT.md) - Output guidelines for each target agent.
 - [New Skill CLI](docs/NEW_SKILL_CLI.md) - Create draft skills through the canonical source and catalog.
 - [Comparison](docs/COMPARISON.md) - Differences compared to Superpowers and other systems.
+- [Core / Domain / Personal Separation Impact](docs/separation_impact_analysis.md) - Conceptual boundaries and physical restructuring impact analysis.
+- [Bilingual Terminology Guidance](docs/terminology.md) - Mapping internal Korean terms to official English public documentation names.
+- [v1.0 Stable-Contract Freeze Checklist](docs/v1_freeze_checklist.md) - Standards for freezing catalog schemas, layouts, compatibility, and release gates.
 - [Quickstart Design Notes](docs/QUICKSTART_DESIGN.md) - Initial architecture plans for the quickstarts.
 - [Contributing](CONTRIBUTING.md) - How to add new skills.

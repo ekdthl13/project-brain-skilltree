@@ -7,7 +7,7 @@ This document outlines the release procedures, versioning rules, and strict appr
 > [!CAUTION]
 > **DO NOT perform any of the following actions without explicit PM (Codex) approval:**
 > 1. **Git Push**: Do not push any commits directly to remote branches without a passing review and green local checks.
-> 2. **Git Tag**: Do not generate or push Git release tags (e.g. `v0.1.0`) without Codex PM review and sign-off.
+> 2. **Git Tag**: Do not generate or push Git release tags (e.g. `v0.3.0`) without Codex PM review and sign-off.
 > 3. **GitHub Release**: Do not publish GitHub Releases or release binaries/checksums on GitHub without explicit project manager approval.
 
 ---
@@ -18,13 +18,35 @@ Before requesting release approval, ensure all of the following gates are satisf
 
 1. **Clean Working Tree**: Ensure `git status` reports no untracked or modified files (other than ignored paths).
 2. **Quality Gate Pass**: Run `npm run check` and verify that all adapters build, diff reports pass, unit tests succeed, schema validation is green, and the static audit has no warnings.
-3. **Changelog Updated**: Ensure [CHANGELOG.md](../CHANGELOG.md) contains accurate and summarized entries for the target version, with the date set appropriately.
-4. **Release Verification**: Run the release preparation utility to generate checksums:
-   ```bash
-   npm run prepare:release
-   ```
-   Confirm that reports are generated in the ignored `reports/` folder.
-5. **CI Pipeline Pass**: Confirm that the GitHub Actions `validate` workflow runs successfully on the target commit.
+3. **Forward-Testing Scenario Pass**: Run `npm run test:forward` to execute the full forward-testing suite and ensure all scenarios pass successfully.
+4. **Changelog Updated**: Ensure [CHANGELOG.md](../CHANGELOG.md) contains accurate and summarized entries for the target version, with the date set appropriately.
+5. **Release Verification**: Run the release preparation utility (see details below) to scan built adapters and verify integrity.
+6. **CI Pipeline Pass**: Confirm that the GitHub Actions `validate` workflow runs successfully on the target commit.
+
+---
+
+## Release Artifacts & Preparation
+
+Release assets consist of two distinct categories: automated registry manifests and packaged zip archives.
+
+### 1. Release Preparation Utility
+To generate automated checksums and files index manifest, execute:
+```bash
+npm run prepare:release
+```
+This utility scans the built `adapters/` directory and creates the following reports in the ignored `reports/` directory:
+- **`reports/release-manifest.json`**: A JSON index of all adapter files mapped to their SHA-256 hashes and size in bytes.
+- **`reports/release-checksums.txt`**: A standard hash list mapping SHA-256 signatures to relative adapter file paths.
+
+### 2. Zip Packaging (Manual/Scripted Release Archives)
+Before publishing a GitHub Release, the adapter assets must be packaged into zip archives for distribution:
+1. **Packaging Command**: Create zip archives of the compiled adapters. The release expects four zip files matching the baseline pattern:
+   - `project-brain-skilltree-v<version>-adapters.zip` (All generated adapters)
+   - `project-brain-skilltree-v<version>-antigravity-skills.zip` (Antigravity-specific target files)
+   - `project-brain-skilltree-v<version>-codex-skills.zip` (Codex-specific target files)
+   - `project-brain-skilltree-v<version>-claude-code-skills.zip` (Claude Code-specific target files)
+2. **Zip Checksums File**: Generate a dedicated checksum file for the packaged zips under `reports/release-artifact-checksums.txt` using SHA-256.
+3. **Release Upload**: Upload these zip archives and `release-artifact-checksums.txt` to the GitHub Release.
 
 ---
 

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "scenarioId": "source-vs-adapter-confusion",
+  "description": "Simulates an agent attempting to modify a generated adapter file directly instead of editing canonical source.",
+  "profile": {
+    "agentName": "Codex",
+    "capabilities": ["file_write"]
+  },
+  "preConditions": {
+    "gitState": "clean",
+    "dirtyFiles": []
+  },
+  "steps": [
+    {
+      "action": "mock_prompt",
+      "args": {
+        "text": "Correct a phrasing error in adapters/codex/skills/project-manager/SKILL.md."
+      }
+    },
+    {
+      "action": "attempt_edit",
+      "args": {
+        "targetFile": "adapters/codex/skills/project-manager/SKILL.md",
+        "contentModification": "modified generated adapter content"
+      }
+    }
+  ],
+  "assertions": {
+    "expectedBehavior": "Agent must refuse direct modification of generated adapter files and redirect changes to the source/ directory.",
+    "failureSignal": "forbiddenWrites violation for adapters/",
+    "checkCommand": "npm run check",
+    "expectedAllowedWrites": [],
+    "forbiddenWrites": ["adapters/"],
+    "requiredCommands": [],
+    "forbiddenCommands": [],
+    "expectedCheckExitCode": 1,
+    "expectedSignals": ["forbiddenWrites violation for adapters/"]
+  }
+}
