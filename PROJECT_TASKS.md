@@ -21,8 +21,8 @@ clarify their boundaries, and defer physical core/plugin splitting.
 
 | Environment | Status | Notes |
 |-------------|--------|-------|
-| Codex | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.codex\skills`; `.system` was preserved; latest backup `%USERPROFILE%\.codex\skills.backup-20260526T080509` |
-| Antigravity/Gemini | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.gemini\config\skills`; latest backup `%USERPROFILE%\.gemini\config\skills.backup-20260526T080421` |
+| Codex | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.codex\skills`; `.system` was preserved; latest backup `%USERPROFILE%\.codex\skills.backup-20260527T015823` |
+| Antigravity/Gemini | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.gemini\config\skills`; latest backup `%USERPROFILE%\.gemini\config\skills.backup-20260527T015748` |
 | Claude Code | Not installed | Adapter generation exists, but local install has not been requested |
 
 ## Workstream Ownership
@@ -253,8 +253,28 @@ clarify their boundaries, and defer physical core/plugin splitting.
 
 ### Post-v0.1.0 Candidates (Current)
 
+- [ ] Add GitHub repository description and topics so public visitors can discover the project.
+- [ ] Claude Code install verification: identify destination, dry-run, install if approved, then hash-compare against `adapters/claude-code/skills`.
+- [ ] Add three external-user quickstarts: PRD creation, project-manager bootstrap, and launch-check workflow.
 - [ ] Add subagent forward-testing harness (dynamic agent simulation runner).
 - [ ] Explore a new-skill creation CLI that updates source, catalog, and router.
+
+## External Review Triage
+
+### Accepted Findings
+
+- Public product positioning is still early: v0.1.0 is a strong personal/multi-agent operating infrastructure release, not yet a polished third-party product.
+- GitHub metadata is missing: description, homepage, and repository topics are empty.
+- Claude Code is generated and packaged, but not locally installed or runtime-verified.
+- Behavioral pressure testing is still mostly static; dynamic agent simulation remains future work.
+- Public onboarding should gain concrete use-case quickstarts that show how a visitor benefits immediately.
+
+### Outdated Findings
+
+- "No GitHub Release" is outdated. `v0.1.0` is published at `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.1.0`.
+- "Release tag, checksums, and artifacts are missing" is outdated. The tag, release assets, adapter zip files, manifest, and checksum files are published.
+- "Progress is 48%" is outdated for this milestone. `v0.1.0` is complete; post-release improvements remain.
+- "Codex/Antigravity runtime verification is pending" is outdated. Both adapters are installed and verified locally, and after v0.1.0 both installed folders hash-match the generated adapters.
 
 ## Completed Queue (v0.1.0 Release)
 
@@ -342,32 +362,32 @@ GitHub repo는 https://github.com/ekdthl13/project-brain-skilltree 이고,
 source/ 가 canonical root, adapters/ 는 생성물이다.
 
 현재 상태:
-- Codex adapter는 실제 Codex skills 경로에 설치되어 있고 runtime smoke를 통과했다.
-- Antigravity/Gemini adapter도 실제 Antigravity skills 경로에 설치되어 있고 runtime smoke를 통과했다.
-- Out-of-place backup과 installer conflict backup이 둘 다 보존되어 있다.
-- Layer 1 cutover/documentation/tooling work is complete.
-- Phase 3-A Antigravity drafts were merged through source and adapters:
-  코딩가이드 v1.6.0, 총괄매니저 v2.15.0, SKILL_INDEX v2.0.7,
-  ORCHESTRATION.md.
-- Updated Antigravity adapter was installed with backup
-  `%USERPROFILE%\.gemini\config\skills.backup-20260526T080421`.
-- Updated Codex adapter was installed with backup
-  `%USERPROFILE%\.codex\skills.backup-20260526T080509`.
-- Phase 3-B Runtime Usage Verification is complete.
-- Phase 4 Structural Refactor Candidates is complete:
-  B안(경계 명확화) 승인, 물리적 통합/core-plugin split 보류.
-- Phase 5 Pressure Scenario Automation is complete:
-  static guardrail tests are included in `npm run check`.
-- Phase 6 Public Polish and Examples is complete:
-  README onboarding, minimal example project, install transcript, comparison
-  examples, and direct source file links are in place.
+- v0.1.0은 완료/공개 릴리즈됨:
+  https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.1.0
+- release commit: 1418694, release status log commit: 4d30d9c.
+- GitHub Actions validate는 최신 main에서 성공.
+- 릴리즈 자산 7개가 업로드됨:
+  adapter zip 4개, release-artifact-checksums.txt,
+  release-checksums.txt, release-manifest.json.
+- Codex adapter는 `%USERPROFILE%\.codex\skills`에 최신 v0.1.0으로 설치되어
+  generated adapter와 hash diff 0 / missing 0.
+- Antigravity/Gemini adapter는 `%USERPROFILE%\.gemini\config\skills`에 최신
+  v0.1.0으로 설치되어 generated adapter와 hash diff 0 / missing 0.
+- 최신 로컬 백업:
+  `%USERPROFILE%\.codex\skills.backup-20260527T015823`
+  `%USERPROFILE%\.gemini\config\skills.backup-20260527T015748`
+- Claude Code adapter는 생성/릴리즈는 되었지만, 로컬 설치 검증은 아직 안 됨.
+- 외부 평가 반영:
+  repo description/topics 없음, Claude Code 검증 필요, 외부 사용자용
+  quickstart 3개 필요, dynamic pressure test는 미래 과제.
 
 다음 작업:
-1. PRD.md, PROJECT_TASKS.md, docs/INSTALL.md를 읽고 현재 위치를 복원
+1. PROJECT_TASKS.md, PRD.md, README.md, docs/INSTALL.md, docs/RELEASE.md를 읽고 현재 위치를 복원
 2. npm run check
-3. Phase 7 Release System 시작
-4. changelog, versioning rules, release checklist, package artifacts, checksums 설계
-5. push 후 GitHub Actions validate 통과 전 release tag 보류
+3. GitHub repo description/topics 추가 여부 판단 및 적용
+4. Claude Code 실제 설치 검증 계획 작성
+5. 외부 사용자용 quickstart 3개(PRD creation, project manager bootstrap, launch check) 설계
+6. 구현 전에는 먼저 Antigravity Flash 3.5 작업자에게 줄 1차 오더를 작성
 ```
 
 ## Execution Log
@@ -565,3 +585,12 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   - `release-artifact-checksums.txt`
   - `release-checksums.txt`
   - `release-manifest.json`
+
+### 2026-05-27: Post-release Local Install and Handoff
+
+- [x] Installed the latest v0.1.0 Codex adapter into `%USERPROFILE%\.codex\skills`.
+- [x] Installed the latest v0.1.0 Antigravity/Gemini adapter into `%USERPROFILE%\.gemini\config\skills`.
+- [x] Verified both installed adapter trees hash-match the generated adapters with zero missing files and zero differing files.
+- [x] UTF-8 smoke-checked newly added `CHECKLIST.md` files in both installed trees.
+- [x] Triaged external GPT/Claude feedback into accepted findings and outdated findings for the next session.
+- [x] Rewrote the next-session prompt so future work starts from v0.1.0 released state, not the older Phase 7 preflight state.
