@@ -2,16 +2,16 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **Phase 6: Public Polish and Examples**.
+Project Brain Skilltree is in **Phase 7: Release System**.
 
-Approximate overall progress: **74%**.
+Approximate overall progress: **82%**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
 green, and the Codex and Antigravity adapters have both been installed and
-runtime-smoke-verified locally. Layer 1 cutover/documentation/tooling work,
-Phase 3-A skill hardening, Phase 3-B runtime usage verification, and Phase 4
-structural refactor candidate review are complete. The approved Phase 4
-decision is to keep `암행어사` and `출시점검` separate, clarify their boundaries,
+runtime-smoke-verified locally. Layer 1-5 milestones are complete. Phase 6 completed
+public onboarding spine including minimal examples, before/after drift docs,
+mock installation transcripts, comparative guide expansion, and direct Markdown links
+to 12 canonical skill sources. The approved Phase 4 decision is to keep `암행어사` and `출시점검` separate, clarify their boundaries,
 and defer physical core/plugin splitting. Phase 5 converted the pressure
 scenario docs into executable static guardrail tests inside `npm run check`.
 
@@ -44,8 +44,8 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 | 3-B. Runtime usage verification | Done | Success metrics | Confirm Antigravity/Codex actually discover and use generated adapters |
 | 4. Structural refactor candidates | Done | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
 | 5. Pressure scenario automation | Done | P2 / v0.2 | Turn documented failure scenarios into executable checks |
-| 6. Public polish and examples | Active | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
-| 7. Release system | Pending | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
+| 6. Public polish and examples | Done | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
+| 7. Release system | Active | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
 | 8. Advanced quality system | Pending | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
 
 ## PRD Coverage Board
@@ -58,7 +58,7 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 | P1: Safe local install | Done | Installer works; Codex and Antigravity are installed; backups are recorded |
 | P1: Session continuity | Done | PRD and task docs carry current phase, ownership, rollback, and next queues |
 | P2: Automated pressure testing | Initial done | `tools/pressure-scenarios.test.js` runs static guardrail checks in `npm run check`; dynamic agent simulation remains future work |
-| P2: Public presentation | Pending | Core docs exist; examples, screenshots, and before/after are missing |
+| P2: Public presentation | Initial done | README onboarding, minimal example project, before/after drift docs, install transcript, and comparison examples exist; screenshots/GIFs are deferred |
 | P3: Release system | Pending | No release tag, changelog, checksums, or packaged artifacts yet |
 
 ## Completed Work
@@ -249,18 +249,6 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 
 ## Active Queue
 
-### Phase 6: Public Polish and Examples
-
-- [ ] Add a minimal example project bootstrap.
-- [ ] Add before/after showing local folder drift versus GitHub canonical root.
-- [ ] Add example install transcript using placeholders.
-- [ ] Add comparison examples against Superpowers-style and generic prompt
-  collections.
-- [ ] Add screenshots or GIFs only after the local flow is stable.
-- [ ] Make README onboarding clear for a visitor who has not seen this chat.
-
-## Upcoming Queues
-
 ### Phase 7: Release System
 
 - [ ] Create `CHANGELOG.md`.
@@ -270,6 +258,18 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 - [ ] Package adapter artifacts.
 - [ ] Generate checksums for release artifacts.
 - [ ] Tag and publish a GitHub Release after CI passes.
+
+## Completed Queue (Phase 6: Public Polish and Examples)
+
+- [x] Add a minimal example project bootstrap.
+- [x] Add before/after showing local folder drift versus GitHub canonical root.
+- [x] Add example install transcript using placeholders.
+- [x] Add comparison examples against Superpowers-style, Gstack-style, and generic prompt collections.
+- [x] Make README onboarding clear for a visitor who has not seen this chat.
+- [x] Add direct relative Markdown links to 12 canonical source skill files in README.md.
+- [x] Deferred screenshots or GIFs until visual staging assets are required.
+
+## Upcoming Queues
 
 ### Phase 8: Advanced Quality System
 
@@ -348,13 +348,16 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   B안(경계 명확화) 승인, 물리적 통합/core-plugin split 보류.
 - Phase 5 Pressure Scenario Automation is complete:
   static guardrail tests are included in `npm run check`.
+- Phase 6 Public Polish and Examples is complete:
+  README onboarding, minimal example project, install transcript, comparison
+  examples, and direct source file links are in place.
 
 다음 작업:
 1. PRD.md, PROJECT_TASKS.md, docs/INSTALL.md를 읽고 현재 위치를 복원
 2. npm run check
-3. Phase 6 Public Polish and Examples 시작
-4. public visitor 기준 README/예시/온보딩 흐름 점검
-5. release tag는 Phase 7 전까지 보류
+3. Phase 7 Release System 시작
+4. changelog, versioning rules, release checklist, package artifacts, checksums 설계
+5. push 후 GitHub Actions validate 통과 전 release tag 보류
 ```
 
 ## Execution Log
@@ -479,3 +482,13 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - Updated `docs/QUALITY_GATE.md` to document the automated behavioral checks.
 - PM review re-ran `npm run check`; all gates passed.
 - Moved the operating queue to Phase 6 public polish and examples.
+
+### 2026-05-27: Phase 6 Public Polish and Examples
+
+- [x] Created `examples/minimal-project/` files (README, GEMINI, AGENTS, _context, _order, DECISION_LOG, PROJECT_TASKS).
+- [x] Created `docs/EXAMPLES.md` explaining before/after of local folder drift vs canonical root.
+- [x] Updated `docs/INSTALL.md` with step-by-step install transcripts and dry runs.
+- [x] Updated `docs/COMPARISON.md` with Gstack-style and generic prompt collection comparisons.
+- [x] Updated `README.md` to organize onboarding flow and added direct file links to 12 canonical skill sources.
+- [x] Ran `npm run check`; all gates passed cleanly.
+- [x] Completed Phase 6 and moved the queue to Phase 7: Release System.

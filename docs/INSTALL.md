@@ -83,3 +83,59 @@ Recommended rollback sequence:
 Use the out-of-place backup for a full pre-install restore. Use the
 installer-created `<destination>.backup-YYYYMMDDTHHMMSS` folder when you only
 need the conflicting managed entries that were replaced during install.
+
+## Example Install Transcript
+
+Below is a typical transcript showing how to build, dry-run, install, and verify the adapter on your system.
+
+### 1. Build and Verify local tree
+
+Ensure there is no adapter drift and the quality gate is green:
+
+```bash
+$ npm run check
+
+> project-brain-skilltree@0.1.0 check
+> npm run build:adapters && npm run diff:adapters && npm run test && npm run validate && npm run audit
+
+Built 12 skills for antigravity, codex, and claude-code.
+Adapter diff passed. Wrote reports/adapter-diff.md.
+✔ installAdapter dry-run does not write destination (0.8698ms)
+...
+ℹ pass 10
+Skilltree validation passed.
+Wrote reports/skilltree-audit.md
+```
+
+### 2. Dry-Run Installation
+
+Perform a dry run to inspect what changes will be applied and where the backup will be created:
+
+```bash
+$ node tools/install-adapter.js antigravity /path/to/gemini/skills --dry-run
+
+[DRY RUN] Target adapter: antigravity
+[DRY RUN] Target destination: /path/to/gemini/skills
+[DRY RUN] Will create backup: /path/to/gemini/skills.backup-20260527T093000
+[DRY RUN] Conflicting files to backup:
+  - CORE_PRINCIPLES.md
+  - SKILL_INDEX.md
+  - 총괄매니저/SKILL.md
+[DRY RUN] Unrelated files to preserve:
+  - custom-helper-script.js
+  - my-private-skill/
+```
+
+### 3. Run Actual Installation
+
+Deploy the compiled adapter files:
+
+```bash
+$ node tools/install-adapter.js antigravity /path/to/gemini/skills
+
+Installing adapter: antigravity
+Backup created: /path/to/gemini/skills.backup-20260527T093000
+Copied 12 skills to /path/to/gemini/skills
+Preserved 2 unrelated items.
+Installation completed successfully.
+```
