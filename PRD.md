@@ -169,8 +169,8 @@ tests/scenarios/
 - Structural refactor candidate review: B안 approved (boundary clarification, deferred physical split)
 - Pressure scenario automation: static guardrails in `npm run check` plus deterministic JSON forward-tests in `npm run test:forward`
 - Creation tooling: `npm run new:skill` creates canonical source skills and updates catalog/router entries
-- Release system: `v0.1.0` successfully released; `v0.3.0` is the current release candidate
-- Current phase: v0.3.0 closeout and release preparation
+- Release system: `v0.1.0` and `v0.3.0` successfully released with tagged GitHub Releases and checksum artifacts
+- Current phase: post-v0.3.0 milestone selection and stable-contract planning
 
 ## Major Risks
 
@@ -184,9 +184,9 @@ tests/scenarios/
 
 ## Next Milestone
 
-Prepare the v0.3.0 release:
+Choose the post-v0.3.0 direction:
 
-1. Run `npm run check` and `npm run test:forward`.
-2. Run `npm run prepare:release` and package release artifacts.
-3. Commit, push, tag `v0.3.0`, and publish the GitHub Release with checksums.
-4. Record the final release status in `PROJECT_TASKS.md`.
+1. Decide whether the next tracked milestone is v0.4.0 operational hardening or v1.0.0 stable contract preparation.
+2. Re-read `PROJECT_TASKS.md`, `docs/ROADMAP.md`, and `CHANGELOG.md` before issuing new implementation orders.
+3. Keep `npm run check` and `npm run test:forward` as required gates before future release tags.
+4. Preserve the published `v0.3.0` tag and release assets as the public baseline.

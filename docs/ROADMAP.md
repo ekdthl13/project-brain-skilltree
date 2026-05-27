@@ -19,14 +19,20 @@
 - Perform local Claude Code installation verification and smoke-tests.
 - Design and document 3 external-user quickstarts (PRD creation, project-manager bootstrap, launch check).
 
-## v0.3.0 (Dynamic Testing & Creation CLI - Release Candidate)
+## v0.3.0 (Dynamic Testing & Creation CLI - Released)
 
 - Add sandboxed deterministic forward-testing harness (`tools/forward-tester.js`).
 - Add aggregate forward-test suite command (`npm run test:forward`).
 - Wire forward-tests into GitHub Actions after `npm run check`.
 - Add JSON pressure fixtures for adapter edits, validation-skipping, and private path leakage.
 - Add `npm run new:skill` to create draft source skills, update the catalog, and add a router/index mention.
-- Publish GitHub Release `v0.3.0` after final local checks and release artifacts pass.
+- Publish GitHub Release `v0.3.0` with adapter artifacts and checksums.
+
+## v0.4.0 or v1.0.0 (Next Direction - To Be Decided)
+
+- Decide whether to prioritize operational hardening or stable contract preparation.
+- Preserve the `v0.3.0` release as the public baseline.
+- Keep `npm run check` and `npm run test:forward` as mandatory release gates.
 
 ## v1.0.0 (Stable Release)
 
