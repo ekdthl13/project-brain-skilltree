@@ -2,17 +2,17 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v0.3.0 Release Candidate / Final Verification** (v0.1.0 released, v0.2.0 post-release alignment complete, and v0.3.0 dynamic testing plus creation CLI complete).
+Project Brain Skilltree is in **v0.3.0 Released** (v0.1.0 released, v0.2.0 post-release alignment complete, and v0.3.0 dynamic testing plus creation CLI released).
 
-v0.3.0 progress: **release candidate; local verification pending final release commands**.
+v0.3.0 progress: **published** at `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.3.0`.
 
 The public canonical repository exists, adapters build from `source/`, CI is
 green, and the Codex, Antigravity/Gemini, and Claude Code adapters have been
 installed and verified locally. Phase 8-A established the advanced quality
 system foundation, and Phase 8-B raised the skill scorecard average from
 70.0/100 to 97.5/100 by hardening source skills and adding focused support
-checklists. GitHub Actions Node24 preflight passed, and the `v0.1.0` tag plus
-GitHub Release are published. v0.3.0 adds deterministic forward-testing,
+checklists. GitHub Actions Node24 preflight passed, and the `v0.1.0` and
+`v0.3.0` tags plus GitHub Releases are published. v0.3.0 adds deterministic forward-testing,
 `npm run test:forward`, CI forward-test gating, JSON pressure fixtures, and
 `npm run new:skill`.
 The approved Phase 4 decision is to keep `암행어사` and `출시점검` separate,
@@ -48,7 +48,7 @@ clarify their boundaries, and defer physical core/plugin splitting.
 | 4. Structural refactor candidates | Done | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
 | 5. Pressure scenario automation | Done | P2 / v0.2 | Turn documented failure scenarios into executable checks |
 | 6. Public polish and examples | Done | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
-| 7. Release system | Done for v0.1.0 | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
+| 7. Release system | Done through v0.3.0 | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
 | 8. Advanced Quality System | Foundation done (8-B) | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
 
 ## PRD Coverage Board
@@ -62,7 +62,7 @@ clarify their boundaries, and defer physical core/plugin splitting.
 | P1: Session continuity | Done | PRD and task docs carry current phase, ownership, rollback, and next queues |
 | P2: Automated pressure testing | MVP done | Static guardrails run in `npm run check`; deterministic JSON forward-tests run through `npm run test:forward` and CI |
 | P2: Public presentation | Initial done | README onboarding, minimal example project, before/after drift docs, install transcript, and comparison examples exist; screenshots/GIFs are deferred |
-| P3: Release system | v0.3.0 candidate | Changelog, release checklist, versioning rules, local checksum helper, Node24 workflow preflight, and v0.1.0 release exist; v0.3.0 release packaging/publish is in progress |
+| P3: Release system | v0.3.0 published | Changelog, release checklist, versioning rules, local checksum helper, Node24 workflow preflight, and v0.1.0/v0.3.0 releases exist; v0.3.0 assets and checksums are published |
 
 ## Completed Work
 
@@ -258,7 +258,7 @@ clarify their boundaries, and defer physical core/plugin splitting.
 - [x] Claude Code install verification: identify destination, dry-run, install if approved, then hash-compare against `adapters/claude-code/skills`.
 - [x] Add three external-user quickstarts (PRD creation, project-manager bootstrap, and launch-check workflow) designs and documentation.
 
-### Milestone v0.3.0 (Dynamic Testing & Creation CLI - Release Candidate)
+### Milestone v0.3.0 (Dynamic Testing & Creation CLI - Released)
 
 - [x] Implement `tools/lib/sandbox.js` with directory isolation and cleanup safety checks.
 - [x] Implement `tools/lib/agent-sim.js` to replay steps (edit targets, mock commands) deterministically.
@@ -266,7 +266,7 @@ clarify their boundaries, and defer physical core/plugin splitting.
 - [x] Add pressure scenario JSON fixtures with `schemaVersion` for unvalidated-claim and path-leakage.
 - [x] Register `npm run test:forward` script and integrate with CI validation gates.
 - [x] Build `npm run new:skill` CLI that creates a source skill, updates catalog, and adds a router/index mention.
-- [ ] Complete v0.3.0 release verification, commit, tag, and GitHub Release publication.
+- [x] Complete v0.3.0 release verification, commit, tag, and GitHub Release publication.
 
 ## External Review Triage
 
@@ -277,7 +277,7 @@ clarify their boundaries, and defer physical core/plugin splitting.
 
 ### Outdated Findings
 
-- "No GitHub Release" is outdated. `v0.1.0` is published at `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.1.0`.
+- "No GitHub Release" is outdated. `v0.1.0` and `v0.3.0` are published at `https://github.com/ekdthl13/project-brain-skilltree/releases`.
 - "Release tag, checksums, and artifacts are missing" is outdated. The tag, release assets, adapter zip files, manifest, and checksum files are published.
 - "Claude Code is not locally installed or verified" is outdated. The adapter is installed under `%USERPROFILE%\.claude\skills` and hash-matches `adapters/claude-code/skills`.
 - "Progress is 48%" is outdated for this milestone. `v0.1.0` is complete; post-release improvements remain.
@@ -294,6 +294,15 @@ clarify their boundaries, and defer physical core/plugin splitting.
 - [x] Generate final release checksums during the release step.
 - [x] Create and push `v0.1.0` git tag after PM approval.
 - [x] Publish GitHub Release with artifacts and checksums after tag creation.
+
+## Completed Queue (v0.3.0 Release)
+
+- [x] Confirm GitHub Actions `validate` succeeds on commit `d9ae75e`.
+- [x] Package v0.3.0 adapter artifact archives.
+- [x] Generate final v0.3.0 artifact checksums.
+- [x] Create and push `v0.3.0` git tag.
+- [x] Publish GitHub Release with four zip artifacts and checksum file:
+  `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.3.0`.
 
 ## Completed Queue (Phase 8-A: Advanced Quality Foundation)
 
@@ -357,6 +366,7 @@ clarify their boundaries, and defer physical core/plugin splitting.
 - Simulation test fixtures include a valid `schemaVersion` and distinct validation targets.
 - `npm run test:forward` runs all JSON forward-test fixtures and GitHub Actions `validate` invokes it after `npm run check`.
 - New-skill creation CLI helper is built, tested, and documented.
+- Active tag and release are published on GitHub with adapter zip artifacts and checksums.
 
 ### Project v1.0.0
 
@@ -409,22 +419,47 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 Current next-session override:
 
 ```text
-Continue from v0.3.0 release candidate closeout.
+Continue after v0.3.0 release publication.
 Restore context from PROJECT_TASKS.md, PRD.md, CHANGELOG.md, docs/ROADMAP.md,
 docs/FORWARD_TESTING.md, docs/NEW_SKILL_CLI.md, package.json,
 .github/workflows/validate.yml, tools/run-forward-tests.js,
 tools/forward-tester.js, and tools/new-skill.js.
 
+Release state:
+- v0.3.0 GitHub Release is published:
+  https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.3.0
+- Latest release commit: `d9ae75e`.
+- GitHub Actions `validate` succeeded for `d9ae75e`.
+- Published assets:
+  `project-brain-skilltree-v0.3.0-adapters.zip`,
+  `project-brain-skilltree-v0.3.0-antigravity-skills.zip`,
+  `project-brain-skilltree-v0.3.0-codex-skills.zip`,
+  `project-brain-skilltree-v0.3.0-claude-code-skills.zip`,
+  `release-artifact-checksums.txt`.
+
 Next work:
-1. Re-run `npm run check` and `npm run test:forward`.
-2. Run `npm run prepare:release` and package v0.3.0 adapter artifacts.
-3. Commit release candidate changes, push to GitHub, tag `v0.3.0`, and publish
-   the GitHub Release if authentication is available.
-4. If the release is published, record the final URL and asset list in this file.
+1. Re-read PRD.md, docs/ROADMAP.md, CHANGELOG.md, and this file.
+2. Decide whether the next milestone is v0.4.0 operational hardening or v1.0.0
+   stable contract preparation.
+3. Before new feature work, run `npm run check` and preserve the release tag.
 ```
 
 
 ## Execution Log
+
+### 2026-05-27: v0.3.0 Release Published
+
+- [x] Confirmed GitHub Actions `validate` succeeded for `d9ae75e72f613fee9951d4a52d4c3d8710ad45b1`.
+- [x] Confirmed the remote `v0.3.0` tag exists.
+- [x] Published GitHub Release:
+  `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.3.0`.
+- [x] Uploaded release assets:
+  `project-brain-skilltree-v0.3.0-adapters.zip`,
+  `project-brain-skilltree-v0.3.0-antigravity-skills.zip`,
+  `project-brain-skilltree-v0.3.0-codex-skills.zip`,
+  `project-brain-skilltree-v0.3.0-claude-code-skills.zip`,
+  and `release-artifact-checksums.txt`.
+- [x] Verified release assets expose SHA-256 digests through GitHub Release metadata.
 
 ### 2026-05-26: Phase 2-A Local Install Loop Proof
 
