@@ -2,15 +2,14 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **Phase 7: Release System** (Phase 7-A Release system foundation complete, tag/publish gate pending).
+Project Brain Skilltree is in **Phase 8: Advanced Quality System** (Phase 8-A Advanced quality foundation complete, dynamic forward-testing harness pending, release tag/publish gate pending).
 
-Approximate overall progress: **85%**.
+Approximate overall progress: **90%**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
 green, and the Codex and Antigravity adapters have both been installed and
-runtime-smoke-verified locally. Phase 7-A established the release system foundation
-by writing release guidelines, semantic versioning rules, strict approval gates,
-and a standalone checksum generator. Remote pushes, tags, and publication are pending approval. The approved Phase 4 decision is to keep `암행어사` and `출시점검` separate, clarify their boundaries,
+runtime-smoke-verified locally. Phase 8-A established the advanced quality system foundation
+including a skill scorecard generator, schema stability guards, and forward-testing harness specifications. The approved Phase 4 decision is to keep `암행어사` and `출시점검` separate, clarify their boundaries,
 and defer physical core/plugin splitting. Phase 5 converted the pressure
 scenario docs into executable static guardrail tests inside `npm run check`.
 
@@ -45,7 +44,7 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 | 5. Pressure scenario automation | Done | P2 / v0.2 | Turn documented failure scenarios into executable checks |
 | 6. Public polish and examples | Done | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
 | 7. Release system | Active (7-A Done) | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
-| 8. Advanced quality system | Pending | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
+| 8. Advanced quality system | Active (8-A Done) | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
 
 ## PRD Coverage Board
 
@@ -248,14 +247,20 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 
 ## Active Queue
 
-### Phase 7: Release System
+### Phase 7 & 8: Release and Dynamic Testing (Pending Gates)
 
-- [x] Create `CHANGELOG.md` (v0.1.0-rc.1 - TBD).
-- [x] Define versioning rules for source skills, adapter contract, and tool scripts (documented in docs/RELEASE.md).
-- [x] Prepare release checklist (documented in docs/RELEASE.md).
-- [x] Generate checksums helper tools (`tools/prepare-release.js` and reports output).
 - [ ] Tag and publish a GitHub Release after CI passes (Pending PM Approval).
 - [ ] Package adapter artifacts archive (Deferred to release step).
+- [ ] Add subagent forward-testing harness (Dynamic agent simulation runner).
+- [ ] Explore a new-skill creation CLI that updates source, catalog, and router.
+
+## Completed Queue (Phase 8-A: Advanced Quality Foundation)
+
+- [x] Add skill quality scorecard command (`tools/score-skills.js`).
+- [x] Add manifest stability checks for future schema changes (`tools/schema-stability.test.js`).
+- [x] Document catalog schema and update procedures (`docs/SCHEMA_STABILITY.md`).
+- [x] Create forward-testing guidelines (`docs/FORWARD_TESTING.md`) and static validation fixture (`tests/scenarios/forward-test-fixture.json`).
+- [x] Add unit tests for quality guards and scenario integrity (`tools/forward-testing.test.js` and `tools/score-skills.test.js`).
 
 ## Completed Queue (Phase 6: Public Polish and Examples)
 
@@ -269,14 +274,11 @@ scenario docs into executable static guardrail tests inside `npm run check`.
 
 ## Upcoming Queues
 
-### Phase 8: Advanced Quality System
+### Phase 8-B: Advanced Quality System (Dynamic Testing Expansion)
 
-- [ ] Add adapter drift report command.
-- [ ] Add skill quality scorecard.
-- [ ] Add subagent forward-testing harness.
-- [ ] Add manifest stability checks for future schema changes.
-- [ ] Explore a new-skill creation CLI that updates source, catalog, and router
-  files together.
+- [ ] Implement runner orchestration to run dynamic agent sandbox simulations.
+- [ ] Implement simulation step engine for mock prompt injection and file manipulation.
+- [ ] Add assertion framework validating agent failures or warnings on forbidden actions.
 
 ## Operating Rules For Future Sessions
 
@@ -501,3 +503,16 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - [x] Updated `docs/ROADMAP.md` to distinguish between foundation and release publication.
 - [x] Ran `npm run check` and verified all tests pass.
 - [x] Completed Phase 7-A. Final tag release and push are pending PM approval.
+
+### 2026-05-27: Phase 8-A Advanced Quality System Foundation
+
+- [x] Implemented `tools/score-skills.js` read-only scorecard checking 12 skills quality parameters.
+- [x] Created `reports/skills-scorecard.md` in ignored reports folder with evaluation matrix.
+- [x] Registered `score:skills` script inside `package.json`.
+- [x] Created `tools/score-skills.test.js` unit testing for scorecard calculations.
+- [x] Wrote schema stability guidelines in `docs/SCHEMA_STABILITY.md`.
+- [x] Wrote `tools/schema-stability.test.js` to strictly enforce catalog root and entries layout constraints.
+- [x] Wrote `docs/FORWARD_TESTING.md` outlining dynamic subagent simulation runner specifications.
+- [x] Added placeholder-only simulation fixture `tests/scenarios/forward-test-fixture.json`.
+- [x] Added static scenario validation suite `tools/forward-testing.test.js`.
+- [x] Ran `npm run check` and verified all 17 tests passed successfully.

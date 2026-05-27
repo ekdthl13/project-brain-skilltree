@@ -13,7 +13,8 @@
     "install:codex": "node tools/install-adapter.js codex",
     "install:claude": "node tools/install-adapter.js claude-code",
     "check": "npm run build:adapters && npm run diff:adapters && npm run test && npm run validate && npm run audit",
-    "prepare:release": "node tools/prepare-release.js"
+    "prepare:release": "node tools/prepare-release.js",
+    "score:skills": "node tools/score-skills.js"
   },
   "engines": {
     "node": ">=20"
