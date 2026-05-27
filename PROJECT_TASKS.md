@@ -2,17 +2,18 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v0.1.0 Release Candidate** (Phase 6, 7-A, 8-A, and 8-B complete; scorecard average 97.5/100; final local release artifacts and checksums generated; release tag/publish gate pending).
+Project Brain Skilltree is in **v0.1.0 Released / Post-release Planning** (Phase 6, 7-A, 8-A, and 8-B complete; scorecard average 97.5/100; release tag, GitHub Release, artifacts, and checksums published).
 
-Approximate overall progress: **98%**.
+v0.1.0 progress: **100%**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
 green, and the Codex and Antigravity adapters have both been installed and
 runtime-smoke-verified locally. Phase 8-A established the advanced quality
 system foundation, and Phase 8-B raised the skill scorecard average from
 70.0/100 to 97.5/100 by hardening source skills and adding focused support
-checklists. A GitHub Actions Node24 preflight is being applied before the first
-release tag. Dynamic forward-testing and release publication remain pending.
+checklists. GitHub Actions Node24 preflight passed, and the `v0.1.0` tag plus
+GitHub Release are published. Dynamic forward-testing remains a post-release
+candidate.
 The approved Phase 4 decision is to keep `암행어사` and `출시점검` separate,
 clarify their boundaries, and defer physical core/plugin splitting.
 
@@ -46,7 +47,7 @@ clarify their boundaries, and defer physical core/plugin splitting.
 | 4. Structural refactor candidates | Done | P2/P3 | Re-evaluate `암행어사`/`출시점검` and core/plugin split after adapter stability |
 | 5. Pressure scenario automation | Done | P2 / v0.2 | Turn documented failure scenarios into executable checks |
 | 6. Public polish and examples | Done | P2 / v0.3 | Add examples, screenshots, clearer comparisons, and onboarding docs |
-| 7. Release system | Active (release candidate) | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
+| 7. Release system | Done for v0.1.0 | P3 / v0.3-v1.0 | Tag releases, write changelog, package artifacts, and publish checksums |
 | 8. Advanced Quality System | Foundation done (8-B) | v0.3-v1.0 | Add scorecards, forward-testing harness, and skill creation CLI support |
 
 ## PRD Coverage Board
@@ -60,7 +61,7 @@ clarify their boundaries, and defer physical core/plugin splitting.
 | P1: Session continuity | Done | PRD and task docs carry current phase, ownership, rollback, and next queues |
 | P2: Automated pressure testing | Initial done | `tools/pressure-scenarios.test.js` runs static guardrail checks in `npm run check`; dynamic agent simulation remains future work |
 | P2: Public presentation | Initial done | README onboarding, minimal example project, before/after drift docs, install transcript, and comparison examples exist; screenshots/GIFs are deferred |
-| P3: Release system | Release candidate active | Changelog, release checklist, versioning rules, local checksum helper, Node24 workflow preflight, packaged adapter artifacts, and final local checksums exist; release tag and GitHub Release remain pending |
+| P3: Release system | Done for v0.1.0 | Changelog, release checklist, versioning rules, local checksum helper, Node24 workflow preflight, packaged adapter artifacts, final local checksums, `v0.1.0` tag, and GitHub Release exist |
 
 ## Completed Work
 
@@ -250,19 +251,19 @@ clarify their boundaries, and defer physical core/plugin splitting.
 
 ## Active Queue
 
-### v0.1.0 Release Candidate (Current)
+### Post-v0.1.0 Candidates (Current)
+
+- [ ] Add subagent forward-testing harness (dynamic agent simulation runner).
+- [ ] Explore a new-skill creation CLI that updates source, catalog, and router.
+
+## Completed Queue (v0.1.0 Release)
 
 - [x] Apply GitHub Actions Node24 preflight env to `validate.yml`.
 - [x] Confirm GitHub Actions `validate` succeeds on the Node24 preflight commit.
 - [x] Package adapter artifact archives during the release step.
 - [x] Generate final release checksums during the release step.
-- [ ] Create and push `v0.1.0` git tag after PM approval.
-- [ ] Publish GitHub Release with artifacts and checksums after tag creation.
-
-### Post-v0.1.0 Candidates
-
-- [ ] Add subagent forward-testing harness (dynamic agent simulation runner).
-- [ ] Explore a new-skill creation CLI that updates source, catalog, and router.
+- [x] Create and push `v0.1.0` git tag after PM approval.
+- [x] Publish GitHub Release with artifacts and checksums after tag creation.
 
 ## Completed Queue (Phase 8-A: Advanced Quality Foundation)
 
@@ -549,3 +550,18 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   - `reports/project-brain-skilltree-v0.1.0-codex-skills.zip`
   - `reports/project-brain-skilltree-v0.1.0-claude-code-skills.zip`
 - [x] Generated `reports/release-artifact-checksums.txt` for the zip artifacts.
+
+### 2026-05-27: v0.1.0 Release Published
+
+- [x] Pushed release preparation commit `1418694`.
+- [x] Confirmed GitHub Actions `validate` passed on release commit `1418694`.
+- [x] Created and pushed annotated git tag `v0.1.0`.
+- [x] Published GitHub Release: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.1.0`.
+- [x] Uploaded 7 release assets:
+  - `project-brain-skilltree-v0.1.0-adapters.zip`
+  - `project-brain-skilltree-v0.1.0-antigravity-skills.zip`
+  - `project-brain-skilltree-v0.1.0-codex-skills.zip`
+  - `project-brain-skilltree-v0.1.0-claude-code-skills.zip`
+  - `release-artifact-checksums.txt`
+  - `release-checksums.txt`
+  - `release-manifest.json`
