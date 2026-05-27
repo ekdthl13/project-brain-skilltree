@@ -50,8 +50,9 @@ test("cleanSandbox deletes files inside sandbox", () => {
 
 test("cleanSandbox refuses workspace repo root", () => {
   const repoRoot = path.resolve(__dirname, "..");
+  const userHome = path.join(os.tmpdir(), "mock-home-outside-repo");
   assert.throws(() => {
-    cleanSandbox(repoRoot);
+    cleanSandbox(repoRoot, { repoRoot, userHome });
   }, /Safety violation: Refusing repository workspace root/);
 });
 
@@ -110,4 +111,3 @@ test("cleanSandbox refuses nested sandbox path under non-sandbox parent inside t
     cleanSandbox(nestedPath);
   }, /Safety violation: Target path is not a valid sandbox path/);
 });
-
