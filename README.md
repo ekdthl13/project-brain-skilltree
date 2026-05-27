@@ -1,5 +1,8 @@
 # Project Brain Skilltree
 
+[![Release](https://img.shields.io/github/v/release/ekdthl13/project-brain-skilltree?label=Release&color=blue)](https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.3.0)
+[![CI Status](https://github.com/ekdthl13/project-brain-skilltree/actions/workflows/validate.yml/badge.svg)](https://github.com/ekdthl13/project-brain-skilltree/actions/workflows/validate.yml)
+
 Project Brain Skilltree is a portable skill operating system for agentic work. It keeps one canonical source tree and builds tool-specific adapters for Antigravity/Gemini, Codex, and Claude Code.
 
 ---
@@ -39,6 +42,16 @@ npm run build:adapters
 Verify that all links, versions, structure, and security parameters pass the validation checks:
 ```bash
 npm run check
+```
+
+Run the deterministic forward-testing scenarios:
+```bash
+npm run test:forward
+```
+
+Create a draft skill in `source/` and register it in the catalog:
+```bash
+npm run new:skill -- --id research-helper --source "Research Helper" --description "Use when gathering research inputs for a project."
 ```
 
 ### 3. Dry-Run Installation
@@ -131,9 +144,16 @@ See [docs/QUALITY_GATE.md](docs/QUALITY_GATE.md) for more details.
 ## Where to Go Next
 - [Product Requirements](PRD.md) - Read the product goals and success metrics.
 - [Project Tasks](PROJECT_TASKS.md) - Current development roadmap and status.
+- [Roadmap](docs/ROADMAP.md) - Milestone release schedules and future plans.
 - [Install Guide](docs/INSTALL.md) - Detailed installer options, environment variables, and rollback steps.
+- **Quickstart Guides**:
+  - [PRD Creation Workflow](docs/quickstarts/PRD_CREATION.md) - Turn ideas into a PRD.
+  - [Project Manager Spine Bootstrap](docs/quickstarts/PROJECT_MANAGER_BOOTSTRAP.md) - Set up workspace continuity.
+  - [Pre-Release Launch Check & Audit](docs/quickstarts/LAUNCH_CHECK.md) - Quality and security verification.
 - [Examples & Concepts](docs/EXAMPLES.md) - Before/after comparison of folder drift.
 - [Minimal Example Project](examples/minimal-project/README.md) - Bootstrap templates for integrating skills.
 - [Adapter Contract](docs/ADAPTER_CONTRACT.md) - Output guidelines for each target agent.
+- [New Skill CLI](docs/NEW_SKILL_CLI.md) - Create draft skills through the canonical source and catalog.
 - [Comparison](docs/COMPARISON.md) - Differences compared to Superpowers and other systems.
+- [Quickstart Design Notes](docs/QUICKSTART_DESIGN.md) - Initial architecture plans for the quickstarts.
 - [Contributing](CONTRIBUTING.md) - How to add new skills.

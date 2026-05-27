@@ -9,29 +9,43 @@ const fixturePath = path.join(scenarioDir, "forward-test-fixture.json");
 const docPath = path.join(repoRoot, "docs", "FORWARD_TESTING.md");
 
 test("Forward-testing fixture structure integrity", () => {
-  assert.ok(fs.existsSync(fixturePath), "forward-test-fixture.json not found");
+  const jsonFiles = fs.readdirSync(scenarioDir)
+    .filter(file => file.endsWith(".json"))
+    .map(file => path.join(scenarioDir, file));
 
-  let fixture;
-  try {
-    fixture = JSON.parse(fs.readFileSync(fixturePath, "utf8"));
-  } catch (err) {
-    assert.fail(`forward-test-fixture.json is not valid JSON: ${err.message}`);
+  assert.ok(jsonFiles.length >= 3, "At least 3 JSON fixtures should exist");
+
+  for (const file of jsonFiles) {
+    const filename = path.basename(file);
+    let fixture;
+    try {
+      fixture = JSON.parse(fs.readFileSync(file, "utf8"));
+    } catch (err) {
+      assert.fail(`${filename} is not valid JSON: ${err.message}`);
+    }
+
+    // Enforce fixture schema properties
+    assert.equal(fixture.schemaVersion, "1.0.0", `${filename}: Fixture schemaVersion must be 1.0.0`);
+    assert.ok(fixture.scenarioId, `${filename}: Fixture missing scenarioId`);
+    assert.ok(fixture.description, `${filename}: Fixture missing description`);
+    assert.ok(fixture.profile, `${filename}: Fixture missing profile`);
+    assert.ok(Array.isArray(fixture.steps), `${filename}: Fixture steps must be an array`);
+    assert.ok(fixture.assertions, `${filename}: Fixture missing assertions`);
+
+    assert.equal(fixture.profile.agentName, "Codex", `${filename}: Fixture profile agentName must be Codex`);
+    assert.ok(Array.isArray(fixture.profile.capabilities), `${filename}: Fixture profile capabilities must be array`);
+    assert.ok(fixture.steps.length > 0, `${filename}: Fixture steps array must not be empty`);
+
+    assert.ok(fixture.assertions.expectedBehavior, `${filename}: Fixture assertions missing expectedBehavior`);
+    assert.ok(fixture.assertions.failureSignal, `${filename}: Fixture assertions missing failureSignal`);
+    assert.equal(fixture.assertions.checkCommand, "npm run check", `${filename}: Fixture assertions checkCommand must be npm run check`);
+    assert.ok(Array.isArray(fixture.assertions.expectedAllowedWrites), `${filename}: Fixture assertions expectedAllowedWrites must be array`);
+    assert.ok(Array.isArray(fixture.assertions.forbiddenWrites), `${filename}: Fixture assertions forbiddenWrites must be array`);
+    assert.ok(Array.isArray(fixture.assertions.requiredCommands), `${filename}: Fixture assertions requiredCommands must be array`);
+    assert.ok(Array.isArray(fixture.assertions.forbiddenCommands), `${filename}: Fixture assertions forbiddenCommands must be array`);
+    assert.equal(typeof fixture.assertions.expectedCheckExitCode, "number", `${filename}: Fixture assertions expectedCheckExitCode must be number`);
+    assert.ok(Array.isArray(fixture.assertions.expectedSignals), `${filename}: Fixture assertions expectedSignals must be array`);
   }
-
-  // Enforce fixture schema properties
-  assert.ok(fixture.scenarioId, "Fixture missing scenarioId");
-  assert.ok(fixture.description, "Fixture missing description");
-  assert.ok(fixture.profile, "Fixture missing profile");
-  assert.ok(Array.isArray(fixture.steps), "Fixture steps must be an array");
-  assert.ok(fixture.assertions, "Fixture missing assertions");
-
-  assert.equal(fixture.profile.agentName, "Codex", "Fixture profile agentName must be Codex");
-  assert.ok(Array.isArray(fixture.profile.capabilities), "Fixture profile capabilities must be array");
-  assert.ok(fixture.steps.length > 0, "Fixture steps array must not be empty");
-
-  assert.ok(fixture.assertions.expectedBehavior, "Fixture assertions missing expectedBehavior");
-  assert.ok(fixture.assertions.failureSignal, "Fixture assertions missing failureSignal");
-  assert.equal(fixture.assertions.checkCommand, "npm run check", "Fixture assertions checkCommand must be npm run check");
 });
 
 test("Forward-testing documentation existence and sections", () => {

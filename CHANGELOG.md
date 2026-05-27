@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-05-27
+
+### Added
+- Public onboarding quickstarts for PRD creation, project-manager bootstrap, and pre-release launch checks.
+- GitHub repository metadata recommendations in `docs/GITHUB_METADATA.md`.
+- Claude Code local installation verification notes and status tracking.
+- Dynamic forward-testing MVP with sandbox isolation, deterministic agent step replay, and scenario assertion evaluation.
+- `npm run test:forward` suite runner for all JSON forward-test fixtures.
+- GitHub Actions `validate` gate that runs `npm run check` and then `npm run test:forward`.
+- JSON pressure fixtures for direct adapter edits, missing validation claims, and private path leakage.
+- New-skill creation CLI (`npm run new:skill`) that writes canonical source skills, updates `catalog/skills.yaml`, and adds a router/index mention.
+- New-skill CLI documentation in `docs/NEW_SKILL_CLI.md`.
+
+### Changed
+- Roadmap, PRD, README, and task docs now reflect the completed v0.2.0 alignment work and v0.3.0 dynamic testing/creation CLI milestone.
+- Forward-testing docs now describe the implemented suite entry point and recursion-safe CI wiring.
+- `package.json` version is now `0.3.0`.
+
+### Fixed
+- Hardened the agent simulator so simulated file edits cannot escape the active temp sandbox through absolute paths or `..` traversal.
+- Added timeout and nested-check guards around forward-test scenario validation commands.
+
 ## [0.1.0] - 2026-05-27
 
 ### Added

@@ -163,15 +163,14 @@ tests/scenarios/
 ## Current Status
 
 - Public repo: `https://github.com/ekdthl13/project-brain-skilltree`
-- GitHub Actions `validate`: required on `main`
+- GitHub Actions `validate`: required on `main` (green)
 - Local `npm run check`: passing
-- Runtime usage verification: passing for Antigravity/Gemini and Codex local
-  installs
-- Structural refactor candidate review: B안 approved, clarify boundaries and
-  defer physical merge/split
-- Pressure scenario automation: initial static guardrails included in
-  `npm run check`
-- Current phase: Phase 6 public polish and examples
+- Runtime usage verification: passing for Antigravity/Gemini, Codex, and Claude Code local installs
+- Structural refactor candidate review: B안 approved (boundary clarification, deferred physical split)
+- Pressure scenario automation: static guardrails in `npm run check` plus deterministic JSON forward-tests in `npm run test:forward`
+- Creation tooling: `npm run new:skill` creates canonical source skills and updates catalog/router entries
+- Release system: `v0.1.0` successfully released; `v0.3.0` is the current release candidate
+- Current phase: v0.3.0 closeout and release preparation
 
 ## Major Risks
 
@@ -181,14 +180,13 @@ tests/scenarios/
 | Future agents edit generated adapters | README, contributing guide, installer docs, and validation emphasize `source/` only |
 | Korean source skills are less discoverable in Codex/Claude | Catalog creates English hyphen adapter names and trigger descriptions |
 | Public repo looks like a prompt dump | PRD, tasks, comparison, adapter contract, and quality gate frame it as an operating system |
-| Validation misses behavioral failures | Pressure scenarios exist now; executable scenario tests are next |
+| Validation misses behavioral failures | Static pressure checks and deterministic JSON forward-tests run locally and in CI |
 
 ## Next Milestone
 
-Close Layer 1 infrastructure alignment:
+Prepare the v0.3.0 release:
 
-1. Keep the Antigravity cutover backup and rollback paths documented.
-2. Align PRD, task, roadmap, and quality-gate docs with the current state.
-3. Add adapter diff reporting so generated adapter drift is visible.
-4. Run `npm run check`.
-5. Move into runtime usage verification and skill-content hardening.
+1. Run `npm run check` and `npm run test:forward`.
+2. Run `npm run prepare:release` and package release artifacts.
+3. Commit, push, tag `v0.3.0`, and publish the GitHub Release with checksums.
+4. Record the final release status in `PROJECT_TASKS.md`.

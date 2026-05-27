@@ -2,18 +2,19 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v0.1.0 Released / Post-release Planning** (Phase 6, 7-A, 8-A, and 8-B complete; scorecard average 97.5/100; release tag, GitHub Release, artifacts, and checksums published).
+Project Brain Skilltree is in **v0.3.0 Release Candidate / Final Verification** (v0.1.0 released, v0.2.0 post-release alignment complete, and v0.3.0 dynamic testing plus creation CLI complete).
 
-v0.1.0 progress: **100%**.
+v0.3.0 progress: **release candidate; local verification pending final release commands**.
 
 The public canonical repository exists, adapters build from `source/`, CI is
-green, and the Codex and Antigravity adapters have both been installed and
-runtime-smoke-verified locally. Phase 8-A established the advanced quality
+green, and the Codex, Antigravity/Gemini, and Claude Code adapters have been
+installed and verified locally. Phase 8-A established the advanced quality
 system foundation, and Phase 8-B raised the skill scorecard average from
 70.0/100 to 97.5/100 by hardening source skills and adding focused support
 checklists. GitHub Actions Node24 preflight passed, and the `v0.1.0` tag plus
-GitHub Release are published. Dynamic forward-testing remains a post-release
-candidate.
+GitHub Release are published. v0.3.0 adds deterministic forward-testing,
+`npm run test:forward`, CI forward-test gating, JSON pressure fixtures, and
+`npm run new:skill`.
 The approved Phase 4 decision is to keep `암행어사` and `출시점검` separate,
 clarify their boundaries, and defer physical core/plugin splitting.
 
@@ -23,7 +24,7 @@ clarify their boundaries, and defer physical core/plugin splitting.
 |-------------|--------|-------|
 | Codex | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.codex\skills`; `.system` was preserved; latest backup `%USERPROFILE%\.codex\skills.backup-20260527T015823` |
 | Antigravity/Gemini | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.gemini\config\skills`; latest backup `%USERPROFILE%\.gemini\config\skills.backup-20260527T015748` |
-| Claude Code | Not installed | Adapter generation exists, but local install has not been requested |
+| Claude Code | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.claude\skills`; 37 files hash-match generated adapter; zero missing/changed/extra; verified on 2026-05-27 |
 
 ## Workstream Ownership
 
@@ -59,9 +60,9 @@ clarify their boundaries, and defer physical core/plugin splitting.
 | P0: Quality gate | Done | `npm run check` builds, tests, validates, audits |
 | P1: Safe local install | Done | Installer works; Codex and Antigravity are installed; backups are recorded |
 | P1: Session continuity | Done | PRD and task docs carry current phase, ownership, rollback, and next queues |
-| P2: Automated pressure testing | Initial done | `tools/pressure-scenarios.test.js` runs static guardrail checks in `npm run check`; dynamic agent simulation remains future work |
+| P2: Automated pressure testing | MVP done | Static guardrails run in `npm run check`; deterministic JSON forward-tests run through `npm run test:forward` and CI |
 | P2: Public presentation | Initial done | README onboarding, minimal example project, before/after drift docs, install transcript, and comparison examples exist; screenshots/GIFs are deferred |
-| P3: Release system | Done for v0.1.0 | Changelog, release checklist, versioning rules, local checksum helper, Node24 workflow preflight, packaged adapter artifacts, final local checksums, `v0.1.0` tag, and GitHub Release exist |
+| P3: Release system | v0.3.0 candidate | Changelog, release checklist, versioning rules, local checksum helper, Node24 workflow preflight, and v0.1.0 release exist; v0.3.0 release packaging/publish is in progress |
 
 ## Completed Work
 
@@ -251,30 +252,39 @@ clarify their boundaries, and defer physical core/plugin splitting.
 
 ## Active Queue
 
-### Post-v0.1.0 Candidates (Current)
+### Milestone v0.2.0 (Post-Release & Verification - Completed)
 
-- [ ] Add GitHub repository description and topics so public visitors can discover the project.
-- [ ] Claude Code install verification: identify destination, dry-run, install if approved, then hash-compare against `adapters/claude-code/skills`.
-- [ ] Add three external-user quickstarts: PRD creation, project-manager bootstrap, and launch-check workflow.
-- [ ] Add subagent forward-testing harness (dynamic agent simulation runner).
-- [ ] Explore a new-skill creation CLI that updates source, catalog, and router.
+- [x] Add GitHub repository description and topics so public visitors can discover the project.
+- [x] Claude Code install verification: identify destination, dry-run, install if approved, then hash-compare against `adapters/claude-code/skills`.
+- [x] Add three external-user quickstarts (PRD creation, project-manager bootstrap, and launch-check workflow) designs and documentation.
+
+### Milestone v0.3.0 (Dynamic Testing & Creation CLI - Release Candidate)
+
+- [x] Implement `tools/lib/sandbox.js` with directory isolation and cleanup safety checks.
+- [x] Implement `tools/lib/agent-sim.js` to replay steps (edit targets, mock commands) deterministically.
+- [x] Implement `tools/forward-tester.js` runner and assertion gate evaluation.
+- [x] Add pressure scenario JSON fixtures with `schemaVersion` for unvalidated-claim and path-leakage.
+- [x] Register `npm run test:forward` script and integrate with CI validation gates.
+- [x] Build `npm run new:skill` CLI that creates a source skill, updates catalog, and adds a router/index mention.
+- [ ] Complete v0.3.0 release verification, commit, tag, and GitHub Release publication.
 
 ## External Review Triage
 
 ### Accepted Findings
 
 - Public product positioning is still early: v0.1.0 is a strong personal/multi-agent operating infrastructure release, not yet a polished third-party product.
-- GitHub metadata is missing: description, homepage, and repository topics are empty.
-- Claude Code is generated and packaged, but not locally installed or runtime-verified.
 - Behavioral pressure testing is still mostly static; dynamic agent simulation remains future work.
-- Public onboarding should gain concrete use-case quickstarts that show how a visitor benefits immediately.
 
 ### Outdated Findings
 
 - "No GitHub Release" is outdated. `v0.1.0` is published at `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.1.0`.
 - "Release tag, checksums, and artifacts are missing" is outdated. The tag, release assets, adapter zip files, manifest, and checksum files are published.
+- "Claude Code is not locally installed or verified" is outdated. The adapter is installed under `%USERPROFILE%\.claude\skills` and hash-matches `adapters/claude-code/skills`.
 - "Progress is 48%" is outdated for this milestone. `v0.1.0` is complete; post-release improvements remain.
 - "Codex/Antigravity runtime verification is pending" is outdated. Both adapters are installed and verified locally, and after v0.1.0 both installed folders hash-match the generated adapters.
+- "GitHub metadata is missing" is outdated. Recommended metadata, homepage, description, and topics are defined in `docs/GITHUB_METADATA.md`.
+- "Public onboarding is missing quickstarts" is outdated. Detailed quickstarts for PRD creation, project-manager bootstrapping, and launch checks are written in `docs/quickstarts/`.
+
 
 ## Completed Queue (v0.1.0 Release)
 
@@ -325,34 +335,39 @@ clarify their boundaries, and defer physical core/plugin splitting.
 
 ## Definition Of Done
 
-### Phase 2
+### Project v0.1.0 (Released)
 
-- Test-path installs work for Codex and Antigravity adapters.
-- Codex real install is complete and verified.
-- Antigravity real install is complete only after explicit approval.
-- Existing unrelated skills are preserved.
-- Backup and rollback paths are recorded.
-- A future session can install from the GitHub repo without reading this chat.
-
-### Project v0.2
-
-- Safe local install works for Codex and Antigravity.
+- Safe local install works for Codex and Antigravity adapters.
 - Adapter diff reports exist.
-- Pressure scenario fixtures are executable or have an implementation plan.
-
-### Project v0.3
-
+- Pressure scenario fixtures are executable (statically).
 - Public examples explain real project bootstraps.
 - Release packaging and checksums exist.
-- Forward-testing harness has an initial implementation.
+- Active tag and release are published on GitHub.
 
-### Project v1.0
+### Project v0.2.0 (Post-Release & Verification - Completed)
+
+- GitHub description and topics are established.
+- Claude Code local installation is verified and matched.
+- The 3 quickstart scenarios (PRD, project manager, launch check) are documented.
+
+### Project v0.3.0 (Dynamic Testing & Creation CLI)
+
+- Dynamic simulation harness (`tools/forward-tester.js`) is implemented using a deterministic fixture replay model (no live API calls).
+- The sandbox cleanup routine complies strictly with the Sandbox Cleanup Safety Contract (operating only under temp directory boundaries).
+- Simulation test fixtures include a valid `schemaVersion` and distinct validation targets.
+- `npm run test:forward` runs all JSON forward-test fixtures and GitHub Actions `validate` invokes it after `npm run check`.
+- New-skill creation CLI helper is built, tested, and documented.
+
+### Project v1.0.0
 
 - Skill manifest schema is stable.
 - Adapter contract is stable.
 - Full CI quality gate is required for release tags.
 
 ## Next Session Prompt
+
+> Historical handoff notes are retained below for audit context. Use the current
+> override block for any resumed work.
 
 Use this prompt to continue cleanly:
 
@@ -373,22 +388,41 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   generated adapter와 hash diff 0 / missing 0.
 - Antigravity/Gemini adapter는 `%USERPROFILE%\.gemini\config\skills`에 최신
   v0.1.0으로 설치되어 generated adapter와 hash diff 0 / missing 0.
+- Claude Code adapter는 `%USERPROFILE%\.claude\skills`에 최신 v0.1.0으로 설치되어
+  generated adapter와 37 files / missing 0 / changed 0 / extra 0.
 - 최신 로컬 백업:
   `%USERPROFILE%\.codex\skills.backup-20260527T015823`
   `%USERPROFILE%\.gemini\config\skills.backup-20260527T015748`
-- Claude Code adapter는 생성/릴리즈는 되었지만, 로컬 설치 검증은 아직 안 됨.
-- 외부 평가 반영:
-  repo description/topics 없음, Claude Code 검증 필요, 외부 사용자용
-  quickstart 3개 필요, dynamic pressure test는 미래 과제.
+- v0.2.0 포스트 릴리즈 정렬 및 로컬 설치 검증 완료:
+  - GitHub repo metadata(설명/태그) 수립 완료 (`docs/GITHUB_METADATA.md`).
+  - 외부 사용자용 상세 퀵스타트 3개 작성 완료 (`docs/quickstarts/`).
+  - Claude Code 로컬 설치 및 해시 비교 완료.
 
-다음 작업:
-1. PROJECT_TASKS.md, PRD.md, README.md, docs/INSTALL.md, docs/RELEASE.md를 읽고 현재 위치를 복원
+다음 작업 (Milestone v0.3.0):
+1. PROJECT_TASKS.md, PRD.md, README.md, docs/INSTALL.md, docs/RELEASE.md, docs/FORWARD_TESTING.md를 읽고 현재 위치를 복원
 2. npm run check
-3. GitHub repo description/topics 추가 여부 판단 및 적용
-4. Claude Code 실제 설치 검증 계획 작성
-5. 외부 사용자용 quickstart 3개(PRD creation, project manager bootstrap, launch check) 설계
-6. 구현 전에는 먼저 Antigravity Flash 3.5 작업자에게 줄 1차 오더를 작성
+3. Milestone v0.3.0의 두 번째 구현 과제인 `tools/lib/agent-sim.js` 구현 (JSON steps를 읽고 mock action을 재현하는 deterministic replayer)
+4. agent-sim 동작을 검증하기 위한 단위 테스트 (`tools/agent-sim.test.js`) 작성
+5. 구현 전에는 먼저 Antigravity Flash 3.5 작업자에게 줄 1차 오더를 작성
 ```
+
+Current next-session override:
+
+```text
+Continue from v0.3.0 release candidate closeout.
+Restore context from PROJECT_TASKS.md, PRD.md, CHANGELOG.md, docs/ROADMAP.md,
+docs/FORWARD_TESTING.md, docs/NEW_SKILL_CLI.md, package.json,
+.github/workflows/validate.yml, tools/run-forward-tests.js,
+tools/forward-tester.js, and tools/new-skill.js.
+
+Next work:
+1. Re-run `npm run check` and `npm run test:forward`.
+2. Run `npm run prepare:release` and package v0.3.0 adapter artifacts.
+3. Commit release candidate changes, push to GitHub, tag `v0.3.0`, and publish
+   the GitHub Release if authentication is available.
+4. If the release is published, record the final URL and asset list in this file.
+```
+
 
 ## Execution Log
 
@@ -594,3 +628,34 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - [x] UTF-8 smoke-checked newly added `CHECKLIST.md` files in both installed trees.
 - [x] Triaged external GPT/Claude feedback into accepted findings and outdated findings for the next session.
 - [x] Rewrote the next-session prompt so future work starts from v0.1.0 released state, not the older Phase 7 preflight state.
+
+### 2026-05-27: Forward-Testing Runner MVP (Task A/B/C)
+
+- [x] Implemented `tools/lib/agent-sim.js` deterministic replayer.
+- [x] Implemented `tools/forward-tester.js` runner.
+- [x] Wrote unit tests `tools/agent-sim.test.js` and `tools/forward-tester.test.js`.
+- [x] Added `unvalidated-claim.json` and `path-leakage.json` scenarios.
+- [x] Updated `tools/forward-testing.test.js` to assert structural integrity on all JSON scenario fixtures.
+- [x] Hardened `tools/lib/agent-sim.js` so `attempt_edit` rejects absolute paths and `..` traversal before writing to the sandbox.
+- [x] Added regression tests for sandbox escape attempts and unsupported action names.
+- [x] Re-ran `node tools/forward-tester.js --scenario tests/scenarios/unvalidated-claim.json` and verified PASS.
+- [x] Re-ran `node tools/forward-tester.js --scenario tests/scenarios/path-leakage.json` and verified PASS.
+- [x] Re-ran `npm run check` and verified all 36 tests passed successfully.
+
+### 2026-05-27: Forward-Testing CI Gate (v0.3.0-B)
+
+- [x] Added `tools/run-forward-tests.js` as the aggregate suite runner for all `tests/scenarios/*.json` fixtures.
+- [x] Added `tools/run-forward-tests.test.js` for scenario discovery, aggregation, thrown-failure handling, CLI arg parsing, and script/CI registration checks.
+- [x] Added `npm run test:forward` without nesting it inside `npm run check` to avoid recursive dynamic test execution.
+- [x] Updated `.github/workflows/validate.yml` so CI runs `npm run check` and then `npm run test:forward`.
+- [x] Added `PROJECT_BRAIN_FORWARD_TEST_INNER_CHECK=1` while executing scenario `checkCommand` values so nested `npm run check` calls skip recursive forward-tester scenario execution.
+- [x] Added `CHECK_COMMAND_TIMEOUT_MS` to bound scenario validation command execution.
+- [x] Re-ran `npm run test:forward` and verified all 3 JSON scenarios passed.
+
+### 2026-05-27: New-Skill CLI MVP (v0.3.0-C)
+
+- [x] Added `tools/new-skill.js` to create draft source skills and update `catalog/skills.yaml` plus `source/SKILL_INDEX.md`.
+- [x] Added `tools/new-skill.test.js` for argument parsing, default planning, sandboxed skill creation, dry-run behavior, duplicate rejection, unsafe source path rejection, description validation, and script registration.
+- [x] Registered `npm run new:skill`.
+- [x] Added `docs/NEW_SKILL_CLI.md` and README usage.
+- [x] Kept generated adapters out of direct write scope; follow-up command remains `npm run build:adapters && npm run check`.
