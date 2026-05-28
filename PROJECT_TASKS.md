@@ -2,7 +2,7 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v0.5.0 First Success Demo implemented locally, pending release decision**.
+Project Brain Skilltree is in **v0.5.0 First Success Demo Released** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
@@ -170,23 +170,25 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - Historical execution detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
 Next work:
-1. Decide whether to prepare and publish a `v0.5.0` release for the demo milestone.
-2. If release is approved, run release preparation with `npm run check`, `npm run test:forward`, and `npm run demo` as gates.
-3. Keep physical Core / Domain / Personal restructuring and v1.0 contract freeze out of scope until release decision is complete.
-4. Do not edit generated adapter files.
-5. Preserve the `v0.3.0` and `v0.4.0` tags and GitHub Release assets as public baselines.
+1. Prepare for v1.0.0 stable-contract freeze phase.
+2. Keep physical Core / Domain / Personal restructuring out of scope until pre-v1 evaluations are locked.
+3. Preserve the `v0.3.0`, `v0.4.0`, and `v0.5.0` tags and GitHub Release assets as public baselines.
 ```
 
 ## Recent Execution Summary
 
-### 2026-05-28: Milestone v0.5.0 First Success Demo PM Review
+### 2026-05-28: Milestone v0.5.0 First Success Demo Released
 
 - [x] Designed and implemented `tools/run-demo.js` as the local first-success demo.
 - [x] Spawns a secure OS sandbox and validates build adapter, conflict backup, and user preservation scripts.
 - [x] Created `tools/run-demo.test.js` to assert silent run execution, invalid paths, and package.json scripts configuration.
 - [x] Registered `"demo": "node tools/run-demo.js"` inside `package.json` under scripts.
 - [x] Updated `README.md` and `docs/INSTALL.md` onboarding documentations to highlight `npm run demo` as the recommended first proof path.
-- [x] PM re-ran full quality check suite (`npm run check`); all 52 tests, validation, and audit checks passed successfully.
+- [x] Re-ran full quality check suite (`npm run check`); all 52 tests, validation, and audit checks passed successfully.
+- [x] Designed `tools/pack-release.js` packaging script using Node and PowerShell commands.
+- [x] Bumped package version to `0.5.0` and appended changes in `CHANGELOG.md`.
+- [x] Committed all changes, tagged release `v0.5.0`, and pushed commits/tags to remote GitHub repository.
+- [x] Published official GitHub Release `v0.5.0` with 4 packaged adapter zips and standard checksum lists.
 - [x] PM re-ran `npm run demo` standalone; demo completed successfully after avoiding parallel build races.
 - [x] `npm run test:forward` was not re-run because no forward-testing fixtures, runner behavior, or behavioral scenarios changed.
 
