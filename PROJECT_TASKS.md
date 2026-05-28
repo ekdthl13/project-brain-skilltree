@@ -139,7 +139,7 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Add README overview SVG showing `source/` -> quality gate -> `adapters/`.
 - [x] Align README, WHY, SCENARIOS, and INSTALL around demo proof, drift guard, rollback path, and CI matrix.
 - [x] Run final local gates and commit without pushing.
-- [ ] Execute Worker Order #026: complete install/restore preflight, README five-minute route, release notes trust template, and public clarity checklist.
+- [x] Execute Worker Order #026: complete install/restore preflight, README five-minute route, release notes trust template, and public clarity checklist.
 
 ## External Review Triage
 

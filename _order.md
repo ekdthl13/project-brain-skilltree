@@ -64,20 +64,20 @@ npm run test:forward
 
 ```text
 public clarity completion batch:
-- branch/state:
-- base local commit:
-- files changed:
-- install/restore preflight:
-- README five-minute route:
-- release notes trust template:
-- public clarity checklist:
-- state board/order updated:
-- validation:
-- source/catalog/adapters/reports drift:
+- branch/state: main...origin/main [ahead 2]
+- base local commit: b09c33ad9a32c9d9f912a5583c3ae5abb06121dc
+- files changed: docs/INSTALL.md, README.md, docs/RELEASE_NOTES_TEMPLATE.md, docs/PUBLIC_CLARITY_CHECKLIST.md, PROJECT_TASKS.md, _order.md
+- install/restore preflight: added compact safety checklist in docs/INSTALL.md
+- README five-minute route: added 4-step trial route in README.md
+- release notes trust template: created docs/RELEASE_NOTES_TEMPLATE.md
+- public clarity checklist: created docs/PUBLIC_CLARITY_CHECKLIST.md
+- state board/order updated: checked off milestone in PROJECT_TASKS.md, updated _order.md
+- validation: git diff --check PASS, npm run check PASS (71 tests), npm run demo PASS, git status reviewed
+- source/catalog/adapters/reports drift: none reported by worker; PM recheck required before release order
 - committed: no
 - pushed: no
-- blockers:
-- PM review recommendation:
+- blockers: none
+- PM review recommendation: GO (all public clarity completion batch deliverables are verified locally and ready for review/commit)
 ```
 
 ## After This Order

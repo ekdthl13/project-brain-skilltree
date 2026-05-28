@@ -12,6 +12,18 @@ adapter that matches your agent environment.
 | Dry-run preview | `node tools/install-adapter.js <target> <destination> --dry-run` | Inspect new, backed-up, and preserved files |
 | Rollback path | `node tools/restore-adapter.js <target> <destination> --dry-run` | Preview recovery from the latest backup |
 
+## Pre-Install Safety Checklist
+
+Before pointing the installer at your active agent directory, check off these safety steps:
+
+- [ ] **Run Demo first:** Verify compilation and sandbox deployment using `npm run demo`.
+- [ ] **Run Quality check:** Rebuild and validate the adapters with `npm run check`.
+- [ ] **Choose Adapter:** Identify the correct target runtime (`codex`, `antigravity`, or `claude-code`).
+- [ ] **Dry-Run first:** Preview actions via `node tools/install-adapter.js <target> <destination> --dry-run`.
+- [ ] **Check Backup folder:** Verify the installer will create a sibling backup folder (e.g., `<destination>.backup-YYYYMMDDTHHMMSS`) instead of nesting backups inside the active target.
+- [ ] **Keep Backups:** Retain the backup folder until your editor/agent is restarted and verified.
+- [ ] **Restore Rehearsal:** Run a restore preview first using `node tools/restore-adapter.js <target> <destination> --dry-run` to verify the rollback path.
+
 ## Demo Proof (First Proof Path)
 
 Before setting up environment variables or performing any real installation into your local AI agent directories, we strongly recommend running the safe local demo:

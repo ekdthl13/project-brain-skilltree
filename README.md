@@ -68,6 +68,27 @@ This zero-install demo command builds the adapters, provisions an isolated sandb
 
 For guided paths after the demo, see [docs/SCENARIOS.md](docs/SCENARIOS.md): dry-run install preview, restore rehearsal, and first-user verification.
 
+### 5-Minute Safe Trial Route
+
+Once you know your target and destination folder, use this short route to preview the full adapter lifecycle before trusting it with real work:
+
+1. **Verify with Demo Proof** (Run a deterministic sandbox validation):
+   ```bash
+   npm run demo
+   ```
+2. **Dry-Run Preview** (Preview modifications and backups without writing files):
+   ```bash
+   node tools/install-adapter.js <target> <destination> --dry-run
+   ```
+3. **Active Installation** (Deploy adapter files after the dry-run looks correct; existing conflicts are backed up automatically):
+   ```bash
+   node tools/install-adapter.js <target> <destination>
+   ```
+4. **Restore Rehearsal** (Verify rollback safety without actual reversal; note: this is a rehearsal, not a required step after every install):
+   ```bash
+   node tools/restore-adapter.js <target> <destination> --dry-run
+   ```
+
 ### 2. Locate Your Agent Skills Folder & Choose Target
 To use these skills in your actual workflow, locate the skills directory used by your AI agent, then deploy the matching adapter.
 
