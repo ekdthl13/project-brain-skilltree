@@ -19,6 +19,7 @@ Current decision:
 - External surface verification on 2026-05-28 found no blocking v0.4.1 issue: remote `main`, tag dereference, `package.json`, README raw formatting, release assets, and latest `validate` check are correct.
 - Completed **v0.5.0 First Success Demo** before the v1.0.0 contract freeze, so the first external-user success path was proven before contracts were frozen.
 - v1.0.0 version bump, release commits, CI, tag push, and GitHub Release publication with 5 assets are 100% complete and verified.
+- Post-v1 work uses a local batch strategy: finish improvements locally, PM-review them as one unit, then decide commit/push/release deliberately.
 
 ## Source Of Truth Rules
 
@@ -105,6 +106,15 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Correct stale release references and catalog-backed adapter slug names.
 - [x] Re-run `npm run check`, `npm run test:forward`, and `npm run demo`.
 
+### Post-v1 Local Batch (A/B/D/C - PM Review Passed)
+
+- [x] `#013` Real user onboarding polish.
+- [x] `#014` Rollback CLI / restore UX.
+- [x] `#015` Public docs polish / Korean briefing docs.
+- [x] `#016` Cross-platform release packaging.
+- [x] `#017` Fix PM review blockers before commit.
+- [x] PM integrated review after blocker fixes.
+
 ## External Review Triage
 
 ### Accepted Findings
@@ -156,8 +166,9 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 ## Current Worker Order
 
 - Active order file: `_order.md`
-- Current order: Completed `#011` v1.0.1 Documentation Consistency Review and Finalization
-- Recommended next order after #011: commit the verified documentation consistency patch, then decide whether to prepare a formal `v1.0.1` release.
+- Active playbook file: `_playbook.md`
+- Current order: Completed `#017` Fix Post-v1 Batch Review Blockers
+- Release/push strategy: hold publication until the full local batch is complete and PM-reviewed.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy
@@ -200,6 +211,14 @@ Next work:
 ```
 
 ## Recent Execution Summary
+
+### 2026-05-28: Worker Orders #013-#017 Post-v1 Local Batch PM Review Passed
+
+- [x] Accepted onboarding polish, restore CLI, Korean briefing docs, and cross-platform packaging hardening after blocker fixes.
+- [x] Verified restore now preserves backup folders and validates explicit backup paths against destination-scoped sibling backup names.
+- [x] Verified non-Windows release packaging fallback now uses an argv-based command plan instead of assembled shell strings.
+- [x] Re-ran `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`; all passed.
+- [x] Confirmed no tracked drift in `source/`, `catalog/`, `adapters/`, or `reports/`.
 
 ### 2026-05-28: Worker Order #011 v1.0.1 Documentation Consistency Review Completed
 

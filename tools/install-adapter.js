@@ -168,5 +168,6 @@ module.exports = {
   buildInstallPlan,
   installAdapter,
   installAdapterReplaceAll,
-  resolveTargetSource
+  resolveTargetSource,
+  assertSafeDestination
 };

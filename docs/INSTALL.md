@@ -84,11 +84,28 @@ npm run install:codex
 
 ## Rollback Guidance
 
-If a real install needs to be rolled back, keep the current destination and all backups until runtime verification succeeds.
+If a real install needs to be rolled back, you can restore files automatically using the provided restore utility, or perform a manual restore. Keep the current destination and all backups until runtime verification succeeds.
 
-Recommended manual rollback sequences:
+### 1. Automatic Restore (Recommended)
 
-### 1. Complete Restore (Revert Everything)
+Use `tools/restore-adapter.js` to roll back the installation. This script deletes the newly introduced adapter files, restores the conflicting files from the backup, and leaves all unrelated custom files untouched.
+
+```bash
+# Rollback using the latest backup automatically
+node tools/restore-adapter.js antigravity /path/to/gemini/skills
+
+# Preview rollback actions without changing files (dry-run)
+node tools/restore-adapter.js antigravity /path/to/gemini/skills --dry-run
+
+# Rollback using a specific backup folder
+node tools/restore-adapter.js antigravity /path/to/gemini/skills --backup /path/to/gemini/skills.backup-20260528T120000
+```
+
+### 2. Manual Restore (Alternative)
+
+If you prefer to perform the rollback manually:
+
+#### A. Complete Restore (Revert Everything)
 Use this option when you want to discard the new installation entirely and return the directory to its exact pre-installation state.
 
 #### In Windows Command Prompt (cmd):
@@ -111,7 +128,7 @@ Copy-Item -Path "C:\path\to\destination.backup-YYYYMMDDTHHMMSS" -Destination "C:
 
 ---
 
-### 2. Partial Restore (Restore Conflicts Only)
+### B. Partial Restore (Restore Conflicts Only)
 Use this option when you want to restore only the conflicting files that were replaced (e.g. system files or index), while keeping other newly added files or unrelated custom files intact.
 
 #### In Windows Command Prompt (cmd):

@@ -44,25 +44,41 @@ cd project-brain-skilltree
 npm run demo
 ```
 
-This safe, zero-install command rebuilds the adapters, spawns an isolated OS sandbox, tests backup and preservation logic, and guides you on next-step commands.
+This zero-install demo command builds the adapters, provisions an isolated sandbox in your OS temp folder, verifies preservation/backup logic, and lists subsequent actions.
 
-### 2. Manual Build & Deployment
+### 2. Locate Your Agent Skills Folder & Choose Target
+To use these skills in your actual workflow, locate the skills directory used by your AI agent, then deploy the matching adapter.
 
+For a detailed setup guide and help finding these folders, see [docs/INSTALL.md](docs/INSTALL.md) (or read the [Korean Briefing / 한국어 문서](docs/briefing_ko.md) for a project overview).
+
+### 3. Build, Dry-Run, and Deploy
+Always run a `--dry-run` to preview what files will be replaced (conflicts are backed up automatically, and unrelated files are preserved).
+
+#### Antigravity / Gemini
 ```bash
-# Build all adapters from source
-npm run build:adapters
-
-# Run complete quality checks (builds, tests, validates, audits)
-npm run check
-
-# Dry-run to preview what will change
+# Dry-run preview
 node tools/install-adapter.js antigravity /path/to/gemini/skills --dry-run
-
-# Actual install (backs up conflicts automatically)
+# Actual install
 node tools/install-adapter.js antigravity /path/to/gemini/skills
 ```
 
-Replace `antigravity` with `codex` or `claude-code` for other agent targets. See [docs/INSTALL.md](docs/INSTALL.md) for environment variables, rollback steps, and full transcript examples.
+#### Codex
+```bash
+# Dry-run preview
+node tools/install-adapter.js codex /path/to/codex/skills --dry-run
+# Actual install
+node tools/install-adapter.js codex /path/to/codex/skills
+```
+
+#### Claude Code
+```bash
+# Dry-run preview
+node tools/install-adapter.js claude-code /path/to/claude/skills --dry-run
+# Actual install
+node tools/install-adapter.js claude-code /path/to/claude/skills
+```
+
+*To rollback a deployment, use `node tools/restore-adapter.js <target> <destination>`. See [docs/INSTALL.md](docs/INSTALL.md) for copy-pasteable examples.*
 
 ### Additional Commands
 
@@ -141,6 +157,7 @@ See [docs/QUALITY_GATE.md](docs/QUALITY_GATE.md) for more details.
 ---
 
 ## Where to Go Next
+- [Korean Briefing / 한국어 안내](docs/briefing_ko.md) - Plain Korean guide explaining roles, terminology, and setup.
 - [Product Requirements](PRD.md) - Read the product goals and success metrics.
 - [Project Tasks](PROJECT_TASKS.md) - Current development roadmap and status.
 - [Roadmap](docs/ROADMAP.md) - Milestone release schedules and future plans.
