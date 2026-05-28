@@ -1,141 +1,116 @@
 # Worker Order
 
-## #017: Fix Post-v1 Batch Review Blockers
+## #018-#022: Post-v1 Productization Round 2
 
-Status: Completed
+Status: Ready
 
 ## Role
 
-Safety fix worker for the post-v1 local batch
+Implementation worker for the second post-v1 local productization round.
 
 ## Goal
 
-Fix the PM review blockers found after the `#013-#016` post-v1 local batch.
+Execute the next five post-v1 improvements as one local batch:
 
-This order is a narrow correction pass. Do not add new product features. Do not push, tag, bump versions, or create a GitHub Release.
+1. `#018` real user scenario examples
+2. `#019` GitHub Actions matrix hardening
+3. `#020` install/restore command UX polish, pass 2
+4. `#021` skill quality score report improvements
+5. `#022` public "Why This Exists" page
+
+Do not publish, push, tag, bump versions, or create a GitHub Release. This is a local implementation batch that will receive PM review before any publication decision.
 
 ## Context
 
-The post-v1 local batch completed locally, but PM review found blockers before commit:
+The previous local batch `#013-#017` was PM-reviewed and committed locally:
 
-1. `tools/restore-adapter.js` consumes the backup by moving files out of it with `fs.renameSync`, then deletes the empty backup folder.
-2. `tools/restore-adapter.js` accepts an explicit `--backup` path after only `path.resolve`, without proving it belongs to the selected destination.
-3. `tools/pack-release.js` uses non-Windows shell command strings for `zip`; current tests do not prove the command builder/fallback behavior independently on Windows.
-4. `PROJECT_TASKS.md` marked PM integrated review complete too early and still has a stale current-order pointer.
+- commit: `06a7aa5` (`feat: polish post-v1 onboarding and restore tooling`)
+- branch: `main`
+- remote state: local `main` is ahead of `origin/main`; publication is intentionally held
+- package version remains `1.0.0`
 
-The already-passing verification commands are useful evidence, but do not override these review blockers.
+Use `_playbook_round2.md` as the task-by-task execution plan and write short results back into that playbook.
 
-## Required Reads
+## Required Preflight
 
-1. `tools/restore-adapter.js`
-2. `tools/restore-adapter.test.js`
-3. `tools/pack-release.js`
-4. `tools/pack-release.test.js`
-5. `docs/INSTALL.md`
-6. `PROJECT_TASKS.md`
-7. `_playbook.md`
+Run before editing:
 
-## Tasks
+```powershell
+git status --short --branch
+npm run check
+```
 
-### 1. Preserve backups during restore
+Expected:
 
-- Replace backup-consuming restore behavior with copy-based restore behavior.
-- Do not remove the selected backup folder after restore.
-- After a successful restore, the backup should still exist and still contain the backed-up entries.
-- Update tests so active restore asserts backup preservation.
+- branch is `main`
+- no unrelated dirty changes before implementation starts
+- `npm run check` passes before changes
 
-### 2. Validate explicit backup paths
+If the worktree is not clean for reasons other than this order/playbook, stop and report the exact files.
 
-- Add validation that `--backup` points to a directory matching the selected destination's sibling backup pattern:
-  `<destination>.backup-*`.
-- Reject backups outside the destination's parent directory.
-- Reject backups whose folder name does not start with the destination basename plus `.backup-`.
-- Add tests for:
-  - accepting a valid explicit backup path
-  - rejecting an unrelated backup path
-  - rejecting a non-matching sibling directory
+## Global Rules
 
-### 3. Harden non-Windows packaging fallback
-
-- Avoid assembling shell command strings for the Unix `zip` fallback if possible.
-- Prefer `execFileSync` or `spawnSync` with explicit argv and `cwd`.
-- If a small helper is needed, expose a command-plan builder and test it.
-- Add tests that can run on Windows while still proving the non-Windows zip fallback command shape.
-- Keep the existing Windows PowerShell behavior unless a minimal safe improvement is needed.
-
-### 4. Correct status records
-
-- Update `PROJECT_TASKS.md` so the post-v1 batch is not marked PM-reviewed until this order passes.
-- Current worker order should point to `#017`.
-- Keep `PROJECT_TASKS.md` compact.
-- Do not add a long log.
-
-## Forbidden Scope
-
-- Do not push.
-- Do not tag.
-- Do not create a GitHub Release.
-- Do not bump `package.json`.
-- Do not edit generated files under `adapters/` by hand.
-- Do not edit `catalog/skills.yaml`.
-- Do not install adapters into real local user skill directories.
-- Do not rewrite the installer or packaging system from scratch.
-- Do not add dependencies unless absolutely necessary and approved.
+- `source/` is the canonical root.
+- `adapters/` are generated output; do not edit generated adapter files by hand.
+- Do not change stable adapter slugs.
+- Do not change `catalog/skills.yaml` unless a validation failure proves the catalog is wrong.
+- Do not install into real user skill directories.
+- Do not push, tag, bump versions, or publish releases.
+- Keep each task small and reviewable.
+- Prefer existing scripts and test patterns over new abstractions.
+- If a task starts requiring a schema change, stop and ask for PM review.
 
 ## Required Verification
 
-Run all of these after changes:
+After the full batch:
 
 ```powershell
 git diff --check
 npm run check
 npm run test:forward
 npm run demo
-node tools/pack-release.js
 git status --short
 git diff --name-only -- source catalog adapters reports
 ```
 
-Expected results:
+Also run targeted tests or commands added by the batch, and record them in `_playbook_round2.md`.
 
-- `npm run check` passes.
-- `npm run test:forward` passes.
-- `npm run demo` passes.
-- `node tools/pack-release.js` passes.
-- No tracked drift in `source/`, `catalog/`, `adapters/`, or `reports/`.
-- `package.json` remains `1.0.0`.
-- No push/tag/release happened.
+Run `node tools/pack-release.js` only if release packaging code, release workflow behavior, or release artifact docs are changed.
 
-## Completion Criteria
+## Acceptance Criteria
 
-- Restore keeps backup folders intact by default.
-- Explicit backup paths are destination-scoped and rejected when unrelated.
-- Packaging fallback is safer and test-covered beyond the current OS branch.
-- `PROJECT_TASKS.md` accurately reflects that PM review is pending until #017 is verified.
-- All required verification commands pass.
+- A real external user can find concrete scenario examples after the demo.
+- CI validation covers the intended OS matrix without release or credential side effects.
+- Install and restore commands have clearer help, dry-run, and error UX without weakening safety.
+- Skill quality scoring produces a more useful report without making score thresholds a new release gate.
+- Public docs explain why this project exists without inventing product promises.
+- All required verification commands pass before completion is claimed.
 
 ## Report Back
 
 Use this shape:
 
 ```text
-Post-v1 blocker fix:
+Post-v1 round 2 result:
 - branch:
 - changed files:
 - package version:
+- local commits created:
 
-Fixes:
-- backup preservation:
-- explicit backup validation:
-- non-Windows packaging fallback:
-- PROJECT_TASKS status:
+Task results:
+- #018 real user scenarios:
+- #019 GitHub Actions matrix:
+- #020 install/restore UX:
+- #021 skill score report:
+- #022 why page:
 
 Verification:
+- preflight npm run check:
 - git diff --check:
 - npm run check:
 - npm run test:forward:
 - npm run demo:
-- node tools/pack-release.js:
+- targeted commands:
 - final git status:
 - source/catalog/adapters/reports drift:
 

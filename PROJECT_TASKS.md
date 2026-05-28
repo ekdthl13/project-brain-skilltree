@@ -115,6 +115,14 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] `#017` Fix PM review blockers before commit.
 - [x] PM integrated review after blocker fixes.
 
+### Post-v1 Productization Round 2 (Ready)
+
+- [ ] `#018` Real user scenario examples.
+- [ ] `#019` GitHub Actions matrix hardening.
+- [ ] `#020` Install/restore command UX polish, pass 2.
+- [ ] `#021` Skill quality score report improvements.
+- [ ] `#022` Public "Why This Exists" page.
+
 ## External Review Triage
 
 ### Accepted Findings
@@ -166,8 +174,8 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 ## Current Worker Order
 
 - Active order file: `_order.md`
-- Active playbook file: `_playbook.md`
-- Current order: Completed `#017` Fix Post-v1 Batch Review Blockers
+- Active playbook file: `_playbook_round2.md`
+- Current order: Ready `#018-#022` Post-v1 Productization Round 2
 - Release/push strategy: hold publication until the full local batch is complete and PM-reviewed.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
