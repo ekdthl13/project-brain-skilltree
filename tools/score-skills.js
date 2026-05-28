@@ -130,6 +130,63 @@ function main() {
 
   const averageScore = (results.reduce((acc, curr) => acc + curr.score, 0) / results.length).toFixed(1);
 
+  const excellentCount = results.filter(r => r.score === 100).length;
+  const goodCount = results.filter(r => r.score >= 80 && r.score < 100).length;
+  const needsImprovementCount = results.filter(r => r.score < 80).length;
+
+  const candidateLines = [];
+  const candidates = results.filter(r => r.score < 100);
+  if (candidates.length === 0) {
+    candidateLines.push("None! All skills have reached a perfect quality score of 100/100.");
+  } else {
+    candidates.forEach(r => {
+      const skill = catalog.skills.find(s => s.source === r.name);
+      candidateLines.push(`### ${r.name} (${r.score}/100)`);
+      candidateLines.push(`- **Lines**: ${r.lines} lines`);
+      candidateLines.push(`- **Version**: ${r.version}`);
+      candidateLines.push(`- **Actionable Improvements**:`);
+      const b = r.breakdown;
+      const advice = [];
+
+      if (r.error) {
+        advice.push(`  - **Error**: ${r.error}`);
+      } else {
+        if (b.frontmatter < 20) {
+          const missing = [];
+          const content = readText(path.join(sourceRoot, r.name, "SKILL.md"));
+          const { fields } = parseFrontmatter(content);
+          if (!fields.name) missing.push("name inside frontmatter (5pts)");
+          if (!fields.version) missing.push("version inside frontmatter (5pts)");
+          if (!fields.description) missing.push("description inside frontmatter (5pts)");
+          if (!skill.description || !skill.description.startsWith("Use when")) {
+            missing.push("catalog description must start with 'Use when' (5pts)");
+          }
+          advice.push(`  - **Frontmatter/Catalog**: Missing ${missing.join(", ")}.`);
+        }
+        if (b.lineCount === 0) {
+          advice.push(`  - **Line Count**: File exceeds hard limit of 500 lines (${r.lines} lines, 0/20pts). Action: Split references or checklists into separate support files.`);
+        } else if (b.lineCount === 10) {
+          advice.push(`  - **Line Count**: File exceeds split limit of 400 lines (${r.lines} lines, 10/20pts). Action: Split references or checklists into separate support files to bring it under 400 lines.`);
+        }
+        if (b.trigger === 0) {
+          advice.push(`  - **Trigger Clarity**: Missing trigger or primary router intent keywords in file body (0/20pts). Action: Add a section explaining when the agent should trigger this skill (e.g. '사용자 의도' or '트리거').`);
+        }
+        if (b.output === 0) {
+          advice.push(`  - **Minimum Output**: Missing clear complete criteria or output checklists in file body (0/20pts). Action: Add a 'Definition of Done' or complete criteria section (e.g. '최소 출력' or '완료 기준').`);
+        }
+        if (b.support === 0) {
+          advice.push(`  - **Support Files**: Missing linked secondary support files or checklist references (0/10pts). Action: Add a REFERENCES.md, CHECKLIST.md or local markdown link.`);
+        }
+        if (b.version === 0) {
+          advice.push(`  - **Version Alignment**: Frontmatter version (${r.version}) does not match catalog version (${skill.version}) (0/10pts). Action: Align frontmatter version with catalog version.`);
+        }
+      }
+
+      advice.forEach(a => candidateLines.push(a));
+      candidateLines.push("");
+    });
+  }
+
   fs.writeFileSync(
     scorecardReportPath,
     [
@@ -138,6 +195,16 @@ function main() {
       `Average Quality Score: **${averageScore}/100**`,
       `- Scanned at: ${new Date().toISOString()}`,
       `- Total skills: ${results.length}`,
+      "",
+      "## Summary Bands",
+      "",
+      `- **Excellent (100 pts)**: ${excellentCount} skills`,
+      `- **Good (80-99 pts)**: ${goodCount} skills`,
+      `- **Needs Improvement (<80 pts)**: ${needsImprovementCount} skills`,
+      "",
+      "## Actionable Improvement Candidates",
+      "",
+      candidateLines.join("\n"),
       "",
       "## Evaluation Matrix",
       "",

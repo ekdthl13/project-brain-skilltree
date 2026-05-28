@@ -7,7 +7,8 @@ const test = require("node:test");
 const {
   findLatestBackup,
   buildRestorePlan,
-  restoreAdapter
+  restoreAdapter,
+  parseArgs
 } = require("./restore-adapter.js");
 
 // Setup isolated mock repository layout
@@ -186,7 +187,7 @@ test("buildRestorePlan explicit backup safety validation", () => {
       backup: unrelatedDir,
       repoRoot
     }),
-    /Safety violation: Backup directory must be a sibling/
+    /Safety violation: Backup directory must be a sibling of the destination directory.*This prevents restoring from arbitrary or unsafe paths/
   );
 
   // 3. Sibling directory without correct backup suffix prefix: should fail
@@ -200,6 +201,17 @@ test("buildRestorePlan explicit backup safety validation", () => {
       backup: badSibling,
       repoRoot
     }),
-    /Safety violation: Backup directory name must start with/
+    /Safety violation: Backup directory name must start with.*This ensures only backups created by the installer/
   );
+});
+
+test("restoreAdapter parseArgs parses help option correctly without target/destination", () => {
+  const parsed1 = parseArgs(["--help"]);
+  assert.equal(parsed1.help, true);
+
+  const parsed2 = parseArgs(["-h"]);
+  assert.equal(parsed2.help, true);
+
+  const parsed3 = parseArgs(["codex", "some-dir", "--help"]);
+  assert.equal(parsed3.help, true);
 });

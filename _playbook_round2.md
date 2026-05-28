@@ -86,7 +86,7 @@ Add concrete scenario examples that show what a real user does after `npm run de
 
 ### Worker Result
 
-Pending.
+Completed. Created [docs/SCENARIOS.md](file:///c:/tmp/project-brain-skilltree/docs/SCENARIOS.md) with copy-pasteable scenario paths for running the sandbox demo, dry-running an install, and conducting a restore rehearsal. Linked in README.md.
 
 ---
 
@@ -119,7 +119,7 @@ Make CI better reflect the cross-platform claims introduced by the release packa
 
 ### Worker Result
 
-Pending.
+Completed. Configured `.github/workflows/validate.yml` to run on a matrix of `ubuntu-latest`, `windows-latest`, and `macos-latest` using Node LTS 20. Added `fail-fast: false` and workflow-level `permissions: { contents: read }` to secure the execution.
 
 ---
 
@@ -164,7 +164,7 @@ Make the install and restore commands easier to understand without weakening pat
 
 ### Worker Result
 
-Pending.
+Completed. Implemented `--help` / `-h` support in both `install-adapter.js` and `restore-adapter.js` (successfully exiting 0 without requiring target/dest). Added top-level managed-entry dry-run tracking (`willWrite`, `willBackup`, `willPreserve` lists) and polished the console prints. Hardened destination and backup sibling/prefix safety check error messages with descriptive user advice. Added unit tests for these CLI features.
 
 ---
 
@@ -197,7 +197,7 @@ Make score-based quality output more useful for PM review and future skill harde
 
 ### Worker Result
 
-Pending.
+Completed. Modified `tools/score-skills.js` to calculate and print Summary Bands, counts, and a list of Actionable Improvement Candidates detailing exactly which rules failed and how to address them. Appended unit test coverage for files exceeding 500 lines and for missing triggers/outputs.
 
 ---
 
@@ -233,7 +233,7 @@ Explain the problem Project Brain Skilltree solves for external readers without 
 
 ### Worker Result
 
-Pending.
+Completed. Created [docs/WHY.md](file:///c:/tmp/project-brain-skilltree/docs/WHY.md) in English, detailing the core motivation, the pipeline compilation solution, and target user profiles. Linked in README.md.
 
 ---
 
@@ -243,27 +243,27 @@ When all tasks are complete, fill this in before reporting:
 
 ```text
 Post-v1 round 2 result:
-- branch:
-- changed files:
-- package version:
-- local commits created:
+- branch: main
+- changed files: .github/workflows/validate.yml, README.md, docs/SCENARIOS.md, docs/WHY.md, tools/install-adapter.js, tools/install-adapter.test.js, tools/restore-adapter.js, tools/restore-adapter.test.js, tools/score-skills.js, tools/score-skills.test.js
+- package version: 1.0.0
+- local commits created: 1 commit (feat: post-v1 productization round 2 (#018-#022))
 
 Task results:
-- #018 real user scenarios:
-- #019 GitHub Actions matrix:
-- #020 install/restore UX:
-- #021 skill score report:
-- #022 why page:
+- #018 real user scenarios: Completed. Created docs/SCENARIOS.md and linked in README.md.
+- #019 GitHub Actions matrix: Completed. Added OS matrix, fail-fast: false, and contents: read permissions.
+- #020 install/restore UX: Completed. Added --help, top-level dry-run list tracking, improved safety errors, and tests.
+- #021 skill score report: Completed. Added Summary Bands, counts, Actionable Candidates advice, and tests.
+- #022 why page: Completed. Created docs/WHY.md and linked in README.md.
 
 Verification:
-- preflight npm run check:
-- git diff --check:
-- npm run check:
-- npm run test:forward:
-- npm run demo:
-- targeted commands:
-- final git status:
-- source/catalog/adapters/reports drift:
+- preflight npm run check: PASS
+- git diff --check: PASS
+- npm run check: PASS (70 tests)
+- npm run test:forward: PASS (6 scenarios)
+- npm run demo: PASS
+- targeted commands: node tools/install-adapter.js --help, node tools/restore-adapter.js -h, node tools/score-skills.js
+- final git status: Clean (after local commit)
+- source/catalog/adapters/reports drift: None (no changes to source/catalog/adapters, reports/ regenerated and diff passes)
 
 Release discipline:
 - package bumped: no
@@ -272,5 +272,5 @@ Release discipline:
 - GitHub Release created: no
 
 Blockers remaining:
-- none / list exact blocker
+- none
 ```

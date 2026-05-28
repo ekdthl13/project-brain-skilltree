@@ -21,6 +21,8 @@ Most skill collections optimize for one agent. Project Brain Skilltree optimizes
 - **Generated adapters** instead of hand-maintained copies.
 - **CI gates** that block drift, broken links, unsafe context, and output conflicts.
 
+For a deeper dive into the architectural motivation, problem statement, and who this framework is for, see [docs/WHY.md](docs/WHY.md).
+
 ---
 
 ## Core Rule: Source of Truth
@@ -166,6 +168,7 @@ See [docs/QUALITY_GATE.md](docs/QUALITY_GATE.md) for more details.
   - [PRD Creation Workflow](docs/quickstarts/PRD_CREATION.md) - Turn ideas into a PRD.
   - [Project Manager Spine Bootstrap](docs/quickstarts/PROJECT_MANAGER_BOOTSTRAP.md) - Set up workspace continuity.
   - [Pre-Release Launch Check & Audit](docs/quickstarts/LAUNCH_CHECK.md) - Quality and security verification.
+  - [Real User Scenario Examples](docs/SCENARIOS.md) - Copy-pasteable test, dry-run, and restore flows.
 - [Examples & Concepts](docs/EXAMPLES.md) - Before/after comparison of folder drift.
 - [Minimal Example Project](examples/minimal-project/README.md) - Bootstrap templates for integrating skills.
 - [Adapter Contract](docs/ADAPTER_CONTRACT.md) - Output guidelines for each target agent.

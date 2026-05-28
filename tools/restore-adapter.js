@@ -48,10 +48,10 @@ function buildRestorePlan({ target, destination, backup, repoRoot = DEFAULT_REPO
     const backupBase = path.basename(resolvedBackup);
 
     if (backupParent !== destParent) {
-      throw new Error(`Safety violation: Backup directory must be a sibling of the destination directory: ${resolvedBackup}`);
+      throw new Error(`Safety violation: Backup directory must be a sibling of the destination directory (${resolvedBackup}). This prevents restoring from arbitrary or unsafe paths.`);
     }
     if (!backupBase.startsWith(`${destBase}.backup-`)) {
-      throw new Error(`Safety violation: Backup directory name must start with '${destBase}.backup-': ${backupBase}`);
+      throw new Error(`Safety violation: Backup directory name must start with '${destBase}.backup-' (${backupBase}). This ensures only backups created by the installer are used for restoration.`);
     }
   }
   
@@ -122,19 +122,39 @@ function parseArgs(argv) {
     target: null,
     destination: null,
     backup: null,
-    dryRun: false
+    dryRun: false,
+    help: false
   };
   while (args.length) {
     const arg = args.shift();
-    if (arg === "--target") parsed.target = args.shift();
-    else if (arg === "--dest" || arg === "--destination") parsed.destination = args.shift();
-    else if (arg === "--backup") parsed.backup = args.shift();
-    else if (arg === "--dry-run") parsed.dryRun = true;
-    else if (!parsed.target) parsed.target = arg;
-    else if (!parsed.destination) parsed.destination = arg;
-    else throw new Error(`Unknown argument: ${arg}`);
+    if (arg === "--help" || arg === "-h") {
+      parsed.help = true;
+    } else if (arg === "--target") {
+      parsed.target = args.shift();
+    } else if (arg === "--dest" || arg === "--destination") {
+      parsed.destination = args.shift();
+    } else if (arg === "--backup") {
+      parsed.backup = args.shift();
+    } else if (arg === "--dry-run") {
+      parsed.dryRun = true;
+    } else if (arg.startsWith("-")) {
+      throw new Error(`Unknown argument: ${arg}`);
+    } else if (!parsed.target) {
+      parsed.target = arg;
+    } else if (!parsed.destination) {
+      parsed.destination = arg;
+    } else {
+      throw new Error(`Unknown argument: ${arg}`);
+    }
   }
-  if (!parsed.target) throw new Error("Adapter target is required.");
+
+  if (parsed.help) {
+    return parsed;
+  }
+
+  if (!parsed.target) {
+    throw new Error("Adapter target is required. Pass --help or -h for usage instructions.");
+  }
   if (!parsed.destination) {
     const envName = {
       antigravity: "ANTIGRAVITY_SKILLS_DIR",
@@ -149,24 +169,86 @@ function parseArgs(argv) {
   return parsed;
 }
 
+function printHelp() {
+  console.log(`
+Usage:
+  node tools/restore-adapter.js <target> <destination> [options]
+  node tools/restore-adapter.js --target <target> --dest <destination> [options]
+
+Arguments:
+  target         The adapter environment to restore (antigravity, codex, claude-code).
+  destination    The target directory where the skills adapter will be restored.
+
+Options:
+  --backup       The specific backup folder path to roll back from. If omitted,
+                 the installer will automatically find the latest backup folder.
+  --dry-run      Analyze and preview the rollback plan without restoring any files.
+  --help, -h     Show this help message.
+  `);
+}
+
 function main() {
-  const args = parseArgs(process.argv.slice(2));
-  const result = restoreAdapter(args);
-  
-  const lines = [
-    result.dryRun ? `[DRY RUN] Restore Plan for: ${result.target}` : `Restoring adapter: ${result.target}`,
-    `Destination: ${result.destination}`,
-    `Backup path: ${result.backupPath}`,
-    `\nFiles to restore (backed up -> original destination):`,
-    ...result.restoreList.map(item => `  - ${item.name} (${item.from} -> ${item.to})`),
-    `\nFiles to clean (newly added files to be removed):`,
-    ...result.cleanList.map(item => `  - ${item.name} (${item.path})`),
-    `\nUnrelated files to preserve (untouched):`,
-    ...result.preserveList.map(item => `  - ${item.name} (${item.path})`)
-  ];
-  
-  lines.push("\n" + (result.dryRun ? "Dry run: no files changed" : "Restore completed successfully."));
-  console.log(lines.join("\n"));
+  let args;
+  try {
+    args = parseArgs(process.argv.slice(2));
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
+
+  if (args.help) {
+    printHelp();
+    process.exit(0);
+  }
+
+  try {
+    const result = restoreAdapter(args);
+    const lines = [
+      result.dryRun ? `[DRY RUN] Restore Plan for: ${result.target}` : `Restoring adapter: ${result.target}`,
+      `Destination: ${result.destination}`,
+      `Backup path: ${result.backupPath}`,
+      `\nFiles to restore (backed up -> original destination):`
+    ];
+
+    if (result.restoreList.length === 0) {
+      lines.push("  - (none)");
+    } else {
+      result.restoreList.forEach(item => {
+        // Format names nicely (directories end with slash)
+        const isDir = fs.statSync(item.from).isDirectory();
+        const displayName = isDir ? `${item.name}/` : item.name;
+        lines.push(`  - ${displayName}`);
+      });
+    }
+
+    lines.push(`\nFiles to clean (newly added files to be removed):`);
+    if (result.cleanList.length === 0) {
+      lines.push("  - (none)");
+    } else {
+      result.cleanList.forEach(item => {
+        const isDir = fs.statSync(item.path).isDirectory();
+        const displayName = isDir ? `${item.name}/` : item.name;
+        lines.push(`  - ${displayName}`);
+      });
+    }
+
+    lines.push(`\nUnrelated files to preserve (untouched):`);
+    if (result.preserveList.length === 0) {
+      lines.push("  - (none)");
+    } else {
+      result.preserveList.forEach(item => {
+        const isDir = fs.statSync(item.path).isDirectory();
+        const displayName = isDir ? `${item.name}/` : item.name;
+        lines.push(`  - ${displayName}`);
+      });
+    }
+
+    lines.push("\n" + (result.dryRun ? "Dry run: no files changed" : "Restore completed successfully."));
+    console.log(lines.join("\n"));
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
 }
 
 if (require.main === module) {
@@ -181,5 +263,6 @@ if (require.main === module) {
 module.exports = {
   findLatestBackup,
   buildRestorePlan,
-  restoreAdapter
+  restoreAdapter,
+  parseArgs
 };

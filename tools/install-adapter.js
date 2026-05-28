@@ -24,10 +24,10 @@ function assertSafeDestination(destination, repoRoot) {
   const repo = path.resolve(repoRoot);
   const root = path.parse(resolved).root;
   if (resolved === root) {
-    throw new Error(`Refusing to install into filesystem root: ${resolved}`);
+    throw new Error(`Refusing to install into filesystem root: ${resolved}. Pointing the installer at the root directory of a drive can cause accidental data loss or system instability.`);
   }
   if (resolved === repo) {
-    throw new Error("Refusing to overwrite repository root.");
+    throw new Error(`Refusing to overwrite repository root: ${resolved}. The installer must be pointed to a subdirectory dedicated to agent skills (e.g., ~/.gemini/config/skills), not the source code repository itself.`);
   }
   return resolved;
 }
@@ -62,12 +62,48 @@ function ensureBackupRoot(backupPath) {
 
 function installAdapter(options) {
   const plan = buildInstallPlan(options);
+
+  const sourceEntries = fs.readdirSync(plan.source, { withFileTypes: true });
+  const willWrite = [];
+  const willBackup = [];
+  const willPreserve = [];
+
+  if (fs.existsSync(plan.destination)) {
+    const destEntries = fs.readdirSync(plan.destination);
+    const sourceSet = new Set(sourceEntries.map(e => e.name));
+    for (const name of destEntries) {
+      if (!sourceSet.has(name)) {
+        // check if it is directory in destination
+        const destPath = path.join(plan.destination, name);
+        const stat = fs.statSync(destPath);
+        willPreserve.push(stat.isDirectory() ? `${name}/` : name);
+      }
+    }
+  }
+
+  for (const entry of sourceEntries) {
+    const nameWithSlash = entry.isDirectory() ? `${entry.name}/` : entry.name;
+    const destEntry = path.join(plan.destination, entry.name);
+    if (fs.existsSync(destEntry)) {
+      willBackup.push(nameWithSlash);
+    } else {
+      willWrite.push(nameWithSlash);
+    }
+  }
+
   if (options.dryRun) {
-    return { ...plan, dryRun: true, installed: false };
+    return {
+      ...plan,
+      dryRun: true,
+      installed: false,
+      willWrite,
+      willBackup,
+      willPreserve
+    };
   }
 
   fs.mkdirSync(plan.destination, { recursive: true });
-  for (const entry of fs.readdirSync(plan.source, { withFileTypes: true })) {
+  for (const entry of sourceEntries) {
     const sourceEntry = path.join(plan.source, entry.name);
     const destinationEntry = path.join(plan.destination, entry.name);
     if (fs.existsSync(destinationEntry)) {
@@ -89,10 +125,16 @@ function installAdapter(options) {
     fs.rmdirSync(plan.backupPath);
   }
 
-  if (plan.backupPath && fs.existsSync(plan.backupPath)) {
-    return { ...plan, dryRun: false, installed: true };
-  }
-  return { ...plan, backupPath: null, dryRun: false, installed: true };
+  const actualBackupCreated = plan.backupPath && fs.existsSync(plan.backupPath);
+  return {
+    ...plan,
+    backupPath: actualBackupCreated ? plan.backupPath : null,
+    dryRun: false,
+    installed: true,
+    willWrite,
+    willBackup,
+    willPreserve
+  };
 }
 
 function installAdapterReplaceAll(options) {
@@ -116,18 +158,37 @@ function parseArgs(argv) {
   const parsed = {
     target: null,
     destination: null,
-    dryRun: false
+    dryRun: false,
+    help: false
   };
   while (args.length) {
     const arg = args.shift();
-    if (arg === "--target") parsed.target = args.shift();
-    else if (arg === "--dest" || arg === "--destination") parsed.destination = args.shift();
-    else if (arg === "--dry-run") parsed.dryRun = true;
-    else if (!parsed.target) parsed.target = arg;
-    else if (!parsed.destination) parsed.destination = arg;
-    else throw new Error(`Unknown argument: ${arg}`);
+    if (arg === "--help" || arg === "-h") {
+      parsed.help = true;
+    } else if (arg === "--target") {
+      parsed.target = args.shift();
+    } else if (arg === "--dest" || arg === "--destination") {
+      parsed.destination = args.shift();
+    } else if (arg === "--dry-run") {
+      parsed.dryRun = true;
+    } else if (arg.startsWith("-")) {
+      throw new Error(`Unknown argument: ${arg}`);
+    } else if (!parsed.target) {
+      parsed.target = arg;
+    } else if (!parsed.destination) {
+      parsed.destination = arg;
+    } else {
+      throw new Error(`Unknown argument: ${arg}`);
+    }
   }
-  if (!parsed.target) throw new Error("Adapter target is required.");
+
+  if (parsed.help) {
+    return parsed;
+  }
+
+  if (!parsed.target) {
+    throw new Error("Adapter target is required. Pass --help or -h for usage instructions.");
+  }
   if (!parsed.destination) {
     const envName = {
       antigravity: "ANTIGRAVITY_SKILLS_DIR",
@@ -142,17 +203,97 @@ function parseArgs(argv) {
   return parsed;
 }
 
+function printHelp() {
+  console.log(`
+Usage:
+  node tools/install-adapter.js <target> <destination> [options]
+  node tools/install-adapter.js --target <target> --dest <destination> [options]
+
+Arguments:
+  target         The adapter environment to deploy (antigravity, codex, claude-code).
+  destination    The target directory where the skills adapter will be installed.
+
+Options:
+  --dry-run      Analyze and preview the deployment plan without changing any files.
+  --help, -h     Show this help message.
+
+Environment Variables:
+  If destination is not provided via CLI, the installer will attempt to read:
+    - ANTIGRAVITY_SKILLS_DIR (when target is 'antigravity')
+    - CODEX_SKILLS_DIR       (when target is 'codex')
+    - CLAUDE_SKILLS_DIR      (when target is 'claude-code')
+  `);
+}
+
 function main() {
-  const args = parseArgs(process.argv.slice(2));
-  const result = installAdapter(args);
-  const lines = [
-    `Adapter: ${result.target}`,
-    `Source: ${result.source}`,
-    `Destination: ${result.destination}`
-  ];
-  if (result.backupPath) lines.push(`Backup: ${result.backupPath}`);
-  lines.push(result.dryRun ? "Dry run: no files changed" : "Install complete");
-  console.log(lines.join("\n"));
+  let args;
+  try {
+    args = parseArgs(process.argv.slice(2));
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
+
+  if (args.help) {
+    printHelp();
+    process.exit(0);
+  }
+
+  try {
+    const result = installAdapter(args);
+    if (result.dryRun) {
+      const lines = [
+        `[DRY RUN] Target adapter: ${result.target}`,
+        `[DRY RUN] Destination: ${result.destination}`
+      ];
+      if (result.backupPath) {
+        lines.push(`[DRY RUN] Will create backup: ${result.backupPath}`);
+      }
+      lines.push("");
+      lines.push("[DRY RUN] Files that would be written (new):");
+      if (result.willWrite.length === 0) {
+        lines.push("  - (none)");
+      } else {
+        result.willWrite.forEach(f => lines.push(`  - ${f}`));
+      }
+
+      lines.push("");
+      lines.push("[DRY RUN] Files that would be backed up and replaced (conflicting):");
+      if (result.willBackup.length === 0) {
+        lines.push("  - (none)");
+      } else {
+        result.willBackup.forEach(f => lines.push(`  - ${f}`));
+      }
+
+      lines.push("");
+      lines.push("[DRY RUN] Files that would be preserved (unrelated):");
+      if (result.willPreserve.length === 0) {
+        lines.push("  - (none)");
+      } else {
+        result.willPreserve.forEach(f => lines.push(`  - ${f}`));
+      }
+
+      lines.push("");
+      lines.push("Dry run: no files changed");
+      console.log(lines.join("\n"));
+    } else {
+      const lines = [
+        `Installing adapter: ${result.target}`,
+        `Source: ${result.source}`,
+        `Destination: ${result.destination}`
+      ];
+      if (result.backupPath) {
+        lines.push(`Backup created: ${result.backupPath}`);
+      }
+      lines.push(`Copied ${result.willWrite.length + result.willBackup.length} skills to ${result.destination}`);
+      lines.push(`Preserved ${result.willPreserve.length} unrelated items.`);
+      lines.push("Installation completed successfully.");
+      console.log(lines.join("\n"));
+    }
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
 }
 
 if (require.main === module) {
@@ -169,5 +310,6 @@ module.exports = {
   installAdapter,
   installAdapterReplaceAll,
   resolveTargetSource,
-  assertSafeDestination
+  assertSafeDestination,
+  parseArgs
 };

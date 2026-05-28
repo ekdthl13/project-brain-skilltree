@@ -7,7 +7,8 @@ const test = require("node:test");
 const {
   buildInstallPlan,
   installAdapter,
-  resolveTargetSource
+  resolveTargetSource,
+  parseArgs
 } = require("./install-adapter.js");
 
 // Create a completely isolated mock repository layout for the installer tests
@@ -145,4 +146,55 @@ test("installAdapter normalizes mixed slashes destinations correctly", () => {
   assert.equal(result.destination, resolvedDest);
   assert.equal(fs.existsSync(resolvedDest), true);
   assert.equal(fs.existsSync(path.join(resolvedDest, "project-manager", "SKILL.md")), true);
+});
+
+test("installAdapter parseArgs parses help option correctly without target/destination", () => {
+  const parsed1 = parseArgs(["--help"]);
+  assert.equal(parsed1.help, true);
+
+  const parsed2 = parseArgs(["-h"]);
+  assert.equal(parsed2.help, true);
+
+  const parsed3 = parseArgs(["codex", "some-dir", "--help"]);
+  assert.equal(parsed3.help, true);
+});
+
+test("installAdapter dry-run includes willWrite, willBackup, willPreserve lists at top-level granularity", () => {
+  const root = tempDir();
+  const dest = path.join(root, "skills");
+  fs.mkdirSync(dest, { recursive: true });
+
+  // Scaffold a conflict in destination
+  fs.writeFileSync(path.join(dest, "SKILL_INDEX.md"), "old index", "utf8");
+
+  // Scaffold an unrelated item in destination
+  fs.mkdirSync(path.join(dest, "unrelated-custom-folder"));
+  fs.writeFileSync(path.join(dest, "unrelated-custom-folder", "custom.txt"), "hello", "utf8");
+
+  const result = installAdapter({
+    target: "codex",
+    destination: dest,
+    repoRoot,
+    dryRun: true
+  });
+
+  assert.equal(result.dryRun, true);
+  // Codex mock adapter has: SKILL_INDEX.md (conflict), project-manager/ (new), office-hours/ (new)
+  assert.ok(result.willBackup.includes("SKILL_INDEX.md"));
+  assert.ok(result.willWrite.includes("project-manager/"));
+  assert.ok(result.willWrite.includes("office-hours/"));
+  assert.ok(result.willPreserve.includes("unrelated-custom-folder/"));
+});
+
+test("installAdapter assertion throws improved safety error messages", () => {
+  const rootPath = path.parse(process.cwd()).root;
+  assert.throws(
+    () => buildInstallPlan({ target: "codex", destination: rootPath, repoRoot }),
+    /Pointing the installer at the root directory of a drive can cause accidental data loss/
+  );
+
+  assert.throws(
+    () => buildInstallPlan({ target: "codex", destination: repoRoot, repoRoot }),
+    /The installer must be pointed to a subdirectory dedicated to agent skills/
+  );
 });

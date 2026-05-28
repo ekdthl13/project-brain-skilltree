@@ -60,3 +60,43 @@ test("score-skills calculateScore handles line limit transitions", () => {
 
   assert.equal(res.breakdown.lineCount, 10); // 401-500 lines awards 10 points
 });
+
+test("score-skills calculateScore handles line limit transition above 500 lines", () => {
+  const dir = tempDir();
+  const linesArray = [
+    "---",
+    "name: over-limit-skill",
+    "version: 1.0.0",
+    "description: Use when checking limits.",
+    "---"
+  ];
+  for (let i = 0; i < 505; i++) {
+    linesArray.push(`line ${i}`);
+  }
+  const content = linesArray.join("\n");
+
+  const skill = { source: "Limit", version: "1.0.0", description: "Use when checking limits." };
+  const res = calculateScore(skill, content, dir, "1.0.0");
+
+  assert.equal(res.breakdown.lineCount, 0); // >500 lines awards 0 points
+});
+
+test("score-skills calculateScore detects missing trigger and output sections", () => {
+  const dir = tempDir();
+  const content = [
+    "---",
+    "name: low-score-skill",
+    "version: 1.0.0",
+    "description: Use when checking low score.",
+    "---",
+    "# Minimal Skill Content",
+    "No tr_gg_r keyword here",
+    "No outp_t checklist here"
+  ].join("\n");
+
+  const skill = { source: "LowScore", version: "1.0.0", description: "Use when checking low score." };
+  const res = calculateScore(skill, content, dir, "1.0.0");
+
+  assert.equal(res.breakdown.trigger, 0);
+  assert.equal(res.breakdown.output, 0);
+});
