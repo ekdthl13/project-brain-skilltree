@@ -24,13 +24,13 @@ The physical layout of adapter files on disk must remain stable so that target a
 
 ## 3. Release Gates
 To publish a stable version, the codebase must clear a series of mandatory quality gates.
-- [ ] **Local Quality Gate Pass**: `npm run check` (build, diff, tests, validate, audit) must return exit code 0 on the v1.0.0 release candidate.
-- [ ] **Forward-Testing Scenario Pass**: `npm run test:forward` must pass all configured scenarios cleanly in isolated sandboxes on the v1.0.0 release candidate.
-- [ ] **Demo Pass**: `npm run demo` must pass on the v1.0.0 release candidate.
-- [ ] **Zero Drift**: No untracked files or modifications in `adapters/` relative to `source/` on the v1.0.0 release candidate.
-- [ ] **CI Pipeline Pass**: The GitHub Actions `validate` workflow must complete successfully on the v1.0.0 release commit.
+- [x] **Local Quality Gate Pass**: `npm run check` (build, diff, tests, validate, audit) must return exit code 0 on the v1.0.0 release candidate.
+- [x] **Forward-Testing Scenario Pass**: `npm run test:forward` must pass all configured scenarios cleanly in isolated sandboxes on the v1.0.0 release candidate.
+- [x] **Demo Pass**: `npm run demo` must pass on the v1.0.0 release candidate.
+- [x] **Zero Drift**: No untracked files or modifications in `adapters/` relative to `source/` on the v1.0.0 release candidate.
+- [x] **CI Pipeline Pass**: The GitHub Actions `validate` workflow must complete successfully on the v1.0.0 release commit.
 
-Pre-RC evidence on commit `4674f49b5195db03f065908ef823798539966426` passed the local quality gate, forward-testing suite, demo, packaging, staging installs, and current `main` CI. The release-gate boxes above remain open because they must be checked on the actual v1.0.0 release candidate and release commit.
+Release evidence on commit `b3e3a7cb3b27b87640ff176f57df52044812a64c` passed the local quality gate, forward-testing suite, demo, packaging, staging installs, and remote `main` validation CI successfully. All release-gate boxes are fully checked and locked.
 
 ---
 
