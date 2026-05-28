@@ -4,7 +4,7 @@
   "private": true,
   "description": "A portable, validated skilltree operating system for Antigravity, Codex, and Claude Code.",
   "scripts": {
-    "test": "node --test tools/*.test.js",
+    "test": "node --test",
     "test:forward": "node tools/run-forward-tests.js",
     "demo": "node tools/run-demo.js",
     "validate": "node tools/validate-skilltree.js",
