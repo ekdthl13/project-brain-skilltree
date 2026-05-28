@@ -2,12 +2,12 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v1.1.1 Public Clarity Patch** state.
+Project Brain Skilltree is in **v1.1.1 Release Execution Ready** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
 - Latest published GitHub Release: `v1.1.0`
-- Next planned release: local-only `v1.1.1` public clarity patch candidate
+- Next planned release: `v1.1.1` public clarity patch
 - Latest stable tag: `v1.1.0`
 - Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.0`
 - Release commit: `2972ff62b4d53ccde8f5704e919dcfcebe807d89`
@@ -21,9 +21,9 @@ Current decision:
 - Completed **v0.5.0 First Success Demo** before the v1.0.0 contract freeze, so the first external-user success path was proven before contracts were frozen.
 - v1.0.0 version bump, release commits, CI, tag push, and GitHub Release publication with 5 assets are 100% complete and verified.
 - Post-v1 v1.1.0 productization work is published with release assets.
-- Current local-only work improves public first impression: README overview SVG, proof language, and first-user confidence path.
-- Next local worker order extends the clarity patch into install/restore preflight, README five-minute route, release-note trust template, and public clarity checklist.
-- Do not push, tag, publish, or create a GitHub Release for the current clarity patch until explicit user approval.
+- Current local clarity work improves public first impression, install/restore confidence, release-note trust language, and PM public clarity review.
+- Worker Order #026 is PM-reviewed and locally committed.
+- Worker Order #027 is ready to execute the `v1.1.1` release: version metadata, release commit, push, CI, tag, GitHub Release, assets, and post-release tracking.
 
 ## Source Of Truth Rules
 
@@ -140,6 +140,8 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Align README, WHY, SCENARIOS, and INSTALL around demo proof, drift guard, rollback path, and CI matrix.
 - [x] Run final local gates and commit without pushing.
 - [x] Execute Worker Order #026: complete install/restore preflight, README five-minute route, release notes trust template, and public clarity checklist.
+- [x] PM review and direct fixes for #026 completed.
+- [ ] Execute Worker Order #027: publish `v1.1.1` with release commit, push, CI confirmation, tag, GitHub Release, assets, and post-release tracking.
 
 ## External Review Triage
 
@@ -192,9 +194,9 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 ## Current Worker Order
 
 - Active order file: `_order.md`
-- Active playbook file: `_playbook_public_clarity_completion.md`
-- Current order: `#026` public clarity completion batch.
-- Release/push strategy: worker does not commit; PM may commit locally after review; do not push, tag, publish, or create a GitHub Release.
+- Active playbook file: `_playbook_v1_1_1_release.md`
+- Current order: `#027` v1.1.1 release execution.
+- Release/push strategy: worker may commit, push, tag, create GitHub Release, upload assets, and push post-release tracking updates by following `_playbook_v1_1_1_release.md`.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy
@@ -217,15 +219,15 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.0
 - Latest stable tag: v1.1.0
 - v1.1.0 release commit: 2972ff62b4d53ccde8f5704e919dcfcebe807d89
-- Current local-only work: v1.1.1 public clarity patch.
-- Active worker order: #026 public clarity completion batch.
+- Current local work: v1.1.1 public clarity patch is ready for release execution.
+- Active worker order: #027 v1.1.1 release execution.
 - Full worker prompts live in `_order.md`; PROJECT_TASKS.md is now a compact state board.
 - Historical execution detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
 Next work:
-1. Execute or review Worker Order #026 using `_playbook_public_clarity_completion.md`.
-2. PM reviews the worker diff and fixes small clarity gaps directly.
-3. Only after PM acceptance, issue a separate release execution order for commit/push/tag/release.
+1. Execute Worker Order #027 using `_playbook_v1_1_1_release.md`.
+2. Publish `v1.1.1` only after full local gates and GitHub Actions validate matrix pass.
+3. Preserve previous tags/assets and do not retag existing releases.
 ```
 
 ## Recent Execution Summary
@@ -237,6 +239,8 @@ Next work:
 - [x] Started local-only public clarity patch to improve the first 10 seconds of external understanding.
 - [x] Finished local gates and prepared the clarity patch for local commit without pushing.
 - [x] Issued Worker Order #026 and `_playbook_public_clarity_completion.md` for the remaining public trust path.
+- [x] PM-reviewed #026, fixed overclaiming/safety wording, and committed the completed trust path.
+- [x] Issued Worker Order #027 and `_playbook_v1_1_1_release.md` for release execution through GitHub Release publication.
 
 ### 2026-05-28: Worker Orders #013-#017 Post-v1 Local Batch PM Review Passed
 

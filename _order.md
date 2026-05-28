@@ -1,85 +1,87 @@
 # Worker Order
 
-## #026: Public Clarity Completion Batch
+## #027: v1.1.1 Release Execution
 
 Status: Ready for worker
 
 ## Role
 
-Documentation/productization worker.
+Release operator.
 
 ## Goal
 
-Complete the remaining public trust path after the first local `v1.1.1` clarity commit, so a new user can move from "I understand why this exists" to "I know how to try it safely in my own environment."
+Publish the completed public clarity work as `v1.1.1`, including version metadata, local gates, release commit, push, CI confirmation, annotated tag, GitHub Release, release assets, and post-release tracking update.
 
 ## Context
 
-- Latest published release: `v1.1.0`
-- Current local branch includes PM local clarity work and order-planning commits that must not be pushed yet.
-- The existing local clarity patch already added the README overview SVG and aligned core trust language.
-- This order continues that work locally only.
+- Latest published release before this order: `v1.1.0`
+- Current local work includes:
+  - `62f0f67 docs: improve public clarity and trust path`
+  - `b09c33a chore: add public clarity completion order`
+  - `9661afd docs: complete public clarity trust path`
+- Current release candidate: `v1.1.1`
+- This is a public clarity/productization patch, not a feature expansion.
 
 ## Playbook
 
-Follow `_playbook_public_clarity_completion.md`.
+Follow `_playbook_v1_1_1_release.md` exactly.
 
 ## Required Work
 
-Complete the playbook tasks in one local batch:
-
-1. Install/restore preflight clarity.
-2. README five-minute safe trial route.
-3. Release notes trust-language template.
-4. Public clarity checklist.
-5. State board and worker report update.
+1. Confirm no existing `v1.1.1` tag or release.
+2. Apply release metadata for `v1.1.1`.
+3. Run full local release gates.
+4. Package release assets.
+5. Commit release prep.
+6. Push `main`.
+7. Wait for GitHub Actions validate matrix success.
+8. Create and push annotated `v1.1.1` tag.
+9. Create GitHub Release and upload 5 assets.
+10. Verify release URL, assets, tag dereference, and CI.
+11. Commit and push post-release tracking update.
 
 ## Hard Rules
 
-- Do not commit.
-- Do not push.
-- Do not tag.
-- Do not publish a GitHub Release.
-- Do not package release assets.
-- Do not bump `package.json`.
-- Do not edit generated files under `adapters/` by hand.
-- Keep changes documentation-focused unless validation proves a tiny tooling correction is required.
+- Preserve existing `v0.3.0`, `v0.4.0`, `v0.5.0`, `v1.0.0`, and `v1.1.0` tags and release assets.
+- Do not retag, delete, or overwrite existing releases.
+- Do not edit generated adapter files by hand.
+- Do not change skill slugs, catalog schema, or adapter contracts.
+- Stop and report if `v1.1.1` tag or GitHub Release already exists.
 
-## Required Verification
+## Required Local Verification
 
 ```powershell
 git diff --check
 npm run check
+npm run test:forward
 npm run demo
+npm run score:skills
+node tools/pack-release.js
 git diff --name-only -- source catalog adapters reports
 git status --short --branch
 ```
 
-If forward-testing files or behavior change, also run:
+## Required Remote Verification
 
 ```powershell
-npm run test:forward
+$env:GITHUB_TOKEN=$null; gh run list --workflow validate.yml --branch main --limit 3 --json databaseId,status,conclusion,headSha,displayTitle,url
+$env:GITHUB_TOKEN=$null; gh run watch <databaseId> --exit-status
+$env:GITHUB_TOKEN=$null; gh release view v1.1.1 --json tagName,name,url,isDraft,isPrerelease,publishedAt,assets
 ```
 
 ## Report Back
 
 ```text
-public clarity completion batch:
-- branch/state: main...origin/main [ahead 2]
-- base local commit: b09c33ad9a32c9d9f912a5583c3ae5abb06121dc
-- files changed: docs/INSTALL.md, README.md, docs/RELEASE_NOTES_TEMPLATE.md, docs/PUBLIC_CLARITY_CHECKLIST.md, PROJECT_TASKS.md, _order.md
-- install/restore preflight: added compact safety checklist in docs/INSTALL.md
-- README five-minute route: added 4-step trial route in README.md
-- release notes trust template: created docs/RELEASE_NOTES_TEMPLATE.md
-- public clarity checklist: created docs/PUBLIC_CLARITY_CHECKLIST.md
-- state board/order updated: checked off milestone in PROJECT_TASKS.md, updated _order.md
-- validation: git diff --check PASS, npm run check PASS (71 tests), npm run demo PASS, git status reviewed
-- source/catalog/adapters/reports drift: none reported by worker; PM recheck required before release order
-- committed: no
-- pushed: no
-- blockers: none
-- PM review recommendation: GO (all public clarity completion batch deliverables are verified locally and ready for review/commit)
+v1.1.1 release execution:
+- release prep commit:
+- post-release commit:
+- tag:
+- tag dereference:
+- pushed main:
+- GitHub Release:
+- assets uploaded:
+- local verification:
+- remote CI:
+- final git status:
+- blockers:
 ```
-
-## After This Order
-
-PM will inspect the worker diff, run or verify checks, make any final corrections, and only then issue a separate release execution order for commit, push, tag, GitHub Release, and release asset publication.
