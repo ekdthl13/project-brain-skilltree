@@ -17,7 +17,7 @@ Current decision:
 - v0.4.0 was a hardening and productization milestone, not a new-skill expansion milestone.
 - Physical Core / Domain / Personal restructuring is not approved for v0.4.0; impact analysis is documented for a later post-v1.0 move.
 - External surface verification on 2026-05-28 found no blocking v0.4.1 issue: remote `main`, tag dereference, `package.json`, README raw formatting, release assets, and latest `validate` check are correct.
-- Completed **v0.5.0 First Success Demo** before v1.0.0 stable-contract preparation, so the first external-user success path is proven before contracts are frozen.
+- Completed **v0.5.0 First Success Demo** before the v1.0.0 contract freeze, so the first external-user success path was proven before contracts were frozen.
 - v1.0.0 version bump, release commits, CI, tag push, and GitHub Release publication with 5 assets are 100% complete and verified.
 
 ## Source Of Truth Rules
@@ -69,7 +69,7 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 | P1: Session continuity | Active | PRD, roadmap, this file, `_order.md`, and archive policy carry current state |
 | P2: Automated pressure testing | Strengthened | Static guardrails plus six deterministic JSON forward-tests in CI |
 | P2: Public presentation | Hardened | README quickstart, terminology guidance, separation analysis, and v1 freeze checklist exist |
-| P3: Release system | v0.4.0 published | Releases, adapter zips, checksums, and release policy exist |
+| P3: Release system | v1.0.0 published | Releases, adapter zips, checksums, and release policy exist |
 
 ## Active Queue
 
@@ -88,7 +88,7 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Document the demo path in README or the appropriate quickstart/install docs.
 - [x] Keep v0.5.0 focused on demo/onboarding proof; do not freeze v1.0 contracts in this milestone.
 
-### Milestone v1.0.0 (Stable Release Preparation - Active)
+### Milestone v1.0.0 (Stable Release - Released)
 
 - [x] Audit the current stable-contract candidates across catalog schema, layouts, installer safety, packaging, and rollback rules.
 - [x] Classify contract areas and document targeted pre-v1 code fixes in `docs/v1_freeze_checklist.md`.
@@ -98,6 +98,12 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Execute Worker Order #008: final v1.0.0 release-candidate readiness decision.
 - [x] Execute Worker Order #009: prepare release commits and push `v1.0.0` tag.
 - [x] Execute Worker Order #010: publish the existing `v1.0.0` GitHub Release and upload assets.
+
+### Milestone v1.0.1 (Documentation Consistency - Completed)
+
+- [x] Align public documentation with the released v1.0.0 stable baseline.
+- [x] Correct stale release references and catalog-backed adapter slug names.
+- [x] Re-run `npm run check`, `npm run test:forward`, and `npm run demo`.
 
 ## External Review Triage
 
@@ -150,8 +156,8 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 ## Current Worker Order
 
 - Active order file: `_order.md`
-- Current order: Completed `#010` Publish v1.0.0 GitHub Release Assets
-- Recommended next order after #010: post-v1 verification and post-v1 roadmap selection.
+- Current order: Completed `#011` v1.0.1 Documentation Consistency Review and Finalization
+- Recommended next order after #011: commit the verified documentation consistency patch, then decide whether to prepare a formal `v1.0.1` release.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy
@@ -194,6 +200,14 @@ Next work:
 ```
 
 ## Recent Execution Summary
+
+### 2026-05-28: Worker Order #011 v1.0.1 Documentation Consistency Review Completed
+
+- [x] Aligned README, PRD, ROADMAP, INSTALL, terminology, and PROJECT_TASKS with the published `v1.0.0` baseline.
+- [x] Confirmed public docs no longer imply `v1.0.0` is pending or future work.
+- [x] Confirmed terminology slugs match `catalog/skills.yaml` for `prd-generator` and `content-planning`.
+- [x] Re-ran `npm run check`, `npm run test:forward`, `npm run demo`, and `git diff --check`; all passed.
+- [x] Confirmed no `source/`, `catalog/`, `adapters/`, or `reports/` drift.
 
 ### 2026-05-28: Worker Order #010 Publish v1.0.0 GitHub Release Assets Completed
 

@@ -16,9 +16,9 @@ When referencing skills in public-facing documentation (such as `README.md`, `RO
 | **출시점검** | Launch Check | `launch-check` | DevOps/QA lead that runs tests, builds, and grades the codebase before releases (GO/NO-GO gate). |
 | **스킬생성기** | Skill Builder | `skill-builder` | A meta-skill for creating draft skills, updating catalogs, and editing index files. |
 | **오피스아워** | Office Hours | `office-hours` | Initial strategy discovery, project feasibility checking, and Brief generation. |
-| **PRD생성** | PRD Builder | `prd-builder` | Gathers requirements and generates structured Product Requirements Documents (PRDs). |
+| **PRD생성** | PRD Generator | `prd-generator` | Gathers requirements and generates structured Product Requirements Documents (PRDs). |
 | **디자인시스템** | Design System | `design-system` | Manages global design tokens, CSS variables, and styling conventions. |
-| **콘텐츠기획** | Content Planner | `content-planner` | Keywords research and monthly content calendar structuring. |
+| **콘텐츠기획** | Content Planning | `content-planning` | Keywords research and monthly content calendar structuring. |
 | **블로그엔진** | Blog Engine | `blog-engine` | Writes, formats, and scores SEO-optimized blog posts. |
 | **인스타엔진** | Instagram Engine | `instagram-engine` | Manages Instagram campaign briefs, calendars, and DM interactions. |
 | **HyperFrames** | HyperFrames PD | `hyperframes` | HTML-based motion graphics and video composition producer. |

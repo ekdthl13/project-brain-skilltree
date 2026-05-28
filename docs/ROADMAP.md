@@ -40,16 +40,25 @@
 - Keep `npm run check` and `npm run test:forward` as mandatory release gates.
 - Publish GitHub Release `v0.4.0` with adapter artifacts and checksums.
 
-## v0.5.0 (First Success Demo - Implemented Locally)
+## v0.5.0 (First Success Demo - Released)
 
 - Add a safe `npm run demo` command for first-time users.
 - Use deterministic local sandbox fixtures to prove the operating model without installing into user agent directories.
 - Show a clear success result and next-step commands after the demo completes.
 - Document the demo in README or the relevant quickstart/install docs.
 - Keep v1.0 contract freezing, schema locking, adapter slug changes, and physical Core / Domain / Personal restructuring out of scope.
+- Publish GitHub Release `v0.5.0` after the first-success path is verified.
 
-## v1.0.0 (Stable Release)
+## v1.0.0 (Stable Release - Released)
 
-- Stable skill manifest schema.
-- Stable adapter contract.
-- Full CI quality gate required for release tags.
+- Freeze the stable skill manifest schema and adapter contract.
+- Keep `source/` as the canonical human-edited root and `adapters/` as generated output.
+- Preserve official adapter slugs and release packaging contracts.
+- Require `npm run check`, `npm run test:forward`, and `npm run demo` as release baseline proof.
+- Publish GitHub Release `v1.0.0` with adapter artifacts and checksums.
+
+## v1.0.1 (Documentation Consistency)
+
+- Align public status docs with the released `v1.0.0` baseline.
+- Correct stale release references, install transcript versions, and catalog-backed adapter slugs.
+- Verify post-v1 public surfaces without adding features or changing stable contracts.

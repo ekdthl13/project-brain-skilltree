@@ -1,134 +1,123 @@
 # Worker Order
 
-## #010: Publish v1.0.0 GitHub Release Assets
+## #012: Commit v1.0.1 Documentation Consistency Patch
 
-Status: Completed
+Status: Ready for worker
 
 ## Role
 
-Release worker
+Release hygiene worker
 
 ## Goal
 
-Complete the missing GitHub Release publication for the already-pushed `v1.0.0` tag by creating the GitHub Release and uploading the five expected release assets.
+Commit the already-verified v1.0.1 documentation consistency patch as a narrow docs-only change.
 
-Do not bump versions, create new tags, move the existing tag, or change public contracts.
+This order is for committing the documentation patch only. Do not prepare the formal v1.0.1 release, do not bump versions, do not tag, and do not create release assets.
 
 ## Context
 
-- `v1.0.0` release commits and tag already exist.
-- Current local `HEAD` / `origin/main`: `8c1fdafb376870670ce571bfac2aa5a85cbdc9df`
-- Existing pushed `v1.0.0` tag dereferences to:
-  `dd2f38ab856980bb29c4bf85cab8a29587fa663c`
-- `package.json` at the tag reports version `1.0.0`.
-- GitHub Actions `validate` succeeded for the release-related commits:
-  - `b3e3a7c` release preparation commit
-  - `dd2f38a` checklist lock / tag target commit
-  - `8c1fdaf` task-board follow-up commit
-- GitHub Release `v1.0.0` is currently missing:
-  `gh release view v1.0.0 --repo ekdthl13/project-brain-skilltree` returned `release not found`.
-- Local release assets already exist under `reports/`:
-  - `project-brain-skilltree-v1.0.0-adapters.zip`
-  - `project-brain-skilltree-v1.0.0-antigravity-skills.zip`
-  - `project-brain-skilltree-v1.0.0-codex-skills.zip`
-  - `project-brain-skilltree-v1.0.0-claude-code-skills.zip`
-  - `release-artifact-checksums.txt`
-- Previous publication attempt was blocked by local host `gh` credentials (`HTTP 401 Unauthorized`).
+- Current branch: `main`.
+- Current stable release: `v1.0.0`.
+- `package.json` must remain `1.0.0` in this order.
+- Worker Order #011 completed the documentation consistency review.
+- PM independently re-ran:
+  - `npm run check`: pass, 55 tests pass
+  - `npm run test:forward`: pass, 6/6 scenarios
+  - `npm run demo`: pass
+  - `git diff --check`: pass
+- There is no drift in `source/`, `catalog/`, `adapters/`, or `reports/`.
 
-## Required Reads
+## Expected Changed Files
 
-1. `PROJECT_TASKS.md`
-2. `_order.md`
-3. `CHANGELOG.md`
-4. `docs/RELEASE.md`
-5. `reports/release-artifact-checksums.txt`
-6. `package.json`
+Only stage and commit these files:
+
+- `README.md`
+- `PRD.md`
+- `docs/ROADMAP.md`
+- `docs/INSTALL.md`
+- `docs/terminology.md`
+- `PROJECT_TASKS.md`
+- `_order.md`
 
 ## Tasks
 
 1. Preflight:
    - Run `git status --short`.
-   - Confirm current branch is `main`.
+   - Confirm the modified file list matches the expected files above.
+   - Confirm `git diff --name-only -- source catalog adapters reports` returns no files.
+   - Confirm `package.json` version is still `1.0.0`.
+2. Final lightweight verification:
+   - Run `git diff --check`.
+   - Run `npm run check`.
+   - If either fails, stop and report the exact failure.
+3. Commit:
+   - Stage only the expected files listed above.
+   - Commit with:
+     `docs: align public documentation with v1.0.0 stable release`
+4. Push:
+   - Push `main` to `origin/main`.
+   - Do not push tags.
+5. Post-push verification:
+   - Run `git status --short`.
    - Confirm local `HEAD` and `origin/main` match.
-   - Confirm `v1.0.0^{}` dereferences to `dd2f38ab856980bb29c4bf85cab8a29587fa663c`.
-   - Confirm `package.json` version is `1.0.0`.
-   - Confirm all five expected local asset files exist under `reports/`.
-   - Confirm existing `v0.3.0`, `v0.4.0`, and `v0.5.0` releases/assets are untouched.
-2. Credential check:
-   - Run `gh auth status` or an equivalent non-mutating auth check.
-   - If credentials are still blocked, stop and report the exact blocker. Do not fabricate Release publication.
-3. Create GitHub Release:
-   - Create GitHub Release `v1.0.0` for the existing tag.
-   - Use release notes consistent with `CHANGELOG.md`.
-   - Do not create a new tag and do not retag.
-4. Upload assets:
-   - Upload exactly these five assets:
-     - `reports/project-brain-skilltree-v1.0.0-adapters.zip`
-     - `reports/project-brain-skilltree-v1.0.0-antigravity-skills.zip`
-     - `reports/project-brain-skilltree-v1.0.0-codex-skills.zip`
-     - `reports/project-brain-skilltree-v1.0.0-claude-code-skills.zip`
-     - `reports/release-artifact-checksums.txt`
-5. Verify public release surface:
-   - Confirm GitHub Release URL:
-     `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.0.0`
-   - Confirm all five expected assets are present.
-   - Confirm checksums listed in `release-artifact-checksums.txt` match the uploaded asset filenames.
-   - Confirm raw/main `package.json` reports `1.0.0`.
-6. Update `PROJECT_TASKS.md` only after the Release URL and assets are verified.
-7. If a task-board update is made, commit and push it after verification.
+   - Report the commit SHA.
 
 ## Forbidden Scope
 
-- Do not bump `package.json`.
-- Do not create a new release tag.
-- Do not move, delete, or recreate the existing `v1.0.0` tag.
-- Do not edit or replace existing `v0.3.0`, `v0.4.0`, or `v0.5.0` GitHub Releases or assets.
-- Do not change `catalog/skills.yaml` schema, fields, or adapter slugs.
-- Do not rename or move `source/` folders.
+- Do not edit `source/`.
+- Do not edit `catalog/skills.yaml`.
 - Do not manually edit generated files under `adapters/`.
+- Do not modify `reports/`.
+- Do not bump `package.json`.
+- Do not edit `CHANGELOG.md` in this order.
+- Do not create, move, delete, or push tags.
+- Do not create GitHub Releases or upload release assets.
 - Do not install adapters into real local user skill directories.
 
-## Verification
+## Completion Criteria
 
-- `git status --short`
-- `gh auth status` or exact credential blocker
-- `v1.0.0^{}` tag dereference
-- GitHub Release URL exists
-- all five expected assets present
-- raw/main `package.json` version is `1.0.0`
-- `git status --short` after publication/update
+- The docs consistency patch is committed and pushed to `origin/main`.
+- Commit includes only the expected files.
+- `package.json` remains `1.0.0`.
+- `git diff --check` passes.
+- `npm run check` passes.
+- Final `git status --short` is clean.
+- `HEAD` equals `origin/main`.
 
 ## Report Back
 
 Use this shape:
 
 ```text
-Release publication:
-- release URL: https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.0.0
-- tag target: dd2f38ab856980bb29c4bf85cab8a29587fa663c
-- raw/main package version: 1.0.0
+v1.0.1 docs patch commit:
+- branch:
+- commit:
+- pushed to origin/main: yes/no
+- package version:
 
-Assets:
-- adapters zip: project-brain-skilltree-v1.0.0-adapters.zip
-- antigravity zip: project-brain-skilltree-v1.0.0-antigravity-skills.zip
-- codex zip: project-brain-skilltree-v1.0.0-codex-skills.zip
-- claude-code zip: project-brain-skilltree-v1.0.0-claude-code-skills.zip
-- checksum file: release-artifact-checksums.txt
+Committed files:
+- README.md
+- PRD.md
+- docs/ROADMAP.md
+- docs/INSTALL.md
+- docs/terminology.md
+- PROJECT_TASKS.md
+- _order.md
 
 Verification:
-- git status: M _order.md
-- gh auth: active keyring session (GITHUB_TOKEN env bypassed)
-- release exists: yes
-- assets present: yes (5 assets successfully uploaded)
-- older releases untouched: yes
+- git diff --check:
+- npm run check:
+- final git status:
+- HEAD equals origin/main:
 
 Scope guard:
-- version bumped again: no
-- tag moved/recreated: no
-- older release assets touched: no
-- source/catalog/adapters changed: no
+- package bumped: no
+- changelog edited: no
+- tags pushed: no
+- release assets touched: no
+- source/catalog/adapters/reports touched: no
 
-If blocked:
-- exact blocker: none
-- user/action needed: none
+Next recommendation:
+- prepare formal v1.0.1 release order: yes/no
+- exact blocker if any:
 ```

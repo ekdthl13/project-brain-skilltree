@@ -177,8 +177,10 @@ tests/scenarios/
 - Structural refactor candidate review: B안 approved (boundary clarification, deferred physical split)
 - Pressure scenario automation: static guardrails in `npm run check` plus deterministic JSON forward-tests in `npm run test:forward`
 - Creation tooling: `npm run new:skill` creates canonical source skills and updates catalog/router entries
-- Release system: `v0.1.0`, `v0.3.0`, and `v0.4.0` successfully released with tagged GitHub Releases and checksum artifacts
-- Current phase: v0.5.0 First Success Demo is implemented locally and pending release decision before v1.0.0 stable-contract preparation
+- Release system: `v0.1.0`, `v0.3.0`, `v0.4.0`, `v0.5.0`, and `v1.0.0` successfully released with tagged GitHub Releases and checksum artifacts
+- v1.0.0 stable release is published with release assets.
+- Release baseline verification passed: `npm run check`, `npm run test:forward`, and `npm run demo`.
+- Current phase: post-v1 verification and v1.0.1 public documentation consistency.
 
 ## Major Risks
 
@@ -194,10 +196,10 @@ tests/scenarios/
 
 ## Next Milestone
 
-Prepare the v0.5.0 release decision in a new session:
+Prepare the v1.0.1 documentation consistency patch and post-v1 verification:
 
-1. Decide whether to publish the locally implemented `npm run demo` milestone as `v0.5.0`.
-2. If approved, prepare release notes and run `npm run check`, `npm run test:forward`, and `npm run demo` as release gates.
-3. Keep v1.0.0 schema, adapter contract, and slug freeze decisions out of scope until the v0.5.0 release decision is complete.
+1. Align README, PRD, roadmap, install transcript, terminology, and task-board status with the released `v1.0.0` baseline.
+2. Keep the patch limited to public documentation consistency; do not add features or change source/adapters contracts.
+3. Run `npm run check`, `npm run test:forward`, and `npm run demo` before completion is claimed.
 4. Keep physical Core / Domain / Personal restructuring out of scope.
-5. Preserve the published `v0.3.0` and `v0.4.0` tags and release assets as public baselines.
+5. Preserve the published `v0.3.0`, `v0.4.0`, `v0.5.0`, and `v1.0.0` tags and release assets as public baselines.
