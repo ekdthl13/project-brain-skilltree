@@ -7,14 +7,25 @@ Project Brain Skilltree gives AI agent skills one source of truth. Edit once in 
 
 Current public baseline: latest stable release `v1.1.0`, canonical root `source/`, generated adapters `adapters/`, recommended first proof path `npm run demo`.
 
+![Project Brain Skilltree overview](docs/assets/skilltree-overview.svg)
+
+**At a glance:** edit skills once in `source/`, run the build and quality gates, then install generated adapters for Codex, Claude Code, and Antigravity/Gemini.
+
+| Trust proof | What it proves |
+|-------------|----------------|
+| `npm run demo` | Safe sandbox install path before touching real agent folders |
+| `npm run check` | Adapter generation, drift detection, tests, validation, and audit |
+| `restore-adapter.js` | Backup-based rollback if an install needs to be reversed |
+| GitHub Actions matrix | Ubuntu, Windows, and macOS all validate the baseline |
+
 ---
 
 ## What You Get
 - **One editable skill source** instead of three drifting agent folders.
 - **Generated adapters** for Antigravity/Gemini, Codex, and Claude Code.
-- **Safe install previews** with backup, preserve, and restore visibility.
-- **A zero-install demo** that proves the pipeline in a sandbox before you touch real agent settings.
-- **CI and local quality gates** that catch adapter drift, unsafe paths, broken links, and behavior-regression scenarios.
+- **Safe install previews** that show new files, backups, and preserved custom files.
+- **A zero-install demo proof** that verifies the pipeline in a sandbox before you touch real agent settings.
+- **Local and CI quality gates** that catch adapter drift, unsafe paths, broken links, and behavior-regression scenarios.
 
 ## What it is
 Project Brain Skilltree is a file-based, multi-agent skill framework. Instead of maintaining separate copies of prompt instructions for different AI tools, you edit the skills in a single canonical directory. The build tool compiles and formats them for each target agent runtime.
@@ -55,7 +66,7 @@ npm run demo
 
 This zero-install demo command builds the adapters, provisions an isolated sandbox in your OS temp folder, verifies preservation/backup logic, and lists subsequent actions.
 
-For a guided first walkthrough after the demo, see [docs/SCENARIOS.md](docs/SCENARIOS.md).
+For guided paths after the demo, see [docs/SCENARIOS.md](docs/SCENARIOS.md): dry-run install preview, restore rehearsal, and first-user verification.
 
 ### 2. Locate Your Agent Skills Folder & Choose Target
 To use these skills in your actual workflow, locate the skills directory used by your AI agent, then deploy the matching adapter.

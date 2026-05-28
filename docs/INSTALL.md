@@ -3,7 +3,16 @@
 Project Brain Skilltree uses generated adapters. Build first, then install the
 adapter that matches your agent environment.
 
-## Safe Local Success Demo (First Proof Path)
+## Recommended Confidence Path
+
+| Step | Command | Purpose |
+|------|---------|---------|
+| Demo proof | `npm run demo` | Verify a sandbox install before touching real folders |
+| Drift guard | `npm run check` | Rebuild adapters and run the full local quality gate |
+| Dry-run preview | `node tools/install-adapter.js <target> <destination> --dry-run` | Inspect new, backed-up, and preserved files |
+| Rollback path | `node tools/restore-adapter.js <target> <destination> --dry-run` | Preview recovery from the latest backup |
+
+## Demo Proof (First Proof Path)
 
 Before setting up environment variables or performing any real installation into your local AI agent directories, we strongly recommend running the safe local demo:
 
@@ -149,7 +158,7 @@ After copying, restart the editor/agent environment (Codex, Antigravity, or Clau
 
 Below is a typical transcript showing how to build, dry-run, install, and verify the adapter on your system.
 
-### 1. Build and Verify local tree
+### 1. Build and Verify Local Tree
 
 Ensure there is no adapter drift and the quality gate is green:
 
@@ -163,8 +172,8 @@ Built 12 skills for antigravity, codex, and claude-code.
 Adapter diff passed. Wrote reports/adapter-diff.md.
 ✔ installAdapter dry-run does not write destination ...
 ...
-ℹ tests 55
-ℹ pass 55
+ℹ tests 71
+ℹ pass 71
 Skilltree validation passed.
 Wrote reports/skilltree-audit.md
 ```

@@ -2,9 +2,17 @@
 
 This guide provides step-by-step, copy-pasteable scenarios to help you verify, preview, and revert Project Brain Skilltree installations in safe local environments.
 
+Use these scenarios as the public trust path:
+
+| Step | Scenario | Confidence gained |
+|------|----------|-------------------|
+| 1 | Demo proof | The pipeline works in a sandbox before touching real agent folders |
+| 2 | Dry-run install preview | You can see new files, backups, and preserved files before writing |
+| 3 | Rollback rehearsal | You can reverse an install from the generated backup path |
+
 ---
 
-## Scenario 1: First Local Proof (`npm run demo`)
+## Scenario 1: Demo Proof (`npm run demo`)
 
 If you want to verify that the compilation, backup-aware installation, and custom file preservation mechanisms work correctly on your operating system without making any changes to your real agent settings, run the built-in sandbox demo.
 
@@ -29,7 +37,7 @@ npm run demo
 
 ---
 
-## Scenario 2: Dry-run Install Preview
+## Scenario 2: Dry-Run Install Preview
 
 Before pointing the installer at an active skills directory, you should perform a dry-run to preview exactly what will change.
 
@@ -74,7 +82,7 @@ Verify that the files in `../temp-agent-skills` are completely unchanged.
 
 ---
 
-## Scenario 3: Restore and Rollback Rehearsal
+## Scenario 3: Rollback Rehearsal
 
 If you need to undo an installation, you can restore files automatically using the backup folder created during the installation.
 

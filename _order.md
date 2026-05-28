@@ -1,56 +1,52 @@
 # Worker Order
 
-## #024: v1.1.0 Release Finalization
+## #025: Local Public Clarity Patch
 
-Status: In progress
+Status: Completed
 
 ## Role
 
-PM release operator.
+PM direct operator.
 
 ## Goal
 
-Publish the locally completed post-v1 productization work as `v1.1.0`.
+Improve the public first impression so a new user can quickly understand why Project Brain Skilltree exists and why it is safe to try locally.
 
-## Release Scope
+## Scope
 
-- Real user scenario examples and clearer README first impression.
-- Public "Why This Exists" page.
-- GitHub Actions validation matrix for Ubuntu, Windows, and macOS.
-- Install/restore CLI help, dry-run, and safety-message polish.
-- Active restore CLI regression fix.
-- Skill scorecard diagnostic improvements.
+- Add a readable README overview graphic that explains `source/` -> quality gate -> `adapters/`.
+- Align README, WHY, SCENARIOS, and INSTALL around the same trust proof language:
+  - Demo proof
+  - Drift guard
+  - Rollback path
+  - CI matrix
+- Update project state docs so they no longer imply `v1.1.0` is unpublished.
 
 ## Rules
 
-- Preserve existing `v0.3.0`, `v0.4.0`, `v0.5.0`, and `v1.0.0` tags/assets.
-- Do not retag existing releases.
-- Run full local release gates before tagging.
-- Push `main`, then create and push annotated `v1.1.0` tag.
-- Publish GitHub Release only after the tag exists remotely.
+- Commit locally only.
+- Do not push, tag, publish, deploy, or create a GitHub Release.
+- Do not modify generated adapter files by hand.
+- Preserve existing public tags and release assets.
 
 ## Required Verification
 
 ```powershell
 git diff --check
 npm run check
-npm run test:forward
 npm run demo
-npm run score:skills
-node tools/pack-release.js
-git diff --name-only -- source catalog adapters reports
 git status --short --branch
 ```
 
 ## Report Back
 
 ```text
-v1.1.0 release finalization:
-- release commit:
-- tag:
-- pushed:
-- GitHub Release:
-- assets:
-- CI:
-- blockers:
+v1.1.1 public clarity patch:
+- files changed: README.md, PROJECT_TASKS.md, _order.md, docs/INSTALL.md, docs/SCENARIOS.md, docs/WHY.md, docs/assets/skilltree-overview.svg
+- SVG overview: added README-ready visual explanation of source -> quality gate -> adapters
+- docs aligned: README, WHY, SCENARIOS, INSTALL, PROJECT_TASKS, and _order now share demo proof / drift guard / rollback path / CI matrix language
+- validation: git diff --check PASS, npm run check PASS (71 tests), npm run demo PASS, no tracked source/catalog/adapters/reports drift
+- committed: yes, local commit only
+- pushed: no, explicitly out of scope
+- blockers: none
 ```

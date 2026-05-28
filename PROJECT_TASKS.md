@@ -2,16 +2,16 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v1.1.0 Release Preparation** state.
+Project Brain Skilltree is in **v1.1.1 Public Clarity Patch** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
-- Latest published GitHub Release: `v1.0.0`
-- Next planned release: `v1.1.0`
-- Latest stable tag: `v1.0.0`
-- Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.0.0`
-- Release commit: `dd2f38ab856980bb29c4bf85cab8a29587fa663c`
-- Local baseline checks: `npm run check` PASS, `npm run test:forward` PASS, `npm run demo` PASS on 2026-05-28
+- Latest published GitHub Release: `v1.1.0`
+- Next planned release: local-only `v1.1.1` public clarity patch candidate
+- Latest stable tag: `v1.1.0`
+- Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.0`
+- Release commit: `2972ff62b4d53ccde8f5704e919dcfcebe807d89`
+- Latest remote CI: GitHub Actions `validate` matrix PASS on Ubuntu, Windows, and macOS for `2972ff62b4d53ccde8f5704e919dcfcebe807d89`
 
 Current decision:
 - Completed **v0.4.0 Operational Hardening** before v1.0.0 stable-contract freeze.
@@ -20,7 +20,9 @@ Current decision:
 - External surface verification on 2026-05-28 found no blocking v0.4.1 issue: remote `main`, tag dereference, `package.json`, README raw formatting, release assets, and latest `validate` check are correct.
 - Completed **v0.5.0 First Success Demo** before the v1.0.0 contract freeze, so the first external-user success path was proven before contracts were frozen.
 - v1.0.0 version bump, release commits, CI, tag push, and GitHub Release publication with 5 assets are 100% complete and verified.
-- Post-v1 v1.1.0 productization work is locally complete and is entering release verification.
+- Post-v1 v1.1.0 productization work is published with release assets.
+- Current local-only work improves public first impression: README overview SVG, proof language, and first-user confidence path.
+- Do not push, tag, publish, or create a GitHub Release for the current clarity patch until explicit user approval.
 
 ## Source Of Truth Rules
 
@@ -29,7 +31,7 @@ Current decision:
 - Run `npm run build:adapters` after source or catalog edits.
 - Run `npm run check` before claiming completion.
 - Run `npm run test:forward` for forward-testing fixture, runner, or behavioral scenario changes.
-- Preserve the published `v0.3.0`, `v0.4.0`, and `v0.5.0` tags and GitHub Release assets as public baselines.
+- Preserve the published `v0.3.0`, `v0.4.0`, `v0.5.0`, and `v1.1.0` tags and GitHub Release assets as public baselines.
 - Preserve the pushed `v1.0.0` tag; do not retag unless an explicit rollback/recovery decision is made.
 - Keep full worker prompts in `_order.md`; keep this file focused on state, decisions, queues, and short execution summaries.
 - Long historical detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
@@ -70,8 +72,8 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 | P1: Safe local install | Done | Installer works; Codex, Antigravity/Gemini, and Claude Code installs verified |
 | P1: Session continuity | Active | PRD, roadmap, this file, `_order.md`, and archive policy carry current state |
 | P2: Automated pressure testing | Strengthened | Static guardrails plus six deterministic JSON forward-tests in CI |
-| P2: Public presentation | Hardened | README quickstart, terminology guidance, separation analysis, and v1 freeze checklist exist |
-| P3: Release system | v1.0.0 published | Releases, adapter zips, checksums, and release policy exist |
+| P2: Public presentation | Strengthening | README quickstart, terminology guidance, Korean briefing, WHY/SCENARIOS docs, and public clarity SVG exist |
+| P3: Release system | v1.1.0 published | Releases, adapter zips, checksums, release policy, and multi-OS CI validation exist |
 
 ## Active Queue
 
@@ -125,6 +127,18 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] `#022` Public "Why This Exists" page.
 - [x] PM blocker fix: active restore CLI no longer fails after cleaning added adapter entries.
 
+### Milestone v1.1.0 (Productization Polish - Released)
+
+- [x] Publish post-v1 productization work as `v1.1.0`.
+- [x] Confirm GitHub Actions validate matrix passes on Ubuntu, Windows, and macOS.
+- [x] Upload 5 GitHub Release assets for `v1.1.0`.
+
+### Local Candidate v1.1.1 (Public Clarity Patch - In Progress)
+
+- [x] Add README overview SVG showing `source/` -> quality gate -> `adapters/`.
+- [x] Align README, WHY, SCENARIOS, and INSTALL around demo proof, drift guard, rollback path, and CI matrix.
+- [x] Run final local gates and commit without pushing.
+
 ## External Review Triage
 
 ### Accepted Findings
@@ -177,8 +191,8 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 
 - Active order file: `_order.md`
 - Active playbook file: `_playbook_round2.md`
-- Current order: Prepare and publish `v1.1.0` after final release gates.
-- Release/push strategy: publish `v1.1.0` after final local gates, push, tag, CI confirmation, and GitHub Release asset upload.
+- Current order: `#025` local-only public clarity patch.
+- Release/push strategy: commit locally only; do not push, tag, publish, or create a GitHub Release.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy
@@ -197,30 +211,28 @@ GitHub repo는 https://github.com/ekdthl13/project-brain-skilltree 이고,
 source/ 가 canonical root, adapters/ 는 생성물이다.
 
 현재 상태:
-- v0.4.0 GitHub Release is published:
-  https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.4.0
-- Published assets:
-  `project-brain-skilltree-v0.4.0-adapters.zip`,
-  `project-brain-skilltree-v0.4.0-antigravity-skills.zip`,
-  `project-brain-skilltree-v0.4.0-codex-skills.zip`,
-  `project-brain-skilltree-v0.4.0-claude-code-skills.zip`,
-  `release-artifact-checksums.txt`.
-- v0.4.0 Operational Hardening is released.
-- 2026-05-28 external surface verification found no blocking v0.4.1 issue.
-- v0.5.0 First Success Demo is released:
-  https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.5.0
-- v1.0.0 release commits, tag, and GitHub Release assets are published.
+- Latest published GitHub Release: v1.1.0
+  https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.0
+- Latest stable tag: v1.1.0
+- v1.1.0 release commit: 2972ff62b4d53ccde8f5704e919dcfcebe807d89
+- Current local-only work: v1.1.1 public clarity patch.
 - Full worker prompts live in `_order.md`; PROJECT_TASKS.md is now a compact state board.
 - Historical execution detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
 Next work:
-1. Post-v1 verification and post-v1 roadmap selection:
-   - Verify public surfaces and consumer installer behaviors against the new v1.0.0 baseline.
-2. Defer physical Core / Domain / Personal restructuring to post-v1 roadmap selections.
-3. Preserve the `v0.3.0`, `v0.4.0`, `v0.5.0`, and `v1.0.0` tags; preserve existing release assets as public baselines.
+1. Finish or review the local public clarity patch.
+2. Confirm README overview SVG, WHY, SCENARIOS, INSTALL, PROJECT_TASKS, and _order are aligned.
+3. Decide with the user whether this should remain local, become v1.1.1, or wait for a larger v1.2.0 public trust round.
 ```
 
 ## Recent Execution Summary
+
+### 2026-05-28: v1.1.0 Release Published and v1.1.1 Public Clarity Patch Started
+
+- [x] Published `v1.1.0` GitHub Release with 5 release assets.
+- [x] Confirmed GitHub Actions `validate` matrix passed on Ubuntu, Windows, and macOS after cross-platform test script fix.
+- [x] Started local-only public clarity patch to improve the first 10 seconds of external understanding.
+- [x] Finished local gates and prepared the clarity patch for local commit without pushing.
 
 ### 2026-05-28: Worker Orders #013-#017 Post-v1 Local Batch PM Review Passed
 

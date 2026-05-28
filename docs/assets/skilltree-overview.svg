@@ -1,0 +1,63 @@
+<svg width="1100" height="520" viewBox="0 0 1100 520" role="img" aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="title">Project Brain Skilltree overview</title>
+  <desc id="desc">One canonical source directory is built and validated into generated adapters for Codex, Claude Code, and Antigravity.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <rect width="1100" height="520" rx="20" fill="#ffffff" />
+  <rect x="24" y="24" width="1052" height="472" rx="18" fill="#f8fafc" stroke="#d7dde8" />
+
+  <text x="64" y="74" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#4b5563" letter-spacing="1.2">PROJECT BRAIN SKILLTREE</text>
+  <text x="64" y="116" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#111827">One source. Validated adapters. Safer agent setup.</text>
+  <text x="64" y="150" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#475569">Edit skills once in source/, then build checked adapters for multiple AI tools.</text>
+
+  <rect x="64" y="198" width="268" height="136" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+  <text x="92" y="238" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#1d4ed8">1. source/</text>
+  <text x="92" y="270" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155">Canonical root</text>
+  <text x="92" y="296" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155">Humans edit here only</text>
+  <rect x="92" y="309" width="78" height="28" rx="14" fill="#ffffff" stroke="#bfdbfe" />
+  <text x="112" y="329" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1e40af">edit</text>
+
+  <line x1="354" y1="266" x2="435" y2="266" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)" />
+
+  <rect x="458" y="198" width="268" height="136" rx="16" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="486" y="238" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#334155">2. Build + Check</text>
+  <text x="486" y="270" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155">Generate adapters</text>
+  <text x="486" y="296" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155">Run tests, drift guard, audit</text>
+  <rect x="486" y="309" width="128" height="28" rx="14" fill="#ffffff" stroke="#cbd5e1" />
+  <text x="506" y="329" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#334155">npm run check</text>
+
+  <line x1="748" y1="266" x2="829" y2="266" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)" />
+
+  <rect x="852" y="198" width="184" height="136" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" />
+  <text x="880" y="238" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#15803d">3. adapters/</text>
+  <text x="880" y="270" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155">Codex</text>
+  <text x="880" y="296" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155">Claude Code</text>
+  <text x="880" y="322" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155">Antigravity</text>
+
+  <rect x="64" y="376" width="230" height="70" rx="14" fill="#ffffff" stroke="#d9e2ee" />
+  <text x="88" y="407" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="800" fill="#14532d">Demo proof</text>
+  <text x="88" y="431" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#475569">Sandbox install via npm run demo</text>
+
+  <rect x="314" y="376" width="230" height="70" rx="14" fill="#ffffff" stroke="#d9e2ee" />
+  <text x="338" y="407" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="800" fill="#14532d">Drift guard</text>
+  <text x="338" y="431" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#475569">adapters/ checked against source/</text>
+
+  <rect x="564" y="376" width="230" height="70" rx="14" fill="#ffffff" stroke="#d9e2ee" />
+  <text x="588" y="407" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="800" fill="#14532d">Rollback path</text>
+  <text x="588" y="431" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#475569">Restore from install backups</text>
+
+  <rect x="814" y="376" width="222" height="70" rx="14" fill="#ffffff" stroke="#d9e2ee" />
+  <text x="838" y="407" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="800" fill="#14532d">CI matrix</text>
+  <text x="838" y="431" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#475569">Ubuntu, Windows, macOS</text>
+
+  <circle cx="66" cy="474" r="6" fill="#2563eb" />
+  <text x="80" y="479" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#475569">blue = human-owned source</text>
+  <circle cx="288" cy="474" r="6" fill="#64748b" />
+  <text x="302" y="479" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#475569">gray = automation and checks</text>
+  <circle cx="548" cy="474" r="6" fill="#16a34a" />
+  <text x="562" y="479" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#475569">green = generated delivery</text>
+</svg>
