@@ -138,6 +138,13 @@ tests/scenarios/
 - Install guide, comparison guide, contributing guide, roadmap, and examples
   make the repo understandable to outside users.
 
+### P2: First Success Demo
+
+- A new user can run one deterministic demo command on a fresh checkout.
+- The demo proves the canonical source and adapter workflow without writing to
+  user agent skill directories.
+- The demo produces clear success output and points to the next useful command.
+
 ### P3: Release System
 
 - Tagged releases.
@@ -157,6 +164,7 @@ tests/scenarios/
 - `npm run check` passes locally and in GitHub Actions.
 - A new session can identify `source/` as canonical without asking.
 - A user can dry-run and install an adapter without overwriting unrelated skills.
+- A new user can run `npm run demo` and get a successful local proof within 10 minutes.
 - New skills cannot be added without catalog and router alignment.
 - A public visitor can understand the system from README, PRD, and tasks alone.
 
@@ -170,7 +178,7 @@ tests/scenarios/
 - Pressure scenario automation: static guardrails in `npm run check` plus deterministic JSON forward-tests in `npm run test:forward`
 - Creation tooling: `npm run new:skill` creates canonical source skills and updates catalog/router entries
 - Release system: `v0.1.0`, `v0.3.0`, and `v0.4.0` successfully released with tagged GitHub Releases and checksum artifacts
-- Current phase: v0.4.0 operational hardening release complete; v1.0.0 stable-contract preparation is the next-session focus
+- Current phase: v0.5.0 First Success Demo is implemented locally and pending release decision before v1.0.0 stable-contract preparation
 
 ## Major Risks
 
@@ -182,13 +190,14 @@ tests/scenarios/
 | Public repo looks like a prompt dump | PRD, tasks, comparison, adapter contract, and quality gate frame it as an operating system |
 | Validation misses behavioral failures | Static pressure checks and deterministic JSON forward-tests run locally and in CI |
 | External users find the system too heavy | v0.4.0 focuses on quickstart simplification, terminology polish, and installation/release UX |
+| Stable contracts freeze before the first-user path is proven | v0.5.0 adds `npm run demo` before v1.0.0 contract freeze |
 
 ## Next Milestone
 
-Prepare v1.0.0 stable-contract work in a new session:
+Prepare the v0.5.0 release decision in a new session:
 
-1. Freeze the skill manifest schema only after reviewing `docs/v1_freeze_checklist.md`.
-2. Confirm adapter contract stability, slug preservation, and release policy requirements.
-3. Keep physical Core / Domain / Personal restructuring out of scope until after the stable contract decision.
-4. Keep `npm run check` and `npm run test:forward` as required gates before future release tags.
+1. Decide whether to publish the locally implemented `npm run demo` milestone as `v0.5.0`.
+2. If approved, prepare release notes and run `npm run check`, `npm run test:forward`, and `npm run demo` as release gates.
+3. Keep v1.0.0 schema, adapter contract, and slug freeze decisions out of scope until the v0.5.0 release decision is complete.
+4. Keep physical Core / Domain / Personal restructuring out of scope.
 5. Preserve the published `v0.3.0` and `v0.4.0` tags and release assets as public baselines.

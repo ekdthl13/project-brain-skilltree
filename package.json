@@ -1,11 +1,12 @@
 {
   "name": "project-brain-skilltree",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "description": "A portable, validated skilltree operating system for Antigravity, Codex, and Claude Code.",
   "scripts": {
     "test": "node --test tools/*.test.js",
     "test:forward": "node tools/run-forward-tests.js",
+    "demo": "node tools/run-demo.js",
     "validate": "node tools/validate-skilltree.js",
     "build:adapters": "node tools/build-adapters.js",
     "diff:adapters": "node tools/diff-adapters.js",

@@ -30,21 +30,33 @@ Most skill collections optimize for one agent. Project Brain Skilltree optimizes
 
 ## Quickstart (3 minutes)
 
+### 1. Run the Safe Local Demo (Recommended First Step)
+To instantly verify that the skilltree compilation and backup-aware deployment operate correctly on your system without editing any real agent directories:
+
 ```bash
-# 1. Clone and set up
+# Clone and enter the repository
 git clone https://github.com/ekdthl13/project-brain-skilltree.git
 cd project-brain-skilltree
 
-# 2. Build adapters from source
+# Run the deterministic local success proof
+npm run demo
+```
+
+This safe, zero-install command rebuilds the adapters, spawns an isolated OS sandbox, tests backup and preservation logic, and guides you on next-step commands.
+
+### 2. Manual Build & Deployment
+
+```bash
+# Build all adapters from source
 npm run build:adapters
 
-# 3. Run quality gates (builds, tests, validates, audits)
+# Run complete quality checks (builds, tests, validates, audits)
 npm run check
 
-# 4. Dry-run to preview what will change
+# Dry-run to preview what will change
 node tools/install-adapter.js antigravity /path/to/gemini/skills --dry-run
 
-# 5. Install (backs up conflicts automatically)
+# Actual install (backs up conflicts automatically)
 node tools/install-adapter.js antigravity /path/to/gemini/skills
 ```
 

@@ -2,7 +2,7 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v0.4.0 Operational Hardening released**.
+Project Brain Skilltree is in **v0.5.0 First Success Demo implemented locally, pending release decision**.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
@@ -15,6 +15,8 @@ Current decision:
 - Completed **v0.4.0 Operational Hardening** before v1.0.0 stable-contract freeze.
 - v0.4.0 was a hardening and productization milestone, not a new-skill expansion milestone.
 - Physical Core / Domain / Personal restructuring is not approved for v0.4.0; impact analysis is documented for a later post-v1.0 move.
+- External surface verification on 2026-05-28 found no blocking v0.4.1 issue: remote `main`, tag dereference, `package.json`, README raw formatting, release assets, and latest `validate` check are correct.
+- Next milestone is **v0.5.0 First Success Demo** before v1.0.0 stable-contract preparation, so the first external-user success path is proven before contracts are frozen.
 
 ## Source Of Truth Rules
 
@@ -49,6 +51,7 @@ Current decision:
 | 7. Release system | Done through v0.4.0 | Tags, changelog, artifact zips, checksums, GitHub Releases |
 | 8. Advanced quality system | Foundation done | Scorecards, schema stability guard, forward-testing harness, new-skill CLI |
 | 9. Operational hardening | Released | External-user onboarding, install/release UX, behavioral fixtures, v1.0 freeze readiness |
+| 10. First success demo | Done locally | Deterministic `npm run demo` path gives new users a successful local experience without installing into user agent directories |
 
 Historical detail for completed phases is archived in [docs/history/PROJECT_TASKS_ARCHIVE.md](docs/history/PROJECT_TASKS_ARCHIVE.md).
 
@@ -74,12 +77,21 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Execute Worker Order #002: release policy alignment, forward-testing scenario expansion, Core / Domain / Personal impact analysis, bilingual terminology guidance, and v1.0 freeze checklist.
 - [x] Prepare and publish v0.4.0 release after explicit PM/user approval.
 
+### Milestone v0.5.0 (First Success Demo - Completed)
+
+- [x] Create a safe `npm run demo` command that runs locally without writing to user skill directories.
+- [x] Use a deterministic local sandbox fixture as the first-success proof path.
+- [x] Show clear success output that teaches `source/` canonical discipline and the next useful commands.
+- [x] Document the demo path in README or the appropriate quickstart/install docs.
+- [x] Keep v0.5.0 focused on demo/onboarding proof; do not freeze v1.0 contracts in this milestone.
+
 ## External Review Triage
 
 ### Accepted Findings
 
 - Public product positioning is still early: the repo is a strong personal/multi-agent operating system, not yet a polished third-party product.
 - External onboarding still feels heavy for new users; README and quickstarts need a shorter first-run path.
+- A first-time user still needs a concrete "I ran it and it worked" success moment; `npm run demo` should close that gap before v1.0 contract freeze.
 - Korean source skill names and internal operating terms are powerful locally but need consistent English labels in public-facing docs.
 - The next milestone should emphasize hardening, proof, and simplification instead of adding more skills.
 
@@ -106,6 +118,14 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - Public terminology consistently pairs Korean skill identities with English role labels where useful.
 - v1.0 stable-contract freeze criteria are drafted but not prematurely locked.
 
+### Project v0.5.0 (First Success Demo)
+
+- `npm run demo` exists and completes successfully on a fresh checkout with no user-directory install.
+- The demo uses deterministic local fixtures or temporary output and cleans up or clearly scopes generated files.
+- The demo output gives a newcomer a clear success signal and points to the next useful commands.
+- README or quickstart docs mention the demo as the recommended first proof path.
+- `npm run check` passes after the demo work.
+
 ### Project v1.0.0
 
 - Skill manifest schema is stable.
@@ -116,7 +136,7 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 ## Current Worker Order
 
 - Active order file: `_order.md`
-- Current order: `#002` v0.4.0 Productization Proof Batch (completed and PM accepted)
+- Current order: `#003` v0.5.0 First Success Demo (completed and PM accepted)
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy
@@ -144,18 +164,40 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   `project-brain-skilltree-v0.4.0-claude-code-skills.zip`,
   `release-artifact-checksums.txt`.
 - v0.4.0 Operational Hardening is released.
+- 2026-05-28 external surface verification found no blocking v0.4.1 issue.
+- v0.5.0 First Success Demo is implemented locally and PM accepted; release is not yet published.
 - Full worker prompts live in `_order.md`; PROJECT_TASKS.md is now a compact state board.
 - Historical execution detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
 Next work:
-1. Start v1.0.0 stable-contract preparation in a new session.
-2. Review `docs/v1_freeze_checklist.md`, `docs/ADAPTER_CONTRACT.md`, and `catalog/skills.yaml`.
-3. Keep physical Core / Domain / Personal restructuring out of scope until stable contract decisions are complete.
+1. Decide whether to prepare and publish a `v0.5.0` release for the demo milestone.
+2. If release is approved, run release preparation with `npm run check`, `npm run test:forward`, and `npm run demo` as gates.
+3. Keep physical Core / Domain / Personal restructuring and v1.0 contract freeze out of scope until release decision is complete.
 4. Do not edit generated adapter files.
 5. Preserve the `v0.3.0` and `v0.4.0` tags and GitHub Release assets as public baselines.
 ```
 
 ## Recent Execution Summary
+
+### 2026-05-28: Milestone v0.5.0 First Success Demo PM Review
+
+- [x] Designed and implemented `tools/run-demo.js` as the local first-success demo.
+- [x] Spawns a secure OS sandbox and validates build adapter, conflict backup, and user preservation scripts.
+- [x] Created `tools/run-demo.test.js` to assert silent run execution, invalid paths, and package.json scripts configuration.
+- [x] Registered `"demo": "node tools/run-demo.js"` inside `package.json` under scripts.
+- [x] Updated `README.md` and `docs/INSTALL.md` onboarding documentations to highlight `npm run demo` as the recommended first proof path.
+- [x] PM re-ran full quality check suite (`npm run check`); all 52 tests, validation, and audit checks passed successfully.
+- [x] PM re-ran `npm run demo` standalone; demo completed successfully after avoiding parallel build races.
+- [x] `npm run test:forward` was not re-run because no forward-testing fixtures, runner behavior, or behavioral scenarios changed.
+
+### 2026-05-28: External Surface Verification and v0.5.0 Decision
+
+- [x] Verified remote `main` at `6b2ef7f` and `v0.4.0^{}` dereferences to the same release commit.
+- [x] Confirmed GitHub raw `main` and `v0.4.0` `package.json` both report version `0.4.0`.
+- [x] Confirmed GitHub raw README preserves normal Markdown line breaks; the external raw-format concern was not reproduced.
+- [x] Confirmed GitHub Release `v0.4.0` exposes 5 expected assets and latest `validate` on `main` succeeded.
+- [x] Ran `npm run check`; 49 tests passed, validation and audit passed.
+- [x] Selected v0.5.0 First Success Demo as the next milestone before v1.0.0 contract freeze.
 
 ### 2026-05-27: Worker Order #002 PM Review
 

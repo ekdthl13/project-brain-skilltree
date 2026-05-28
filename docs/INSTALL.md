@@ -3,6 +3,21 @@
 Project Brain Skilltree uses generated adapters. Build first, then install the
 adapter that matches your agent environment.
 
+## Safe Local Success Demo (First Proof Path)
+
+Before setting up environment variables or performing any real installation into your local AI agent directories, we strongly recommend running the safe local demo:
+
+```bash
+npm run demo
+```
+
+This deterministic command will:
+1. Recompile the canonical skills from `source/`.
+2. Spawn an isolated, zero-impact sandbox directory inside your OS temporary layout.
+3. Simulate an adapter deployment.
+4. Assert that the compilation, automatic conflict backup, and unrelated skill preservation policies operate exactly as intended.
+5. Print next-step recommendations and cleanly destroy the sandbox.
+
 ## Build
 
 ```bash

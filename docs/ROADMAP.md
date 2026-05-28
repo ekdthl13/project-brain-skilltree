@@ -40,6 +40,14 @@
 - Keep `npm run check` and `npm run test:forward` as mandatory release gates.
 - Publish GitHub Release `v0.4.0` with adapter artifacts and checksums.
 
+## v0.5.0 (First Success Demo - Implemented Locally)
+
+- Add a safe `npm run demo` command for first-time users.
+- Use deterministic local sandbox fixtures to prove the operating model without installing into user agent directories.
+- Show a clear success result and next-step commands after the demo completes.
+- Document the demo in README or the relevant quickstart/install docs.
+- Keep v1.0 contract freezing, schema locking, adapter slug changes, and physical Core / Domain / Personal restructuring out of scope.
+
 ## v1.0.0 (Stable Release)
 
 - Stable skill manifest schema.
