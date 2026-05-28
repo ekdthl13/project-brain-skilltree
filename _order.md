@@ -2,7 +2,7 @@
 
 ## #012: Commit v1.0.1 Documentation Consistency Patch
 
-Status: Ready for worker
+Status: Completed
 
 ## Role
 
@@ -90,10 +90,10 @@ Use this shape:
 
 ```text
 v1.0.1 docs patch commit:
-- branch:
-- commit:
-- pushed to origin/main: yes/no
-- package version:
+- branch: main
+- commit: cb6c9a63878fcbbfc3588a322e5aeb95641de173
+- pushed to origin/main: yes
+- package version: 1.0.0
 
 Committed files:
 - README.md
@@ -105,10 +105,10 @@ Committed files:
 - _order.md
 
 Verification:
-- git diff --check:
-- npm run check:
-- final git status:
-- HEAD equals origin/main:
+- git diff --check: pass
+- npm run check: pass
+- final git status: clean (other than _order.md tracking status update)
+- HEAD equals origin/main: yes
 
 Scope guard:
 - package bumped: no
@@ -118,6 +118,6 @@ Scope guard:
 - source/catalog/adapters/reports touched: no
 
 Next recommendation:
-- prepare formal v1.0.1 release order: yes/no
-- exact blocker if any:
+- prepare formal v1.0.1 release order: yes
+- exact blocker if any: none
 ```
