@@ -1,8 +1,8 @@
 # Worker Order
 
-## #003: v0.5.0 First Success Demo
+## #007: Integrate Pre-v1 Hardening Baseline
 
-Status: Completed - PM accepted on 2026-05-28
+Status: Ready for implementation
 
 ## Role
 
@@ -10,101 +10,140 @@ Implementation worker
 
 ## Goal
 
-Add a safe first-success demo so a new user can run one command, see the Project Brain Skilltree workflow succeed locally, and understand the next useful commands before any v1.0 contract freeze.
+Integrate the PM-accepted #005 and #006 pre-v1 hardening changes into the remote main baseline, confirm CI, and leave the project ready for a separate v1.0.0 release-candidate decision.
+
+This is not the v1.0.0 release order.
 
 ## Context
 
-- Current public baseline is `v0.4.0`:
-  `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.4.0`
-- External surface verification on 2026-05-28 found no blocking v0.4.1 issue.
+- Latest public release is `v0.5.0`:
+  `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.5.0`
+- PM accepted Worker Order #005 after fresh verification:
+  - `git diff --check`: PASS
+  - `npm run check`: PASS, 54 tests
+  - `npm run test:forward`: PASS, 6/6 scenarios
+  - `npm run demo`: PASS
+  - `node tools/pack-release.js`: PASS
+- PM accepted Worker Order #006 after fresh verification:
+  - `git diff --check`: PASS
+  - `npm run check`: PASS, 55 tests
+  - `npm run test:forward`: PASS, 6/6 scenarios
+  - `npm run demo`: PASS
+  - no leftover `project-brain-sandbox-*` temp folders found after verification
+- The current working tree contains accepted pre-v1 hardening changes across docs and tools.
 - `source/` is canonical.
 - `adapters/` are generated artifacts and must not be edited directly.
-- v0.5.0 is selected before v1.0.0 stable-contract preparation.
-- `PROJECT_TASKS.md` is the compact state board. Keep full worker prompts in `_order.md`.
 
 ## Required Reads
 
 1. `PROJECT_TASKS.md`
-2. `PRD.md`
-3. `README.md`
-4. `docs/ROADMAP.md`
-5. `docs/INSTALL.md`
-6. `docs/QUICKSTART_DESIGN.md`
-7. `examples/minimal-project/README.md`
-8. `examples/minimal-project/PROJECT_TASKS.md`
-9. `package.json`
-10. Existing `tools/*.js` and `tools/*.test.js` patterns relevant to CLI scripts
+2. `_order.md`
+3. `docs/v1_freeze_checklist.md`
+4. `docs/INSTALL.md`
+5. `docs/RELEASE.md`
+6. `tools/validate-skilltree.js`
+7. `tools/install-adapter.test.js`
+8. `tools/lib/sandbox.js`
+9. `tools/sandbox.test.js`
+10. `tools/run-demo.js`
+11. `tools/forward-tester.js`
+12. `tools/pack-release.js`
+13. `tools/schema-stability.test.js`
+14. `package.json`
 
 ## Tasks
 
-1. Run `npm run check` before editing.
-2. Design and implement `npm run demo` as a deterministic local first-success path.
-   - Prefer a small Node script such as `tools/run-demo.js` if it matches existing tool patterns.
-   - Use `examples/minimal-project` or a temp sandbox as the proof fixture.
-   - Do not install anything into user agent directories.
-3. The demo must produce clear terminal output:
-   - success/failure status;
-   - what was verified;
-   - the source-of-truth rule (`source/` canonical, `adapters/` generated);
-   - recommended next commands such as `npm run check`, `npm run test:forward`, and adapter dry-run install.
-4. Add focused automated coverage for the demo script or package script registration.
-5. Update README or the most appropriate quickstart/install doc so newcomers see `npm run demo` as the first proof path.
-6. Update `PROJECT_TASKS.md` only with short execution results after implementation. Keep long details out of the state board.
+1. Run `git status --short` before editing.
+2. Confirm the current branch and remote baseline:
+   - identify the current branch;
+   - identify `HEAD`;
+   - identify `origin/main`;
+   - report whether the working tree contains only the accepted #005/#006 hardening files.
+3. Scope review:
+   - Expected accepted files include:
+     - `PROJECT_TASKS.md`
+     - `_order.md`
+     - `docs/INSTALL.md`
+     - `docs/RELEASE.md`
+     - `docs/v1_freeze_checklist.md`
+     - `tools/forward-tester.js`
+     - `tools/install-adapter.test.js`
+     - `tools/lib/sandbox.js`
+     - `tools/pack-release.js`
+     - `tools/run-demo.js`
+     - `tools/sandbox.test.js`
+     - `tools/schema-stability.test.js`
+     - `tools/validate-skilltree.js`
+   - If unrelated files appear, stop and report before staging.
+4. Run final local gates before commit:
+   - `git diff --check`
+   - `npm run check`
+   - `npm run test:forward`
+   - `npm run demo`
+   - `node tools/pack-release.js`
+5. Update `PROJECT_TASKS.md` with a short #007 execution summary only after the gates pass.
+6. Commit the accepted pre-v1 hardening baseline:
+   - Suggested commit message: `chore: harden pre-v1 contract and sandbox gates`
+7. Push the commit to `origin/main`.
+8. Confirm GitHub Actions `validate` status for the pushed commit.
+   - If network/auth blocks CI verification, report the exact blocker and do not claim CI success.
+9. Recommend the next PM decision:
+   - If local gates and CI pass, recommend a separate `#008` v1.0.0 release-candidate readiness order.
+   - If anything fails, recommend a focused fix order instead.
 
 ## Forbidden Scope
 
-- Do not edit generated files under `adapters/` by hand.
-- Do not rename `source/` folders.
-- Do not change `catalog/skills.yaml` schema or adapter slugs.
-- Do not freeze v1.0.0 contracts in this order.
-- Do not bump `package.json` version unless PM explicitly approves.
-- Do not create git tags, GitHub Releases, or release assets.
-- Do not install adapters into local user directories.
-- Do not require network access for the demo.
+- Do not bump `package.json` to `1.0.0`.
+- Do not create git tags.
+- Do not create or edit GitHub Releases.
+- Do not upload release assets.
+- Do not change `catalog/skills.yaml` schema, fields, or adapter slugs.
+- Do not rename or move `source/` folders.
+- Do not manually edit generated files under `adapters/`.
+- Do not install adapters into real local user skill directories.
+- Do not perform physical Core / Domain / Personal restructuring.
+- Do not rewrite release packaging to full cross-platform support.
 
 ## Verification
 
-- Run `npm run check`.
-- Run `npm run demo`.
-- Run `npm run test:forward` only if forward-testing fixtures, runner behavior, or behavioral scenarios change.
-- Confirm `git status --short` and explicitly report any generated or modified files.
+- `git diff --check`
+- `npm run check`
+- `npm run test:forward`
+- `npm run demo`
+- `node tools/pack-release.js`
+- `git status --short`
+- pushed commit SHA
+- GitHub Actions `validate` result for the pushed commit
 
 ## Report Back
 
 Use this shape:
 
 ```text
-Changed files:
+Changed files integrated:
 - ...
 
-Demo behavior:
-- command:
-- what it verifies:
-- writes outside repo/user directories: yes/no
-
-Verification:
+Local verification:
+- git diff --check: PASS/FAIL
 - npm run check: PASS/FAIL
+- npm run test:forward: PASS/FAIL
 - npm run demo: PASS/FAIL
-- npm run test:forward: PASS/FAIL/SKIPPED with reason
+- node tools/pack-release.js: PASS/FAIL
+
+Git integration:
+- branch:
+- commit SHA:
+- pushed to origin/main: yes/no
+- GitHub Actions validate: PASS/FAIL/BLOCKED with reason
 
 Scope guard:
-- adapters/: unchanged or rebuilt only by script
-- source/ layout: unchanged
-- catalog schema/slugs: unchanged
-- release tags/assets: unchanged
+- version bumped to 1.0.0: yes/no
+- tag/release/assets created: yes/no
+- catalog schema/slugs changed: yes/no
+- source layout changed: yes/no
+- adapters manually edited: yes/no
+- real local user skill dirs touched: yes/no
 
-Deferred risks:
+Recommended next order:
 - ...
 ```
-
-## PM Review Result
-
-- Accepted: `npm run demo` registered in `package.json`.
-- Accepted: `tools/run-demo.js` rebuilds adapters, creates an OS-temp sandbox, runs installer safety behavior, validates conflict backup and unrelated skill preservation, and cleans the sandbox on the successful path.
-- Accepted: `tools/run-demo.test.js` adds focused coverage for silent execution, invalid repo path handling, and package script registration.
-- Accepted: README and `docs/INSTALL.md` now present `npm run demo` as the recommended first proof path.
-- PM correction: `PROJECT_TASKS.md` wording was adjusted from minimal-project usage to deterministic sandbox fixture usage to match the implementation.
-- Verification: `npm run check` PASS with 52/52 tests, validation passed, audit passed.
-- Verification: `npm run demo` PASS when run standalone. A parallel PM run with `npm run check` hit a build-adapter race, so the standalone run is the accepted user path.
-- Verification: `npm run test:forward` skipped because no forward-testing fixtures, runner behavior, or behavioral scenarios changed.
-- Scope guard: no manual adapter edits, no source layout changes, no catalog schema/slug changes, no version bump, no release tags/assets.

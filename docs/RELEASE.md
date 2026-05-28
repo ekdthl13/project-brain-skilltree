@@ -40,6 +40,11 @@ This utility scans the built `adapters/` directory and creates the following rep
 
 ### 2. Zip Packaging (Manual/Scripted Release Archives)
 Before publishing a GitHub Release, the adapter assets must be packaged into zip archives for distribution:
+
+> [!NOTE]
+> **Windows Environment Requirement**:
+> The release packaging utility (`tools/pack-release.js`) relies on PowerShell's native `Compress-Archive` cmdlet and is explicitly designed for Windows. Bypassing/hardening parameters (`-NoProfile`, `-NonInteractive`, `-ExecutionPolicy Bypass`) are embedded for safety. Cross-platform support is deferred until post-v1.0.0.
+
 1. **Packaging Command**: Create zip archives of the compiled adapters. The release expects four zip files matching the baseline pattern:
    - `project-brain-skilltree-v<version>-adapters.zip` (All generated adapters)
    - `project-brain-skilltree-v<version>-antigravity-skills.zip` (Antigravity-specific target files)

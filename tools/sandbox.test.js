@@ -19,9 +19,34 @@ test("createSandbox creates a directory inside temp with prefix", () => {
     const tempDir = path.resolve(os.tmpdir());
     assert.ok(sb.startsWith(tempDir), "Sandbox path is not inside os.tmpdir()");
   } finally {
-    if (fs.existsSync(sb)) {
-      fs.rmSync(sb, { recursive: true, force: true });
+    cleanSandbox(sb);
+  }
+});
+
+test("createSandbox creates unique directories and does not reuse pre-existing paths", () => {
+  const sb1 = createSandbox();
+  const sb2 = createSandbox();
+  try {
+    assert.ok(fs.existsSync(sb1), "sb1 was not created");
+    assert.ok(fs.existsSync(sb2), "sb2 was not created");
+    assert.notEqual(sb1, sb2, "createSandbox returned duplicate paths");
+
+    // Proves that creating a pre-existing same-prefix temp directory on disk
+    // is not reused or overwritten by a consecutive call.
+    const preExisting = fs.mkdtempSync(path.join(os.tmpdir(), SANDBOX_PREFIX));
+    assert.ok(fs.existsSync(preExisting), "preExisting folder setup failed");
+
+    const sb3 = createSandbox();
+    try {
+      assert.ok(fs.existsSync(sb3), "sb3 was not created");
+      assert.notEqual(sb3, preExisting, "createSandbox reused a pre-existing temporary path");
+    } finally {
+      cleanSandbox(sb3);
+      cleanSandbox(preExisting);
     }
+  } finally {
+    cleanSandbox(sb1);
+    cleanSandbox(sb2);
   }
 });
 

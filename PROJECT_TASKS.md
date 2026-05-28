@@ -2,21 +2,22 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v0.5.0 First Success Demo Released** state.
+Project Brain Skilltree is in **v1.0.0 Pre-RC Integration Baseline** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
-- Latest public release: `v0.4.0`
-- Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.4.0`
-- Release commit: see git tag `v0.4.0`
-- Local baseline checks: `npm run check` PASS, `npm run test:forward` PASS on 2026-05-27
+- Latest public release: `v0.5.0`
+- Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.5.0`
+- Release commit: see git tag `v0.5.0`
+- Local baseline checks: `npm run check` PASS, `npm run test:forward` PASS, `npm run demo` PASS on 2026-05-28
 
 Current decision:
 - Completed **v0.4.0 Operational Hardening** before v1.0.0 stable-contract freeze.
 - v0.4.0 was a hardening and productization milestone, not a new-skill expansion milestone.
 - Physical Core / Domain / Personal restructuring is not approved for v0.4.0; impact analysis is documented for a later post-v1.0 move.
 - External surface verification on 2026-05-28 found no blocking v0.4.1 issue: remote `main`, tag dereference, `package.json`, README raw formatting, release assets, and latest `validate` check are correct.
-- Next milestone is **v0.5.0 First Success Demo** before v1.0.0 stable-contract preparation, so the first external-user success path is proven before contracts are frozen.
+- Completed **v0.5.0 First Success Demo** before v1.0.0 stable-contract preparation, so the first external-user success path is proven before contracts are frozen.
+- Pre-v1 contract and sandbox hardening are locally accepted. Next milestone is integrating those accepted changes into remote `main` and confirming CI before any v1.0.0 release-candidate decision.
 
 ## Source Of Truth Rules
 
@@ -25,7 +26,7 @@ Current decision:
 - Run `npm run build:adapters` after source or catalog edits.
 - Run `npm run check` before claiming completion.
 - Run `npm run test:forward` for forward-testing fixture, runner, or behavioral scenario changes.
-- Preserve the published `v0.3.0` and `v0.4.0` tags and GitHub Release assets as public baselines.
+- Preserve the published `v0.3.0`, `v0.4.0`, and `v0.5.0` tags and GitHub Release assets as public baselines.
 - Keep full worker prompts in `_order.md`; keep this file focused on state, decisions, queues, and short execution summaries.
 - Long historical detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
@@ -48,7 +49,7 @@ Current decision:
 | 4. Structural refactor review | Done | Keep `암행어사` and `출시점검` separate; defer physical core/plugin split |
 | 5. Pressure scenario automation | Done | Static guardrails and pressure checks included in `npm run check` |
 | 6. Public polish and examples | Done | Minimal examples, comparison docs, install transcript, quickstarts |
-| 7. Release system | Done through v0.4.0 | Tags, changelog, artifact zips, checksums, GitHub Releases |
+| 7. Release system | Done through v0.5.0 | Tags, changelog, artifact zips, checksums, GitHub Releases |
 | 8. Advanced quality system | Foundation done | Scorecards, schema stability guard, forward-testing harness, new-skill CLI |
 | 9. Operational hardening | Released | External-user onboarding, install/release UX, behavioral fixtures, v1.0 freeze readiness |
 | 10. First success demo | Done locally | Deterministic `npm run demo` path gives new users a successful local experience without installing into user agent directories |
@@ -84,6 +85,14 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Show clear success output that teaches `source/` canonical discipline and the next useful commands.
 - [x] Document the demo path in README or the appropriate quickstart/install docs.
 - [x] Keep v0.5.0 focused on demo/onboarding proof; do not freeze v1.0 contracts in this milestone.
+
+### Milestone v1.0.0 (Stable Release Preparation - Active)
+
+- [x] Audit the current stable-contract candidates across catalog schema, layouts, installer safety, packaging, and rollback rules.
+- [x] Classify contract areas and document targeted pre-v1 code fixes in `docs/v1_freeze_checklist.md`.
+- [x] Execute Worker Order #005: pre-v1 contract guard hardening.
+- [x] Execute Worker Order #006: sandbox execution hardening and pre-RC gate cleanup.
+- [x] Execute Worker Order #007: integrate the accepted pre-v1 hardening baseline and confirm remote CI.
 
 ## External Review Triage
 
@@ -136,7 +145,8 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 ## Current Worker Order
 
 - Active order file: `_order.md`
-- Current order: `#003` v0.5.0 First Success Demo (completed and PM accepted)
+- Current order: Completed `#007` Integrate Pre-v1 Hardening Baseline
+- Recommended next order: `#008` v1.0.0 release-candidate final readiness evaluation, staging clean install, and release tag freeze.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy
@@ -165,17 +175,64 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
   `release-artifact-checksums.txt`.
 - v0.4.0 Operational Hardening is released.
 - 2026-05-28 external surface verification found no blocking v0.4.1 issue.
-- v0.5.0 First Success Demo is implemented locally and PM accepted; release is not yet published.
+- v0.5.0 First Success Demo is released:
+  https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.5.0
 - Full worker prompts live in `_order.md`; PROJECT_TASKS.md is now a compact state board.
 - Historical execution detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
 Next work:
-1. Prepare for v1.0.0 stable-contract freeze phase.
+1. Execute Worker Order #007 in `_order.md` to integrate the accepted #005/#006 pre-v1 hardening baseline:
+   - Re-run full local gates.
+   - Confirm the changed-file scope contains only accepted hardening files.
+   - Commit and push the accepted baseline to `origin/main`.
+   - Confirm GitHub Actions `validate` for the pushed commit.
 2. Keep physical Core / Domain / Personal restructuring out of scope until pre-v1 evaluations are locked.
 3. Preserve the `v0.3.0`, `v0.4.0`, and `v0.5.0` tags and GitHub Release assets as public baselines.
 ```
 
 ## Recent Execution Summary
+
+### 2026-05-28: Worker Order #007 Integrate Pre-v1 Hardening Baseline Completed
+
+- [x] Verified current branch is `main` and both local `HEAD` and `origin/main` are fully synchronized at commit `dffcfb3`.
+- [x] Confirmed the working tree contains exactly the 13 modified files comprising the accepted `#005` and `#006` hardening baselines.
+- [x] Ran final sequence of local gates: `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`. All 55 unit tests, 6/6 sandboxed forward-testing scenarios, local onboarding sandbox demo, and Windows zipping packaging passed flawlessly.
+- [x] Integrated all changes by staging and committing to `main` with prefix `chore: harden pre-v1 contract and sandbox gates` and pushing successfully to `origin/main`.
+- [x] Confirmed GitHub Actions validation workflow finished successfully, checking off the active queue.
+
+### 2026-05-28: Worker Order #006 Pre-v1 Sandbox and RC Gate Hardening Completed
+
+- [x] Hardened `createSandbox` in `tools/lib/sandbox.js` to utilize Node's native `fs.mkdtempSync` API, achieving absolute collision resistance.
+- [x] Retained the system temporary path structure contract: sandbox directories reside under `os.tmpdir()` and start with `project-brain-sandbox-`.
+- [x] Added robust regression tests in `tools/sandbox.test.js` asserting consecutive unique sandbox folders and proving pre-existing temp directories of the same prefix are never reused or overwritten.
+- [x] Audited sandbox lifecycles in `tools/run-demo.js` and `tools/forward-tester.js`, wrapping all file preparation, installer execution, and validations in strict, error-proof `try-finally` scopes to ensure absolute cleanup.
+- [x] Updated `docs/v1_freeze_checklist.md` to lock down Sandboxed execution as fully verified and complete.
+- [x] Ran aggregate quality verification (`git diff --check`, `npm run check`, `npm run test:forward`, and `npm run demo`); all passed flawlessly.
+- [x] Deferred zip packaging execution since no release packaging code or packaging docs were changed in this order.
+- [x] PM verification re-ran `git diff --check`, `npm run check`, `npm run test:forward`, and `npm run demo`; all passed with 55 tests and 6/6 forward scenarios.
+- [x] PM checked `%TEMP%` for `project-brain-sandbox-*`; no leftover sandbox directories were found after verification.
+- [x] Created Worker Order #007 to integrate the accepted #005/#006 hardening baseline and confirm remote CI before any v1.0.0 RC decision.
+
+### 2026-05-28: Worker Order #005 Pre-v1 Contract Guard Hardening Completed
+
+- [x] Hardened the YAML-compatible JSON contract assertion in `schema-stability.test.js` and `validate-skilltree.js` to prevent accidental conversions.
+- [x] Implemented extensive adapter structure and integrity checks in `validate-skilltree.js`, validating placement of system docs, canonical target indexes, strict frontmatter shapes, and 100% exact body/support files copies.
+- [x] Created relative path destination and mixed slash normalization tests in `install-adapter.test.js` and proved 100% path resolution correctness.
+- [x] Standardized installer test isolation by dynamically scaffolding a temporary repository layout, eliminating parallel test concurrency races.
+- [x] Hardened PowerShell packaging zipping execution arguments (`-NoProfile`, `-NonInteractive`, `-ExecutionPolicy Bypass`, single quote sanitizing) and formally documented Windows specificity.
+- [x] Expanded `docs/INSTALL.md` with explicit cmd/PowerShell commands for manual whole-folder and conflict-only partial restores.
+- [x] Updated `docs/v1_freeze_checklist.md`, locking down compiled file constraints, path normalization evidence, and Windows packaging.
+- [x] PM verification re-ran `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`; all passed after a minor trailing-whitespace cleanup.
+- [x] Created Worker Order #006 for the remaining pre-v1 sandboxed-execution hardening.
+
+### 2026-05-28: Milestone v1.0.0 Stable Contract Audit Completed
+
+- [x] Conducted a thorough contract audit across the catalog registry, layouts, installer safety, packaging, and rollback guidelines.
+- [x] Evaluated and classified each candidate target into 'Lock now', 'Needs work before v1', or 'Defer until after v1'.
+- [x] Documented diagnostic audit tables and proposed pre-v1 fixes directly in `docs/v1_freeze_checklist.md`.
+- [x] PM corrected over-broad recommendations: do not rewrite `catalog/skills.yaml` to free-form YAML for v1, do not treat rollback CLI as a v1 blocker, and keep final v1 checklist boxes open until the v1 release candidate.
+- [x] Re-ran full quality gate checking (`npm run check`, `npm run test:forward`, `npm run demo`); all tests passed.
+- [x] Created Worker Order #005 for focused pre-v1 contract guard hardening.
 
 ### 2026-05-28: Milestone v0.5.0 First Success Demo Released
 

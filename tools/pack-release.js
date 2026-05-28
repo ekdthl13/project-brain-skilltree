@@ -13,9 +13,17 @@ function calculateSha256(filePath) {
 }
 
 function zipFolder(src, destZip) {
-  // powershell's Compress-Archive needs the src path to point to contents: e.g. path\*
+  // NOTE: This release packaging tool is explicitly designed and validated for Windows environments.
+  // It leverages PowerShell's built-in `Compress-Archive` command to generate release zips.
+  // Full OS-independent, cross-platform packaging (using a Node zip library like 'archiver')
+  // is deferred to post-v1.0.0, as Windows is the officially supported release packaging path.
+  //
+  // PowerShell's Compress-Archive needs the src path to point to contents: e.g. path\*
   // Also we enforce -Force parameter to overwrite if target exists.
-  const psCmd = `powershell -Command "Compress-Archive -Path '${src}' -DestinationPath '${destZip}' -Force"`;
+  // We double single-quotes in paths to prevent string boundaries breaking inside PowerShell command arguments.
+  const escapedSrc = src.replace(/'/g, "''");
+  const escapedDest = destZip.replace(/'/g, "''");
+  const psCmd = `powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command "Compress-Archive -Path '${escapedSrc}' -DestinationPath '${escapedDest}' -Force"`;
   try {
     execSync(psCmd, { stdio: "inherit" });
   } catch (err) {

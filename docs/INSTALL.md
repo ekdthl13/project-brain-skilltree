@@ -84,20 +84,49 @@ npm run install:codex
 
 ## Rollback Guidance
 
-If a real install needs to be rolled back, keep the current destination and all
-backups until runtime verification succeeds.
+If a real install needs to be rolled back, keep the current destination and all backups until runtime verification succeeds.
 
-Recommended rollback sequence:
+Recommended manual rollback sequences:
 
-1. Stop or restart the agent environment so it is not reading the skills folder.
-2. Rename the current destination to a quarantine path such as
-   `<destination>.quarantine-YYYYMMDDTHHMMSS`.
-3. Copy the selected backup folder back to the original destination path.
-4. Re-open the agent and verify the expected skills can trigger.
+### 1. Complete Restore (Revert Everything)
+Use this option when you want to discard the new installation entirely and return the directory to its exact pre-installation state.
 
-Use the out-of-place backup for a full pre-install restore. Use the
-installer-created `<destination>.backup-YYYYMMDDTHHMMSS` folder when you only
-need the conflicting managed entries that were replaced during install.
+#### In Windows Command Prompt (cmd):
+```cmd
+:: 1. Quarantine the current active installation directory
+rename "C:\path\to\destination" "skills.quarantine"
+
+:: 2. Copy the entire backup folder back to the original destination
+xcopy /E /I /H "C:\path\to\destination.backup-YYYYMMDDTHHMMSS" "C:\path\to\destination"
+```
+
+#### In Windows PowerShell:
+```powershell
+# 1. Quarantine the current active installation directory
+Rename-Item -Path "C:\path\to\destination" -NewName "skills.quarantine"
+
+# 2. Copy the entire backup folder back to the original destination
+Copy-Item -Path "C:\path\to\destination.backup-YYYYMMDDTHHMMSS" -Destination "C:\path\to\destination" -Recurse -Force
+```
+
+---
+
+### 2. Partial Restore (Restore Conflicts Only)
+Use this option when you want to restore only the conflicting files that were replaced (e.g. system files or index), while keeping other newly added files or unrelated custom files intact.
+
+#### In Windows Command Prompt (cmd):
+```cmd
+:: Overwrite only the files that were backed up back into the active directory
+xcopy /E /Y /H "C:\path\to\destination.backup-YYYYMMDDTHHMMSS" "C:\path\to\destination"
+```
+
+#### In Windows PowerShell:
+```powershell
+# Overwrite only the files that were backed up back into the active directory
+Copy-Item -Path "C:\path\to\destination.backup-YYYYMMDDTHHMMSS\*" -Destination "C:\path\to\destination" -Recurse -Force
+```
+
+After copying, restart the editor/agent environment (Codex, Antigravity, or Claude Code) so it re-reads the reverted files. Use the installer-created `<destination>.backup-YYYYMMDDTHHMMSS` folder containing only conflicting files to restore just the replaced entries.
 
 ## Example Install Transcript
 

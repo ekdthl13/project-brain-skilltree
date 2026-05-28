@@ -24,7 +24,11 @@ test("catalog/skills.yaml Schema Stability Guard", () => {
   try {
     catalog = JSON.parse(fs.readFileSync(catalogPath, "utf8").replace(/^\uFEFF/, ""));
   } catch (err) {
-    assert.fail(`catalog/skills.yaml is not valid JSON: ${err.message}`);
+    assert.fail(
+      `catalog/skills.yaml is not valid JSON.\n` +
+      `[CONTRACT ERROR] By design for v1.0.0, this file must remain strictly YAML-compatible JSON (valid JSON syntax).\n` +
+      `Do not convert it to free-form YAML. Parsing error: ${err.message}`
+    );
   }
 
   // 1. Root Keys Check

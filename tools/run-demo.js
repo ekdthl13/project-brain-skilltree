@@ -40,74 +40,77 @@ function runDemo(options = {}) {
   }
 
   // 2. Spawn a sandboxed directory inside the OS temporary layout.
-  const sandboxPath = createSandbox({ repoRoot });
-  const mockSkillsDir = path.join(sandboxPath, "mock-agent-skills");
-  fs.mkdirSync(mockSkillsDir, { recursive: true });
-
-  // 3. Set up pre-existing files to test the installer's safety rules.
-  // Pre-scaffold a conflict file to demonstrate backup logic.
-  const oldPrinciplesPath = path.join(mockSkillsDir, "CORE_PRINCIPLES.md");
-  fs.writeFileSync(
-    oldPrinciplesPath, 
-    "# Old Local Principles\nThis is old user content and must be backed up safely.", 
-    "utf8"
-  );
-
-  // Pre-scaffold an unrelated file to demonstrate preservation logic.
-  const unrelatedDir = path.join(mockSkillsDir, "custom-user-skill");
-  fs.mkdirSync(unrelatedDir, { recursive: true });
-  fs.writeFileSync(
-    path.join(unrelatedDir, "SKILL.md"), 
-    "# Custom User Skill\nThis is unrelated manually created content. It must not be deleted.", 
-    "utf8"
-  );
-
-  if (!silent) {
-    console.log("\n[Phase 3/4] Running adapter installer on the sandbox target...");
-  }
-
-  // 4. Run the installer targeting the sandbox skills folder.
-  const mockNow = () => "20260528T090000";
-  let installResult;
+  let sandboxPath = null;
   try {
-    installResult = installAdapter({
-      target: "antigravity",
-      destination: mockSkillsDir,
-      repoRoot,
-      now: mockNow
-    });
-  } catch (err) {
-    cleanSandbox(sandboxPath, { repoRoot });
-    throw new Error(`Adapter installer crashed: ${err.message}`);
+    sandboxPath = createSandbox({ repoRoot });
+    const mockSkillsDir = path.join(sandboxPath, "mock-agent-skills");
+    fs.mkdirSync(mockSkillsDir, { recursive: true });
+
+    // 3. Set up pre-existing files to test the installer's safety rules.
+    // Pre-scaffold a conflict file to demonstrate backup logic.
+    const oldPrinciplesPath = path.join(mockSkillsDir, "CORE_PRINCIPLES.md");
+    fs.writeFileSync(
+      oldPrinciplesPath,
+      "# Old Local Principles\nThis is old user content and must be backed up safely.",
+      "utf8"
+    );
+
+    // Pre-scaffold an unrelated file to demonstrate preservation logic.
+    const unrelatedDir = path.join(mockSkillsDir, "custom-user-skill");
+    fs.mkdirSync(unrelatedDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(unrelatedDir, "SKILL.md"),
+      "# Custom User Skill\nThis is unrelated manually created content. It must not be deleted.",
+      "utf8"
+    );
+
+    if (!silent) {
+      console.log("\n[Phase 3/4] Running adapter installer on the sandbox target...");
+    }
+
+    // 4. Run the installer targeting the sandbox skills folder.
+    const mockNow = () => "20260528T090000";
+    let installResult;
+    try {
+      installResult = installAdapter({
+        target: "antigravity",
+        destination: mockSkillsDir,
+        repoRoot,
+        now: mockNow
+      });
+    } catch (err) {
+      throw new Error(`Adapter installer crashed: ${err.message}`);
+    }
+
+    if (!silent) {
+      console.log("\n[Phase 4/4] Conducting automated side-effect validations...");
+    }
+
+    // 5. Conduct automated checks on side-effects to prove success.
+    const newPrinciplesExist = fs.existsSync(path.join(mockSkillsDir, "CORE_PRINCIPLES.md"));
+    const newPrinciplesContent = fs.readFileSync(path.join(mockSkillsDir, "CORE_PRINCIPLES.md"), "utf8");
+    const isUpgraded = !newPrinciplesContent.includes("This is old user content and must be backed up safely.");
+
+    const backupDir = `${mockSkillsDir}.backup-20260528T090000`;
+    const backupExists = fs.existsSync(backupDir);
+    const backupPrinciplesExist = fs.existsSync(path.join(backupDir, "CORE_PRINCIPLES.md"));
+    const backupPrinciplesContent = backupPrinciplesExist
+      ? fs.readFileSync(path.join(backupDir, "CORE_PRINCIPLES.md"), "utf8")
+      : "";
+    const backupCorrect = backupPrinciplesContent.includes("This is old user content and must be backed up safely.");
+
+    const preservationCorrect = fs.existsSync(path.join(mockSkillsDir, "custom-user-skill", "SKILL.md"));
+
+    // Check if installation outcome matches all required specifications.
+    if (!newPrinciplesExist || !isUpgraded || !backupExists || !backupCorrect || !preservationCorrect) {
+      throw new Error("Demo verification failed: Installer generated incorrect side-effects inside the sandbox.");
+    }
+  } finally {
+    if (sandboxPath) {
+      // Clean up sandbox to leave zero footprints on the user's local system.
+      cleanSandbox(sandboxPath, { repoRoot });
+    }
   }
-
-  if (!silent) {
-    console.log("\n[Phase 4/4] Conducting automated side-effect validations...");
-  }
-
-  // 5. Conduct automated checks on side-effects to prove success.
-  const newPrinciplesExist = fs.existsSync(path.join(mockSkillsDir, "CORE_PRINCIPLES.md"));
-  const newPrinciplesContent = fs.readFileSync(path.join(mockSkillsDir, "CORE_PRINCIPLES.md"), "utf8");
-  const isUpgraded = !newPrinciplesContent.includes("This is old user content and must be backed up safely.");
-
-  const backupDir = `${mockSkillsDir}.backup-20260528T090000`;
-  const backupExists = fs.existsSync(backupDir);
-  const backupPrinciplesExist = fs.existsSync(path.join(backupDir, "CORE_PRINCIPLES.md"));
-  const backupPrinciplesContent = backupPrinciplesExist
-    ? fs.readFileSync(path.join(backupDir, "CORE_PRINCIPLES.md"), "utf8")
-    : "";
-  const backupCorrect = backupPrinciplesContent.includes("This is old user content and must be backed up safely.");
-
-  const preservationCorrect = fs.existsSync(path.join(mockSkillsDir, "custom-user-skill", "SKILL.md"));
-
-  // Check if installation outcome matches all required specifications.
-  if (!newPrinciplesExist || !isUpgraded || !backupExists || !backupCorrect || !preservationCorrect) {
-    cleanSandbox(sandboxPath, { repoRoot });
-    throw new Error("Demo verification failed: Installer generated incorrect side-effects inside the sandbox.");
-  }
-
-  // Clean up sandbox to leave zero footprints on the user's local system.
-  cleanSandbox(sandboxPath, { repoRoot });
 
   if (!silent) {
     console.log("\n========================================================");

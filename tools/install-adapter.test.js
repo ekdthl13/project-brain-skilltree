@@ -10,7 +10,28 @@ const {
   resolveTargetSource
 } = require("./install-adapter.js");
 
-const repoRoot = path.resolve(__dirname, "..");
+// Create a completely isolated mock repository layout for the installer tests
+// to prevent parallel test execution race conditions with other tests that rebuild adapters.
+const testSuiteTempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "skilltree-installer-suite-"));
+const repoRoot = testSuiteTempRoot;
+
+// Scaffold mock adapters
+const mockCodexSkills = path.join(repoRoot, "adapters", "codex", "skills");
+fs.mkdirSync(mockCodexSkills, { recursive: true });
+fs.writeFileSync(path.join(mockCodexSkills, "SKILL_INDEX.md"), "# Mock Index", "utf8");
+fs.mkdirSync(path.join(mockCodexSkills, "project-manager"), { recursive: true });
+fs.writeFileSync(path.join(mockCodexSkills, "project-manager", "SKILL.md"), "# Mock Skill", "utf8");
+fs.mkdirSync(path.join(mockCodexSkills, "office-hours"), { recursive: true });
+fs.writeFileSync(path.join(mockCodexSkills, "office-hours", "SKILL.md"), "# Mock Office Hours", "utf8");
+
+const mockAntigravitySkills = path.join(repoRoot, "adapters", "antigravity", "skills");
+fs.mkdirSync(mockAntigravitySkills, { recursive: true });
+fs.writeFileSync(path.join(mockAntigravitySkills, "SKILL_INDEX.md"), "# Mock Index", "utf8");
+
+const mockClaudeSkills = path.join(repoRoot, "adapters", "claude-code", "skills");
+fs.mkdirSync(mockClaudeSkills, { recursive: true });
+fs.writeFileSync(path.join(mockClaudeSkills, "SKILL_INDEX.md"), "# Mock Index", "utf8");
+
 
 function tempDir() {
   return fs.mkdtempSync(path.join(os.tmpdir(), "skilltree-install-"));
@@ -84,4 +105,44 @@ test("installAdapter preserves unrelated existing destination entries", () => {
 
   assert.equal(fs.existsSync(path.join(unrelated, "keep.txt")), true);
   assert.equal(fs.existsSync(path.join(dest, "project-manager", "SKILL.md")), true);
+});
+
+test("installAdapter handles relative destinations correctly", () => {
+  const root = tempDir();
+  const oldCwd = process.cwd();
+  try {
+    process.chdir(root);
+    const relativeDest = "./relative-skills";
+    const resolvedDest = path.resolve(relativeDest);
+
+    const result = installAdapter({
+      target: "codex",
+      destination: relativeDest,
+      repoRoot,
+      dryRun: false
+    });
+
+    assert.equal(result.destination, resolvedDest);
+    assert.equal(fs.existsSync(resolvedDest), true);
+    assert.equal(fs.existsSync(path.join(resolvedDest, "project-manager", "SKILL.md")), true);
+  } finally {
+    process.chdir(oldCwd);
+  }
+});
+
+test("installAdapter normalizes mixed slashes destinations correctly", () => {
+  const root = tempDir();
+  const mixedDest = root + "/mixed\\slash/destination/";
+  const resolvedDest = path.resolve(mixedDest);
+
+  const result = installAdapter({
+    target: "codex",
+    destination: mixedDest,
+    repoRoot,
+    dryRun: false
+  });
+
+  assert.equal(result.destination, resolvedDest);
+  assert.equal(fs.existsSync(resolvedDest), true);
+  assert.equal(fs.existsSync(path.join(resolvedDest, "project-manager", "SKILL.md")), true);
 });

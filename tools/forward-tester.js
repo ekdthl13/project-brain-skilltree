@@ -59,10 +59,7 @@ function runScenario(scenarioPath) {
   console.log(`[FORWARD TEST] Running scenario: ${scenarioId}`);
   console.log(`[FORWARD TEST] Description: ${description || "None"}`);
 
-  // Create sandbox
-  const sandboxPath = createSandbox();
-  console.log(`[FORWARD TEST] Sandbox created at: ${sandboxPath}`);
-
+  let sandboxPath = null;
   let runResult = {
     pass: false,
     reason: "",
@@ -72,6 +69,10 @@ function runScenario(scenarioPath) {
   };
 
   try {
+    // Create sandbox
+    sandboxPath = createSandbox();
+    console.log(`[FORWARD TEST] Sandbox created at: ${sandboxPath}`);
+
     // Initialize sandbox: copy repository files
     const repoRoot = path.resolve(__dirname, "..");
     copyDirSync(repoRoot, sandboxPath);
@@ -207,8 +208,10 @@ function runScenario(scenarioPath) {
     };
 
   } finally {
-    console.log(`[FORWARD TEST] Cleaning up sandbox at: ${sandboxPath}`);
-    cleanSandbox(sandboxPath);
+    if (sandboxPath) {
+      console.log(`[FORWARD TEST] Cleaning up sandbox at: ${sandboxPath}`);
+      cleanSandbox(sandboxPath);
+    }
   }
 
   return runResult;

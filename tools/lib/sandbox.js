@@ -81,10 +81,8 @@ function assertInsideSandbox(targetPath, options = {}) {
 
 function createSandbox(options = {}) {
   const tempDir = getTempDir();
-  const rand = Math.random().toString(36).substring(2, 10);
-  const sandboxPath = path.join(tempDir, `${SANDBOX_PREFIX}${rand}`);
-  
-  fs.mkdirSync(sandboxPath, { recursive: true });
+  const template = path.join(tempDir, SANDBOX_PREFIX);
+  const sandboxPath = fs.mkdtempSync(template);
   return sandboxPath;
 }
 
