@@ -73,15 +73,15 @@ $env:GITHUB_TOKEN=$null; gh release view v1.1.1 --json tagName,name,url,isDraft,
 
 ```text
 v1.1.1 release execution:
-- release prep commit:
-- post-release commit:
-- tag:
-- tag dereference:
-- pushed main:
-- GitHub Release:
-- assets uploaded:
-- local verification:
-- remote CI:
-- final git status:
-- blockers:
+- release prep commit: e69433d336b9fef40a6aa2e4b24a2aeadaafb90d
+- post-release commit: pending local commit
+- tag: v1.1.1
+- tag dereference: e69433d336b9fef40a6aa2e4b24a2aeadaafb90d
+- pushed main: yes
+- GitHub Release: https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.1
+- assets uploaded: yes (5 zip/checksum assets)
+- local verification: yes (npm run check, test:forward, demo, score:skills, pack-release all passed)
+- remote CI: yes (validate.yml run 26563789119 succeeded)
+- final git status: ahead of origin/main (to be pushed)
+- blockers: none
 ```

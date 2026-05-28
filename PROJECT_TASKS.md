@@ -6,12 +6,12 @@ Project Brain Skilltree is in **v1.1.1 Release Execution Ready** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
-- Latest published GitHub Release: `v1.1.0`
-- Next planned release: `v1.1.1` public clarity patch
-- Latest stable tag: `v1.1.0`
-- Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.0`
-- Release commit: `2972ff62b4d53ccde8f5704e919dcfcebe807d89`
-- Latest remote CI: GitHub Actions `validate` matrix PASS on Ubuntu, Windows, and macOS for `2972ff62b4d53ccde8f5704e919dcfcebe807d89`
+- Latest published GitHub Release: `v1.1.1`
+- Next planned release: post-v1.1.1 productization
+- Latest stable tag: `v1.1.1`
+- Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.1`
+- Release commit: `e69433d336b9fef40a6aa2e4b24a2aeadaafb90d`
+- Latest remote CI: GitHub Actions `validate` matrix PASS on Ubuntu, Windows, and macOS for `e69433d336b9fef40a6aa2e4b24a2aeadaafb90d`
 
 Current decision:
 - Completed **v0.4.0 Operational Hardening** before v1.0.0 stable-contract freeze.
@@ -21,9 +21,8 @@ Current decision:
 - Completed **v0.5.0 First Success Demo** before the v1.0.0 contract freeze, so the first external-user success path was proven before contracts were frozen.
 - v1.0.0 version bump, release commits, CI, tag push, and GitHub Release publication with 5 assets are 100% complete and verified.
 - Post-v1 v1.1.0 productization work is published with release assets.
-- Current local clarity work improves public first impression, install/restore confidence, release-note trust language, and PM public clarity review.
-- Worker Order #026 is PM-reviewed and locally committed.
-- Worker Order #027 is ready to execute the `v1.1.1` release: version metadata, release commit, push, CI, tag, GitHub Release, assets, and post-release tracking.
+- v1.1.1 public clarity patch is published with release assets.
+- GitHub Release v1.1.1 is published and verified.
 
 ## Source Of Truth Rules
 
@@ -134,14 +133,14 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Confirm GitHub Actions validate matrix passes on Ubuntu, Windows, and macOS.
 - [x] Upload 5 GitHub Release assets for `v1.1.0`.
 
-### Local Candidate v1.1.1 (Public Clarity Patch - In Release Finalization)
+### Milestone v1.1.1 (Public Clarity Patch - Released)
 
 - [x] Add README overview SVG showing `source/` -> quality gate -> `adapters/`.
 - [x] Align README, WHY, SCENARIOS, and INSTALL around demo proof, drift guard, rollback path, and CI matrix.
 - [x] Run final local gates and commit without pushing.
 - [x] Execute Worker Order #026: complete install/restore preflight, README five-minute route, release notes trust template, and public clarity checklist.
 - [x] PM review and direct fixes for #026 completed.
-- [ ] Execute Worker Order #027: publish `v1.1.1` with release commit, push, CI confirmation, tag, GitHub Release, assets, and post-release tracking.
+- [x] Execute Worker Order #027: publish `v1.1.1` with release commit, push, CI confirmation, tag, GitHub Release, assets, and post-release tracking.
 
 ## External Review Triage
 
@@ -215,22 +214,25 @@ GitHub repo는 https://github.com/ekdthl13/project-brain-skilltree 이고,
 source/ 가 canonical root, adapters/ 는 생성물이다.
 
 현재 상태:
-- Latest published GitHub Release: v1.1.0
-  https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.0
-- Latest stable tag: v1.1.0
-- v1.1.0 release commit: 2972ff62b4d53ccde8f5704e919dcfcebe807d89
-- Current local work: v1.1.1 public clarity patch is ready for release execution.
-- Active worker order: #027 v1.1.1 release execution.
+- Latest published GitHub Release: v1.1.1
+  https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.1
+- Latest stable tag: v1.1.1
+- v1.1.1 release commit: e69433d336b9fef40a6aa2e4b24a2aeadaafb90d
 - Full worker prompts live in `_order.md`; PROJECT_TASKS.md is now a compact state board.
 - Historical execution detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
 Next work:
-1. Execute Worker Order #027 using `_playbook_v1_1_1_release.md`.
-2. Publish `v1.1.1` only after full local gates and GitHub Actions validate matrix pass.
-3. Preserve previous tags/assets and do not retag existing releases.
+1. Receive next worker order.
 ```
 
 ## Recent Execution Summary
+
+### 2026-05-28: v1.1.1 Release Published
+
+- [x] Published `v1.1.1` GitHub Release with 5 release assets.
+- [x] Confirmed GitHub Actions `validate` matrix passed on Ubuntu, Windows, and macOS for the release commit.
+- [x] Tagged release commit `e69433d336b9fef40a6aa2e4b24a2aeadaafb90d` with annotated tag `v1.1.1` and pushed to remote.
+- [x] Updated all release metadata to `v1.1.1` (package.json, README, INSTALL, ROADMAP, CHANGELOG).
 
 ### 2026-05-28: v1.1.0 Release Published and v1.1.1 Public Clarity Patch Started
 
