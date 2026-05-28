@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-05-28
+
+### Added
+- Pre-install safety checklist in `docs/INSTALL.md` covering pre-installation dry-runs, backups, and restores.
+- A five-minute safe trial route section in `README.md`.
+- Release notes template `docs/RELEASE_NOTES_TEMPLATE.md` with standard trust terms.
+- Public release clarity checklist `docs/PUBLIC_CLARITY_CHECKLIST.md`.
+
+### Changed
+- Aligned trust-language terminology across `README.md`, `docs/WHY.md`, `docs/INSTALL.md`, and `docs/SCENARIOS.md`.
+
 ## [1.1.0] - 2026-05-28
 
 ### Added

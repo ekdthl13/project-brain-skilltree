@@ -177,7 +177,7 @@ Ensure there is no adapter drift and the quality gate is green:
 ```bash
 $ npm run check
 
-> project-brain-skilltree@1.1.0 check
+> project-brain-skilltree@1.1.1 check
 > npm run build:adapters && npm run diff:adapters && npm run test && npm run validate && npm run audit
 
 Built 12 skills for antigravity, codex, and claude-code.

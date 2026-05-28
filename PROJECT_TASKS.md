@@ -134,7 +134,7 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Confirm GitHub Actions validate matrix passes on Ubuntu, Windows, and macOS.
 - [x] Upload 5 GitHub Release assets for `v1.1.0`.
 
-### Local Candidate v1.1.1 (Public Clarity Patch - In Progress)
+### Local Candidate v1.1.1 (Public Clarity Patch - In Release Finalization)
 
 - [x] Add README overview SVG showing `source/` -> quality gate -> `adapters/`.
 - [x] Align README, WHY, SCENARIOS, and INSTALL around demo proof, drift guard, rollback path, and CI matrix.

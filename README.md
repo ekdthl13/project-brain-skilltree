@@ -1,11 +1,11 @@
 # Project Brain Skilltree
 
-[![Release](https://img.shields.io/github/v/release/ekdthl13/project-brain-skilltree?label=Release&color=blue)](https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.0)
+[![Release](https://img.shields.io/github/v/release/ekdthl13/project-brain-skilltree?label=Release&color=blue)](https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.1)
 [![CI Status](https://github.com/ekdthl13/project-brain-skilltree/actions/workflows/validate.yml/badge.svg)](https://github.com/ekdthl13/project-brain-skilltree/actions/workflows/validate.yml)
 
 Project Brain Skilltree gives AI agent skills one source of truth. Edit once in `source/`, generate safe adapters for Antigravity/Gemini, Codex, and Claude Code, then verify the whole pipeline before installing anything into a real agent folder.
 
-Current public baseline: latest stable release `v1.1.0`, canonical root `source/`, generated adapters `adapters/`, recommended first proof path `npm run demo`.
+Current public baseline: latest stable release `v1.1.1`, canonical root `source/`, generated adapters `adapters/`, recommended first proof path `npm run demo`.
 
 ![Project Brain Skilltree overview](docs/assets/skilltree-overview.svg)
 

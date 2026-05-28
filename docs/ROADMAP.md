@@ -69,3 +69,11 @@
 - Harden install and restore CLI UX, including active restore regression coverage.
 - Expand validation CI across Ubuntu, Windows, and macOS.
 - Improve skill quality scorecard diagnostics for PM review and future hardening.
+
+## v1.1.1 (Public Clarity Patch - Released)
+
+- Add README overview graphic and public trust proof language.
+- Add README five-minute safe trial route.
+- Add install/restore preflight safety checklist.
+- Align WHY, SCENARIOS, and INSTALL trust-language vocabulary.
+- Create release notes template and public clarity checklist.
