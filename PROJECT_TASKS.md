@@ -2,7 +2,7 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v1.1.1 Release Execution Ready** state.
+Project Brain Skilltree is in **v1.1.1 Released / post-v1.1.1 planning** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
@@ -31,8 +31,8 @@ Current decision:
 - Run `npm run build:adapters` after source or catalog edits.
 - Run `npm run check` before claiming completion.
 - Run `npm run test:forward` for forward-testing fixture, runner, or behavioral scenario changes.
-- Preserve the published `v0.3.0`, `v0.4.0`, `v0.5.0`, and `v1.1.0` tags and GitHub Release assets as public baselines.
-- Preserve the pushed `v1.0.0` tag; do not retag unless an explicit rollback/recovery decision is made.
+- Preserve the published `v0.3.0`, `v0.4.0`, `v0.5.0`, `v1.0.0`, `v1.1.0`, and `v1.1.1` tags and GitHub Release assets as public baselines.
+- Do not retag any published release unless an explicit rollback/recovery decision is made.
 - Keep full worker prompts in `_order.md`; keep this file focused on state, decisions, queues, and short execution summaries.
 - Long historical detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
@@ -192,10 +192,11 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 
 ## Current Worker Order
 
-- Active order file: `_order.md`
-- Active playbook file: `_playbook_v1_1_1_release.md`
-- Current order: `#027` v1.1.1 release execution.
-- Release/push strategy: worker may commit, push, tag, create GitHub Release, upload assets, and push post-release tracking updates by following `_playbook_v1_1_1_release.md`.
+- Current order file: `_order.md`
+- Latest completed order: `#027` v1.1.1 release execution.
+- Active implementation order: none; next order is not yet issued.
+- Last release playbook: `_playbook_v1_1_1_release.md`
+- Release/push status: `v1.1.1` was committed, pushed, tagged, released, verified, and followed by a pushed post-release tracking commit.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy
