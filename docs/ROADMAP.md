@@ -62,3 +62,10 @@
 - Align public status docs with the released `v1.0.0` baseline.
 - Correct stale release references, install transcript versions, and catalog-backed adapter slugs.
 - Verify post-v1 public surfaces without adding features or changing stable contracts.
+
+## v1.1.0 (Post-v1 Productization - Released)
+
+- Add real user scenario examples and a public "Why This Exists" page.
+- Harden install and restore CLI UX, including active restore regression coverage.
+- Expand validation CI across Ubuntu, Windows, and macOS.
+- Improve skill quality scorecard diagnostics for PM review and future hardening.

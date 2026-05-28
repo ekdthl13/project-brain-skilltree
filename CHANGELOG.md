@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-05-28
+
+### Added
+- Real user scenario guide covering demo, dry-run install, and restore rehearsal flows.
+- Public "Why This Exists" documentation for external readers.
+- Multi-OS GitHub Actions validation matrix for Ubuntu, Windows, and macOS.
+- Restore CLI regression coverage for active rollback after added adapter entries are cleaned.
+
+### Changed
+- Improved README first impression with clearer value proposition and first walkthrough links.
+- Improved install and restore CLI help, dry-run summaries, and safety messages.
+- Enhanced skill quality scorecard with summary bands and actionable improvement candidates.
+
+### Fixed
+- Restore CLI no longer fails while printing active rollback results after deleting newly added adapter entries.
+- Scorecard output no longer includes a changing scan timestamp.
+
 ## [1.0.0] - 2026-05-28
 
 ### Added

@@ -221,16 +221,20 @@ test("restoreAdapter parseArgs parses help option correctly without target/desti
 test("restore-adapter CLI active restore exits successfully after cleaning added adapter entries", () => {
   const root = tempDir();
   const dest = path.join(root, "skills");
+  const backup = `${dest}.backup-20260528T120000`;
+  const realCodexSource = path.join(projectRoot, "adapters", "codex", "skills");
+  const cleanEntryName = fs.readdirSync(realCodexSource)
+    .find((name) => name !== "SKILL_INDEX.md");
+  assert.ok(cleanEntryName, "expected at least one managed adapter entry besides SKILL_INDEX.md");
+
   fs.mkdirSync(dest, { recursive: true });
+  fs.mkdirSync(backup, { recursive: true });
+  fs.writeFileSync(path.join(backup, "SKILL_INDEX.md"), "old index", "utf8");
   fs.writeFileSync(path.join(dest, "SKILL_INDEX.md"), "old index", "utf8");
 
   try {
-    const install = childProcess.spawnSync(
-      process.execPath,
-      ["tools/install-adapter.js", "codex", dest],
-      { cwd: projectRoot, encoding: "utf8" }
-    );
-    assert.equal(install.status, 0, install.stderr || install.stdout);
+    const cleanEntryPath = path.join(dest, cleanEntryName);
+    fs.cpSync(path.join(realCodexSource, cleanEntryName), cleanEntryPath, { recursive: true });
 
     const restore = childProcess.spawnSync(
       process.execPath,

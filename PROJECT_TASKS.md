@@ -2,11 +2,12 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v1.0.0 Released** state.
+Project Brain Skilltree is in **v1.1.0 Release Preparation** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
 - Latest published GitHub Release: `v1.0.0`
+- Next planned release: `v1.1.0`
 - Latest stable tag: `v1.0.0`
 - Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.0.0`
 - Release commit: `dd2f38ab856980bb29c4bf85cab8a29587fa663c`
@@ -19,7 +20,7 @@ Current decision:
 - External surface verification on 2026-05-28 found no blocking v0.4.1 issue: remote `main`, tag dereference, `package.json`, README raw formatting, release assets, and latest `validate` check are correct.
 - Completed **v0.5.0 First Success Demo** before the v1.0.0 contract freeze, so the first external-user success path was proven before contracts were frozen.
 - v1.0.0 version bump, release commits, CI, tag push, and GitHub Release publication with 5 assets are 100% complete and verified.
-- Post-v1 work uses a local batch strategy: finish improvements locally, PM-review them as one unit, then decide commit/push/release deliberately.
+- Post-v1 v1.1.0 productization work is locally complete and is entering release verification.
 
 ## Source Of Truth Rules
 
@@ -115,13 +116,14 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] `#017` Fix PM review blockers before commit.
 - [x] PM integrated review after blocker fixes.
 
-### Post-v1 Productization Round 2 (Ready)
+### Post-v1 Productization Round 2 (PM Review Passed)
 
-- [ ] `#018` Real user scenario examples.
-- [ ] `#019` GitHub Actions matrix hardening.
-- [ ] `#020` Install/restore command UX polish, pass 2.
-- [ ] `#021` Skill quality score report improvements.
-- [ ] `#022` Public "Why This Exists" page.
+- [x] `#018` Real user scenario examples.
+- [x] `#019` GitHub Actions matrix hardening.
+- [x] `#020` Install/restore command UX polish, pass 2.
+- [x] `#021` Skill quality score report improvements.
+- [x] `#022` Public "Why This Exists" page.
+- [x] PM blocker fix: active restore CLI no longer fails after cleaning added adapter entries.
 
 ## External Review Triage
 
@@ -175,8 +177,8 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 
 - Active order file: `_order.md`
 - Active playbook file: `_playbook_round2.md`
-- Current order: Ready `#018-#022` Post-v1 Productization Round 2
-- Release/push strategy: hold publication until the full local batch is complete and PM-reviewed.
+- Current order: Prepare and publish `v1.1.0` after final release gates.
+- Release/push strategy: publish `v1.1.0` after final local gates, push, tag, CI confirmation, and GitHub Release asset upload.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy

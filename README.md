@@ -1,16 +1,23 @@
 # Project Brain Skilltree
 
-[![Release](https://img.shields.io/github/v/release/ekdthl13/project-brain-skilltree?label=Release&color=blue)](https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.0.0)
+[![Release](https://img.shields.io/github/v/release/ekdthl13/project-brain-skilltree?label=Release&color=blue)](https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.0)
 [![CI Status](https://github.com/ekdthl13/project-brain-skilltree/actions/workflows/validate.yml/badge.svg)](https://github.com/ekdthl13/project-brain-skilltree/actions/workflows/validate.yml)
 
-Project Brain Skilltree is a portable skill operating system for agentic work. It keeps one canonical source tree and builds tool-specific adapters for Antigravity/Gemini, Codex, and Claude Code.
+Project Brain Skilltree gives AI agent skills one source of truth. Edit once in `source/`, generate safe adapters for Antigravity/Gemini, Codex, and Claude Code, then verify the whole pipeline before installing anything into a real agent folder.
 
-Current public baseline: latest stable release `v1.0.0`, canonical root `source/`, generated adapters `adapters/`, recommended first proof path `npm run demo`.
+Current public baseline: latest stable release `v1.1.0`, canonical root `source/`, generated adapters `adapters/`, recommended first proof path `npm run demo`.
 
 ---
 
+## What You Get
+- **One editable skill source** instead of three drifting agent folders.
+- **Generated adapters** for Antigravity/Gemini, Codex, and Claude Code.
+- **Safe install previews** with backup, preserve, and restore visibility.
+- **A zero-install demo** that proves the pipeline in a sandbox before you touch real agent settings.
+- **CI and local quality gates** that catch adapter drift, unsafe paths, broken links, and behavior-regression scenarios.
+
 ## What it is
-Project Brain Skilltree is a file-based, multi-agent skill framework. Instead of maintaining separate copies of prompt instructions for different AI tools, you edit the skills in a single canonical directory. The build tool automatically compiles and formats them for each target agent runtime.
+Project Brain Skilltree is a file-based, multi-agent skill framework. Instead of maintaining separate copies of prompt instructions for different AI tools, you edit the skills in a single canonical directory. The build tool compiles and formats them for each target agent runtime.
 
 ## Why This Exists
 Most skill collections optimize for one agent. Project Brain Skilltree optimizes for durable work across multiple agents:
@@ -47,6 +54,8 @@ npm run demo
 ```
 
 This zero-install demo command builds the adapters, provisions an isolated sandbox in your OS temp folder, verifies preservation/backup logic, and lists subsequent actions.
+
+For a guided first walkthrough after the demo, see [docs/SCENARIOS.md](docs/SCENARIOS.md).
 
 ### 2. Locate Your Agent Skills Folder & Choose Target
 To use these skills in your actual workflow, locate the skills directory used by your AI agent, then deploy the matching adapter.
@@ -164,6 +173,7 @@ See [docs/QUALITY_GATE.md](docs/QUALITY_GATE.md) for more details.
 - [Project Tasks](PROJECT_TASKS.md) - Current development roadmap and status.
 - [Roadmap](docs/ROADMAP.md) - Milestone release schedules and future plans.
 - [Install Guide](docs/INSTALL.md) - Detailed installer options, environment variables, and rollback steps.
+- [Why This Exists](docs/WHY.md) - Short explanation of the problem, approach, and intended users.
 - **Quickstart Guides**:
   - [PRD Creation Workflow](docs/quickstarts/PRD_CREATION.md) - Turn ideas into a PRD.
   - [Project Manager Spine Bootstrap](docs/quickstarts/PROJECT_MANAGER_BOOTSTRAP.md) - Set up workspace continuity.
