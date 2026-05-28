@@ -193,7 +193,6 @@ function main() {
       "# Skill Quality Scorecard",
       "",
       `Average Quality Score: **${averageScore}/100**`,
-      `- Scanned at: ${new Date().toISOString()}`,
       `- Total skills: ${results.length}`,
       "",
       "## Summary Bands",

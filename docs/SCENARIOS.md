@@ -102,15 +102,15 @@ Destination: C:\path\to\temp-agent-skills
 Backup path: C:\path\to\temp-agent-skills.backup-20260528T150000
 
 Files to restore (backed up -> original destination):
-  - SKILL_INDEX.md (C:\path\to\temp-agent-skills.backup-20260528T150000\SKILL_INDEX.md -> C:\path\to\temp-agent-skills\SKILL_INDEX.md)
+  - SKILL_INDEX.md
 
 Files to clean (newly added files to be removed):
-  - CORE_PRINCIPLES.md (C:\path\to\temp-agent-skills\CORE_PRINCIPLES.md)
-  - ORCHESTRATION.md (C:\path\to\temp-agent-skills\ORCHESTRATION.md)
+  - CORE_PRINCIPLES.md
+  - ORCHESTRATION.md
   - ...
 
 Unrelated files to preserve (untouched):
-  - custom-skill (C:\path\to\temp-agent-skills\custom-skill)
+  - custom-skill/
 
 Dry run: no files changed
 ```

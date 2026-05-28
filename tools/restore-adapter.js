@@ -25,6 +25,10 @@ function findLatestBackup(destination) {
   return backups[backups.length - 1];
 }
 
+function displayNameForEntry(entryPath, name) {
+  return fs.statSync(entryPath).isDirectory() ? `${name}/` : name;
+}
+
 function buildRestorePlan({ target, destination, backup, repoRoot = DEFAULT_REPO_ROOT }) {
   if (!destination) {
     throw new Error("Destination path is required.");
@@ -65,9 +69,18 @@ function buildRestorePlan({ target, destination, backup, repoRoot = DEFAULT_REPO
     const destEntry = path.join(resolvedDestination, name);
     
     if (fs.existsSync(backupEntry)) {
-      restoreList.push({ name, from: backupEntry, to: destEntry });
+      restoreList.push({
+        name,
+        displayName: displayNameForEntry(backupEntry, name),
+        from: backupEntry,
+        to: destEntry
+      });
     } else if (fs.existsSync(destEntry)) {
-      cleanList.push({ name, path: destEntry });
+      cleanList.push({
+        name,
+        displayName: displayNameForEntry(destEntry, name),
+        path: destEntry
+      });
     }
   }
   
@@ -76,7 +89,12 @@ function buildRestorePlan({ target, destination, backup, repoRoot = DEFAULT_REPO
     const sourceSet = new Set(sourceEntries);
     for (const name of destEntries) {
       if (!sourceSet.has(name)) {
-        preserveList.push({ name, path: path.join(resolvedDestination, name) });
+        const destEntry = path.join(resolvedDestination, name);
+        preserveList.push({
+          name,
+          displayName: displayNameForEntry(destEntry, name),
+          path: destEntry
+        });
       }
     }
   }
@@ -214,10 +232,7 @@ function main() {
       lines.push("  - (none)");
     } else {
       result.restoreList.forEach(item => {
-        // Format names nicely (directories end with slash)
-        const isDir = fs.statSync(item.from).isDirectory();
-        const displayName = isDir ? `${item.name}/` : item.name;
-        lines.push(`  - ${displayName}`);
+        lines.push(`  - ${item.displayName}`);
       });
     }
 
@@ -226,9 +241,7 @@ function main() {
       lines.push("  - (none)");
     } else {
       result.cleanList.forEach(item => {
-        const isDir = fs.statSync(item.path).isDirectory();
-        const displayName = isDir ? `${item.name}/` : item.name;
-        lines.push(`  - ${displayName}`);
+        lines.push(`  - ${item.displayName}`);
       });
     }
 
@@ -237,9 +250,7 @@ function main() {
       lines.push("  - (none)");
     } else {
       result.preserveList.forEach(item => {
-        const isDir = fs.statSync(item.path).isDirectory();
-        const displayName = isDir ? `${item.name}/` : item.name;
-        lines.push(`  - ${displayName}`);
+        lines.push(`  - ${item.displayName}`);
       });
     }
 

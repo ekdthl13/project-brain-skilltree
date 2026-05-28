@@ -1,4 +1,5 @@
 const assert = require("node:assert/strict");
+const childProcess = require("node:child_process");
 const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
@@ -14,6 +15,7 @@ const {
 // Setup isolated mock repository layout
 const testSuiteTempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "skilltree-restore-suite-"));
 const repoRoot = testSuiteTempRoot;
+const projectRoot = path.resolve(__dirname, "..");
 
 // Scaffold mock adapter skills source
 const mockCodexSkills = path.join(repoRoot, "adapters", "codex", "skills");
@@ -214,4 +216,32 @@ test("restoreAdapter parseArgs parses help option correctly without target/desti
 
   const parsed3 = parseArgs(["codex", "some-dir", "--help"]);
   assert.equal(parsed3.help, true);
+});
+
+test("restore-adapter CLI active restore exits successfully after cleaning added adapter entries", () => {
+  const root = tempDir();
+  const dest = path.join(root, "skills");
+  fs.mkdirSync(dest, { recursive: true });
+  fs.writeFileSync(path.join(dest, "SKILL_INDEX.md"), "old index", "utf8");
+
+  try {
+    const install = childProcess.spawnSync(
+      process.execPath,
+      ["tools/install-adapter.js", "codex", dest],
+      { cwd: projectRoot, encoding: "utf8" }
+    );
+    assert.equal(install.status, 0, install.stderr || install.stdout);
+
+    const restore = childProcess.spawnSync(
+      process.execPath,
+      ["tools/restore-adapter.js", "codex", dest],
+      { cwd: projectRoot, encoding: "utf8" }
+    );
+
+    assert.equal(restore.status, 0, restore.stderr || restore.stdout);
+    assert.match(restore.stdout, /Restore completed successfully/);
+    assert.equal(fs.readFileSync(path.join(dest, "SKILL_INDEX.md"), "utf8"), "old index");
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
 });
