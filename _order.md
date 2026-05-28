@@ -1,36 +1,29 @@
 # Worker Order
 
-## #007: Integrate Pre-v1 Hardening Baseline
+## #009: v1.0.0 Release Preparation and Publication
 
 Status: Ready for implementation
 
 ## Role
 
-Implementation worker
+Release worker
 
 ## Goal
 
-Integrate the PM-accepted #005 and #006 pre-v1 hardening changes into the remote main baseline, confirm CI, and leave the project ready for a separate v1.0.0 release-candidate decision.
+Prepare, publish, and verify the official `v1.0.0` stable release for Project Brain Skilltree.
 
-This is not the v1.0.0 release order.
+This order is authorized to bump the version, create the `v1.0.0` git tag, package release assets, publish the GitHub Release, and verify the release surface. It must not change public contracts beyond the already approved pre-v1 freeze.
 
 ## Context
 
-- Latest public release is `v0.5.0`:
+- Latest public release before this order is `v0.5.0`:
   `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v0.5.0`
-- PM accepted Worker Order #005 after fresh verification:
-  - `git diff --check`: PASS
-  - `npm run check`: PASS, 54 tests
-  - `npm run test:forward`: PASS, 6/6 scenarios
-  - `npm run demo`: PASS
-  - `node tools/pack-release.js`: PASS
-- PM accepted Worker Order #006 after fresh verification:
-  - `git diff --check`: PASS
-  - `npm run check`: PASS, 55 tests
-  - `npm run test:forward`: PASS, 6/6 scenarios
-  - `npm run demo`: PASS
-  - no leftover `project-brain-sandbox-*` temp folders found after verification
-- The current working tree contains accepted pre-v1 hardening changes across docs and tools.
+- Pre-v1 hardening baseline is integrated into `main`:
+  - commit: `4674f49b5195db03f065908ef823798539966426`
+  - message: `chore: harden pre-v1 contract and sandbox gates`
+  - GitHub Actions `validate`: completed successfully on `main`
+- Worker Order #008 produced a PM-accepted `GO` recommendation for v1.0.0 release preparation.
+- PM correction: release-gate checkboxes in `docs/v1_freeze_checklist.md` must be checked only after evidence exists on the actual v1.0.0 release candidate / release commit.
 - `source/` is canonical.
 - `adapters/` are generated artifacts and must not be edited directly.
 
@@ -38,112 +31,136 @@ This is not the v1.0.0 release order.
 
 1. `PROJECT_TASKS.md`
 2. `_order.md`
-3. `docs/v1_freeze_checklist.md`
-4. `docs/INSTALL.md`
-5. `docs/RELEASE.md`
-6. `tools/validate-skilltree.js`
-7. `tools/install-adapter.test.js`
-8. `tools/lib/sandbox.js`
-9. `tools/sandbox.test.js`
-10. `tools/run-demo.js`
-11. `tools/forward-tester.js`
-12. `tools/pack-release.js`
-13. `tools/schema-stability.test.js`
-14. `package.json`
+3. `package.json`
+4. `CHANGELOG.md`
+5. `README.md`
+6. `docs/v1_freeze_checklist.md`
+7. `docs/RELEASE.md`
+8. `docs/ADAPTER_CONTRACT.md`
+9. `docs/SCHEMA_STABILITY.md`
+10. `docs/INSTALL.md`
+11. `tools/pack-release.js`
+12. `tools/prepare-release.js` if present
 
 ## Tasks
 
-1. Run `git status --short` before editing.
-2. Confirm the current branch and remote baseline:
-   - identify the current branch;
-   - identify `HEAD`;
-   - identify `origin/main`;
-   - report whether the working tree contains only the accepted #005/#006 hardening files.
-3. Scope review:
-   - Expected accepted files include:
-     - `PROJECT_TASKS.md`
-     - `_order.md`
-     - `docs/INSTALL.md`
-     - `docs/RELEASE.md`
-     - `docs/v1_freeze_checklist.md`
-     - `tools/forward-tester.js`
-     - `tools/install-adapter.test.js`
-     - `tools/lib/sandbox.js`
-     - `tools/pack-release.js`
-     - `tools/run-demo.js`
-     - `tools/sandbox.test.js`
-     - `tools/schema-stability.test.js`
-     - `tools/validate-skilltree.js`
-   - If unrelated files appear, stop and report before staging.
-4. Run final local gates before commit:
-   - `git diff --check`
-   - `npm run check`
-   - `npm run test:forward`
-   - `npm run demo`
-   - `node tools/pack-release.js`
-5. Update `PROJECT_TASKS.md` with a short #007 execution summary only after the gates pass.
-6. Commit the accepted pre-v1 hardening baseline:
-   - Suggested commit message: `chore: harden pre-v1 contract and sandbox gates`
-7. Push the commit to `origin/main`.
-8. Confirm GitHub Actions `validate` status for the pushed commit.
-   - If network/auth blocks CI verification, report the exact blocker and do not claim CI success.
-9. Recommend the next PM decision:
-   - If local gates and CI pass, recommend a separate `#008` v1.0.0 release-candidate readiness order.
-   - If anything fails, recommend a focused fix order instead.
+1. Preflight:
+   - Run `git status --short` before editing.
+   - Confirm current branch is `main`.
+   - Confirm local `HEAD` and `origin/main` match.
+   - Confirm current `package.json` version is `0.5.0`.
+   - Confirm existing `v0.3.0`, `v0.4.0`, and `v0.5.0` tags/releases/assets are not modified.
+2. Version and release notes:
+   - Bump `package.json` from `0.5.0` to `1.0.0`.
+   - Add a `## [1.0.0] - 2026-05-28` entry to `CHANGELOG.md`.
+   - Summarize v1.0.0 as stable contract freeze / first stable release, not as a new skill expansion.
+   - Mention the stable catalog contract, adapter layout/frontmatter validation, installer safety, sandboxed demo, forward-testing, rollback documentation, and release asset packaging.
+3. Final release-candidate local gates:
+   - Run `git diff --check`.
+   - Run `npm run check`.
+   - Run `npm run test:forward`.
+   - Run `npm run demo`.
+   - Run `node tools/pack-release.js`.
+   - Confirm no leftover `project-brain-sandbox-*` temp folders remain.
+4. Release checklist:
+   - Update `docs/v1_freeze_checklist.md` only after evidence exists.
+   - Check local release-gate boxes only after the v1.0.0 candidate gates pass.
+   - Check CI Pipeline only after the pushed release commit or tag has successful GitHub Actions validation.
+5. Commit:
+   - Stage only intended release files.
+   - Suggested commit message: `release: v1.0.0 stable contract freeze`
+   - Commit the release preparation.
+6. Push and CI:
+   - Push `main` to `origin/main`.
+   - Verify GitHub Actions `validate` for the pushed release commit.
+   - If CI fails or cannot be verified, stop before publishing the GitHub Release and report the blocker.
+7. Tag:
+   - Create annotated tag `v1.0.0` pointing to the release commit.
+   - Push tag `v1.0.0`.
+   - Confirm `v1.0.0^{}` dereferences to the release commit.
+8. Publish GitHub Release:
+   - Create GitHub Release `v1.0.0`.
+   - Use release notes consistent with `CHANGELOG.md`.
+   - Upload the release assets produced by `node tools/pack-release.js`:
+     - `project-brain-skilltree-v1.0.0-adapters.zip`
+     - `project-brain-skilltree-v1.0.0-antigravity-skills.zip`
+     - `project-brain-skilltree-v1.0.0-codex-skills.zip`
+     - `project-brain-skilltree-v1.0.0-claude-code-skills.zip`
+     - `release-artifact-checksums.txt`
+9. Post-release verification:
+   - Confirm remote `main` points to the release commit.
+   - Confirm tag `v1.0.0` points to the release commit.
+   - Confirm GitHub Release URL is reachable.
+   - Confirm all 5 expected assets are present.
+   - Confirm GitHub raw `main` `package.json` reports `1.0.0`.
+   - Confirm local `git status --short` is clean.
+10. Update `PROJECT_TASKS.md` with a short release completion summary after publication.
 
 ## Forbidden Scope
 
-- Do not bump `package.json` to `1.0.0`.
-- Do not create git tags.
-- Do not create or edit GitHub Releases.
-- Do not upload release assets.
 - Do not change `catalog/skills.yaml` schema, fields, or adapter slugs.
 - Do not rename or move `source/` folders.
 - Do not manually edit generated files under `adapters/`.
 - Do not install adapters into real local user skill directories.
 - Do not perform physical Core / Domain / Personal restructuring.
-- Do not rewrite release packaging to full cross-platform support.
+- Do not edit or replace existing `v0.3.0`, `v0.4.0`, or `v0.5.0` release assets.
+- Do not publish the GitHub Release if CI on the release commit fails or cannot be verified.
 
 ## Verification
 
+- `git status --short`
 - `git diff --check`
 - `npm run check`
 - `npm run test:forward`
 - `npm run demo`
 - `node tools/pack-release.js`
-- `git status --short`
-- pushed commit SHA
-- GitHub Actions `validate` result for the pushed commit
+- no leftover `project-brain-sandbox-*` temp folders
+- pushed release commit SHA
+- GitHub Actions `validate` result
+- `v1.0.0^{}` tag dereference
+- GitHub Release URL
+- 5 expected release assets present
+- raw/main `package.json` version is `1.0.0`
 
 ## Report Back
 
 Use this shape:
 
 ```text
-Changed files integrated:
-- ...
-
-Local verification:
-- git diff --check: PASS/FAIL
-- npm run check: PASS/FAIL
-- npm run test:forward: PASS/FAIL
-- npm run demo: PASS/FAIL
-- node tools/pack-release.js: PASS/FAIL
-
-Git integration:
-- branch:
+Release:
+- version:
 - commit SHA:
-- pushed to origin/main: yes/no
-- GitHub Actions validate: PASS/FAIL/BLOCKED with reason
+- tag:
+- release URL:
+
+Local gates:
+- git diff --check:
+- npm run check:
+- npm run test:forward:
+- npm run demo:
+- node tools/pack-release.js:
+- sandbox leftovers:
+
+Remote verification:
+- origin/main:
+- v1.0.0 tag dereference:
+- GitHub Actions validate:
+- raw/main package version:
+
+Assets:
+- adapters zip:
+- antigravity zip:
+- codex zip:
+- claude-code zip:
+- checksum file:
 
 Scope guard:
-- version bumped to 1.0.0: yes/no
-- tag/release/assets created: yes/no
 - catalog schema/slugs changed: yes/no
 - source layout changed: yes/no
 - adapters manually edited: yes/no
 - real local user skill dirs touched: yes/no
+- older release assets touched: yes/no
 
-Recommended next order:
+Deferred after v1:
 - ...
 ```

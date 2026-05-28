@@ -2,7 +2,7 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v1.0.0 Pre-RC Integration Baseline** state.
+Project Brain Skilltree is in **v1.0.0 Release-Candidate Readiness Decided (GO)** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
@@ -17,7 +17,7 @@ Current decision:
 - Physical Core / Domain / Personal restructuring is not approved for v0.4.0; impact analysis is documented for a later post-v1.0 move.
 - External surface verification on 2026-05-28 found no blocking v0.4.1 issue: remote `main`, tag dereference, `package.json`, README raw formatting, release assets, and latest `validate` check are correct.
 - Completed **v0.5.0 First Success Demo** before v1.0.0 stable-contract preparation, so the first external-user success path is proven before contracts are frozen.
-- Pre-v1 contract and sandbox hardening are locally accepted. Next milestone is integrating those accepted changes into remote `main` and confirming CI before any v1.0.0 release-candidate decision.
+- Pre-v1 contract and sandbox hardening are integrated into remote `main` and CI has passed. Next milestone is deciding whether the project is ready for a separate v1.0.0 release order.
 
 ## Source Of Truth Rules
 
@@ -93,6 +93,7 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Execute Worker Order #005: pre-v1 contract guard hardening.
 - [x] Execute Worker Order #006: sandbox execution hardening and pre-RC gate cleanup.
 - [x] Execute Worker Order #007: integrate the accepted pre-v1 hardening baseline and confirm remote CI.
+- [x] Execute Worker Order #008: final v1.0.0 release-candidate readiness decision.
 
 ## External Review Triage
 
@@ -145,8 +146,8 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 ## Current Worker Order
 
 - Active order file: `_order.md`
-- Current order: Completed `#007` Integrate Pre-v1 Hardening Baseline
-- Recommended next order: `#008` v1.0.0 release-candidate final readiness evaluation, staging clean install, and release tag freeze.
+- Current order: Ready `#009` v1.0.0 Release Preparation and Publication
+- Recommended next order after #009: post-v1 verification and post-v1 roadmap selection.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy
@@ -181,24 +182,35 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - Historical execution detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
 Next work:
-1. Execute Worker Order #007 in `_order.md` to integrate the accepted #005/#006 pre-v1 hardening baseline:
-   - Re-run full local gates.
-   - Confirm the changed-file scope contains only accepted hardening files.
-   - Commit and push the accepted baseline to `origin/main`.
-   - Confirm GitHub Actions `validate` for the pushed commit.
+1. Execute Worker Order #009 in `_order.md` to prepare and publish the official v1.0.0 release:
+   - Bump version to 1.0.0 in package.json.
+   - Run final local release gates and package assets.
+   - Commit, push, confirm CI, tag v1.0.0, publish GitHub Release, and verify public assets.
 2. Keep physical Core / Domain / Personal restructuring out of scope until pre-v1 evaluations are locked.
 3. Preserve the `v0.3.0`, `v0.4.0`, and `v0.5.0` tags and GitHub Release assets as public baselines.
 ```
 
 ## Recent Execution Summary
 
+### 2026-05-28: Worker Order #008 v1.0.0 Release-Candidate Readiness Decision Completed
+
+- [x] Verified current active branch is `main` and local `HEAD` is 100% in sync with remote `origin/main` at commit `4674f49b5195db03f065908ef823798539966426`.
+- [x] Re-ran the complete sequence of local gates: `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`. All checks returned exit code 0 successfully; all 55 unit tests, 6/6 sandboxed pressure scenarios, and onboarding sandbox demo passed cleanly.
+- [x] Performed programmatically isolated staging installations for all 3 target adapters (`antigravity`, `codex`, `claude-code`) inside a newly created temporary staging directory, verifying conflict backup creations, correct directory mapping, and preservation of unrelated files. Cleaned up all sandboxes entirely.
+- [x] Audited the public surface: verified `package.json` version remains exactly `0.5.0`, `README.md` Quickstart points to `npm run demo`, and `CHANGELOG.md` has no premature `v1.0.0` releases.
+- [x] Audited `docs/v1_freeze_checklist.md`; PM corrected release-gate checkboxes to remain open until the actual v1.0.0 release candidate and release commit, while preserving the GO recommendation from pre-RC evidence.
+- [x] Formulated a definitive `GO` recommendation and recommended Worker Order `#009 v1.0.0 Release Preparation and Publication` as the next step.
+
 ### 2026-05-28: Worker Order #007 Integrate Pre-v1 Hardening Baseline Completed
 
-- [x] Verified current branch is `main` and both local `HEAD` and `origin/main` are fully synchronized at commit `dffcfb3`.
+- [x] Verified before staging that the current branch was `main` and both local `HEAD` and `origin/main` were synchronized at commit `dffcfb3`.
 - [x] Confirmed the working tree contains exactly the 13 modified files comprising the accepted `#005` and `#006` hardening baselines.
 - [x] Ran final sequence of local gates: `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`. All 55 unit tests, 6/6 sandboxed forward-testing scenarios, local onboarding sandbox demo, and Windows zipping packaging passed flawlessly.
 - [x] Integrated all changes by staging and committing to `main` with prefix `chore: harden pre-v1 contract and sandbox gates` and pushing successfully to `origin/main`.
 - [x] Confirmed GitHub Actions validation workflow finished successfully, checking off the active queue.
+- [x] PM verification confirmed local `HEAD` and `origin/main` at `4674f49b5195db03f065908ef823798539966426`, working tree clean, commit scope limited to the accepted 13 files, package version still `0.5.0`, and GitHub Actions `validate` completed successfully.
+- [x] PM re-ran `npm run check`, `npm run test:forward`, `npm run demo`, `node tools/pack-release.js`, and `git diff --check`; all passed, with no leftover `project-brain-sandbox-*` temp folders.
+- [x] Created Worker Order #008 for the final v1.0.0 release-candidate readiness decision.
 
 ### 2026-05-28: Worker Order #006 Pre-v1 Sandbox and RC Gate Hardening Completed
 

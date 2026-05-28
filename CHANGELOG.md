@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-05-28
+
+### Added
+- **First Stable Release / Stable Contract Freeze**: Reached production-ready v1.0.0 status, locking API contracts for multi-agent skill distributions.
+- **Stable Catalog Contract**: Fully standardized YAML-compatible JSON catalog file format verified by schema-stability unit testing.
+- **Adapter Layout & Frontmatter Validation**: Hardened directory-slug rules and verified output shapes for Codex, Claude Code, and Antigravity.
+- **Backup-Aware Installer Safety**: Fully verified relative/mixed-slash installer paths, auto-backups for conflicting skill documents, and 100% preservation of custom directories.
+- **Sandboxed Execution Demo**: Complete `npm run demo` onboarding sandbox which validates builds programmatically.
+- **Hardened Sandboxed Testing**: Dynamic OS-level `mkdtempSync` sandboxes and try-finally error-proof execution lifecycles.
+- **Forward-Testing Automation**: Added assertions and pressure testing scenario checking for validation-skipping, path-leakage, and direct adapter edit attempts.
+- **Rollback Documentation**: Formally added robust recovery and restoration copy-paste command blocks inside installation guides.
+- **Release Asset Packaging**: Formulated Windows-only release compression tools generating portable zip files and checksum manifests.
+
 ## [0.5.0] - 2026-05-28
 
 ### Added
