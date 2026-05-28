@@ -22,6 +22,7 @@ Current decision:
 - v1.0.0 version bump, release commits, CI, tag push, and GitHub Release publication with 5 assets are 100% complete and verified.
 - Post-v1 v1.1.0 productization work is published with release assets.
 - Current local-only work improves public first impression: README overview SVG, proof language, and first-user confidence path.
+- Next local worker order extends the clarity patch into install/restore preflight, README five-minute route, release-note trust template, and public clarity checklist.
 - Do not push, tag, publish, or create a GitHub Release for the current clarity patch until explicit user approval.
 
 ## Source Of Truth Rules
@@ -138,6 +139,7 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 - [x] Add README overview SVG showing `source/` -> quality gate -> `adapters/`.
 - [x] Align README, WHY, SCENARIOS, and INSTALL around demo proof, drift guard, rollback path, and CI matrix.
 - [x] Run final local gates and commit without pushing.
+- [ ] Execute Worker Order #026: complete install/restore preflight, README five-minute route, release notes trust template, and public clarity checklist.
 
 ## External Review Triage
 
@@ -190,9 +192,9 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 ## Current Worker Order
 
 - Active order file: `_order.md`
-- Active playbook file: `_playbook_round2.md`
-- Current order: `#025` local-only public clarity patch.
-- Release/push strategy: commit locally only; do not push, tag, publish, or create a GitHub Release.
+- Active playbook file: `_playbook_public_clarity_completion.md`
+- Current order: `#026` public clarity completion batch.
+- Release/push strategy: worker does not commit; PM may commit locally after review; do not push, tag, publish, or create a GitHub Release.
 - Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
 
 ## Archive Policy
@@ -216,13 +218,14 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 - Latest stable tag: v1.1.0
 - v1.1.0 release commit: 2972ff62b4d53ccde8f5704e919dcfcebe807d89
 - Current local-only work: v1.1.1 public clarity patch.
+- Active worker order: #026 public clarity completion batch.
 - Full worker prompts live in `_order.md`; PROJECT_TASKS.md is now a compact state board.
 - Historical execution detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
 
 Next work:
-1. Finish or review the local public clarity patch.
-2. Confirm README overview SVG, WHY, SCENARIOS, INSTALL, PROJECT_TASKS, and _order are aligned.
-3. Decide with the user whether this should remain local, become v1.1.1, or wait for a larger v1.2.0 public trust round.
+1. Execute or review Worker Order #026 using `_playbook_public_clarity_completion.md`.
+2. PM reviews the worker diff and fixes small clarity gaps directly.
+3. Only after PM acceptance, issue a separate release execution order for commit/push/tag/release.
 ```
 
 ## Recent Execution Summary
@@ -233,6 +236,7 @@ Next work:
 - [x] Confirmed GitHub Actions `validate` matrix passed on Ubuntu, Windows, and macOS after cross-platform test script fix.
 - [x] Started local-only public clarity patch to improve the first 10 seconds of external understanding.
 - [x] Finished local gates and prepared the clarity patch for local commit without pushing.
+- [x] Issued Worker Order #026 and `_playbook_public_clarity_completion.md` for the remaining public trust path.
 
 ### 2026-05-28: Worker Orders #013-#017 Post-v1 Local Batch PM Review Passed
 

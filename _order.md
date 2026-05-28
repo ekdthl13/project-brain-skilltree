@@ -1,33 +1,48 @@
 # Worker Order
 
-## #025: Local Public Clarity Patch
+## #026: Public Clarity Completion Batch
 
-Status: Completed
+Status: Ready for worker
 
 ## Role
 
-PM direct operator.
+Documentation/productization worker.
 
 ## Goal
 
-Improve the public first impression so a new user can quickly understand why Project Brain Skilltree exists and why it is safe to try locally.
+Complete the remaining public trust path after the first local `v1.1.1` clarity commit, so a new user can move from "I understand why this exists" to "I know how to try it safely in my own environment."
 
-## Scope
+## Context
 
-- Add a readable README overview graphic that explains `source/` -> quality gate -> `adapters/`.
-- Align README, WHY, SCENARIOS, and INSTALL around the same trust proof language:
-  - Demo proof
-  - Drift guard
-  - Rollback path
-  - CI matrix
-- Update project state docs so they no longer imply `v1.1.0` is unpublished.
+- Latest published release: `v1.1.0`
+- Current local branch includes PM local clarity work and order-planning commits that must not be pushed yet.
+- The existing local clarity patch already added the README overview SVG and aligned core trust language.
+- This order continues that work locally only.
 
-## Rules
+## Playbook
 
-- Commit locally only.
-- Do not push, tag, publish, deploy, or create a GitHub Release.
-- Do not modify generated adapter files by hand.
-- Preserve existing public tags and release assets.
+Follow `_playbook_public_clarity_completion.md`.
+
+## Required Work
+
+Complete the playbook tasks in one local batch:
+
+1. Install/restore preflight clarity.
+2. README five-minute safe trial route.
+3. Release notes trust-language template.
+4. Public clarity checklist.
+5. State board and worker report update.
+
+## Hard Rules
+
+- Do not commit.
+- Do not push.
+- Do not tag.
+- Do not publish a GitHub Release.
+- Do not package release assets.
+- Do not bump `package.json`.
+- Do not edit generated files under `adapters/` by hand.
+- Keep changes documentation-focused unless validation proves a tiny tooling correction is required.
 
 ## Required Verification
 
@@ -35,18 +50,36 @@ Improve the public first impression so a new user can quickly understand why Pro
 git diff --check
 npm run check
 npm run demo
+git diff --name-only -- source catalog adapters reports
 git status --short --branch
+```
+
+If forward-testing files or behavior change, also run:
+
+```powershell
+npm run test:forward
 ```
 
 ## Report Back
 
 ```text
-v1.1.1 public clarity patch:
-- files changed: README.md, PROJECT_TASKS.md, _order.md, docs/INSTALL.md, docs/SCENARIOS.md, docs/WHY.md, docs/assets/skilltree-overview.svg
-- SVG overview: added README-ready visual explanation of source -> quality gate -> adapters
-- docs aligned: README, WHY, SCENARIOS, INSTALL, PROJECT_TASKS, and _order now share demo proof / drift guard / rollback path / CI matrix language
-- validation: git diff --check PASS, npm run check PASS (71 tests), npm run demo PASS, no tracked source/catalog/adapters/reports drift
-- committed: yes, local commit only
-- pushed: no, explicitly out of scope
-- blockers: none
+public clarity completion batch:
+- branch/state:
+- base local commit:
+- files changed:
+- install/restore preflight:
+- README five-minute route:
+- release notes trust template:
+- public clarity checklist:
+- state board/order updated:
+- validation:
+- source/catalog/adapters/reports drift:
+- committed: no
+- pushed: no
+- blockers:
+- PM review recommendation:
 ```
+
+## After This Order
+
+PM will inspect the worker diff, run or verify checks, make any final corrections, and only then issue a separate release execution order for commit, push, tag, GitHub Release, and release asset publication.
