@@ -184,11 +184,11 @@ Status: Completed.
   - `node tools/install-adapter.js antigravity $env:USERPROFILE\.gemini\antigravity-backup\skills`
   - `node tools/install-adapter.js claude-code $env:USERPROFILE\.claude\skills`
 - backup folders created:
-  - `C:\Users\hjh\.codex\skills.backup-20260529T022325`
-  - `C:\Users\hjh\.gemini\config\skills.backup-20260529T022329`
-  - `C:\Users\hjh\.gemini\antigravity-ide\skills.backup-20260529T022332`
-  - `C:\Users\hjh\.gemini\antigravity-backup\skills.backup-20260529T022336`
-  - `C:\Users\hjh\.claude\skills.backup-20260529T022339`
+  - `%USERPROFILE%\.codex\skills.backup-20260529T022325`
+  - `%USERPROFILE%\.gemini\config\skills.backup-20260529T022329`
+  - `%USERPROFILE%\.gemini\antigravity-ide\skills.backup-20260529T022332`
+  - `%USERPROFILE%\.gemini\antigravity-backup\skills.backup-20260529T022336`
+  - `%USERPROFILE%\.claude\skills.backup-20260529T022339`
 - installed version verification:
   - Codex: `coding-guide` v1.7.0, `inspector` v2.1.0, `project-manager` v2.16.0
   - Antigravity config: `코딩가이드` v1.7.0, `암행어사` v2.1.0, `총괄매니저` v2.16.0
