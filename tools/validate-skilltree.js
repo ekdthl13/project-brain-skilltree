@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { validateSkillIndexVersions } = require("./lib/skill-index");
 
 const repoRoot = path.resolve(__dirname, "..");
 const catalogPath = path.join(repoRoot, "catalog", "skills.yaml");
@@ -138,6 +139,9 @@ function assertSkillIndexMentions(catalog) {
     if (!index.includes(skill.source)) {
       fail(`source/SKILL_INDEX.md does not mention skill: ${skill.source}`);
     }
+  }
+  for (const failure of validateSkillIndexVersions(index, catalog.skills)) {
+    fail(failure);
   }
 }
 

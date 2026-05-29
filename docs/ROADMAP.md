@@ -57,7 +57,7 @@
 - Require `npm run check`, `npm run test:forward`, and `npm run demo` as release baseline proof.
 - Publish GitHub Release `v1.0.0` with adapter artifacts and checksums.
 
-## v1.0.1 (Documentation Consistency)
+## v1.0.1 (Documentation Consistency - Released)
 
 - Align public status docs with the released `v1.0.0` baseline.
 - Correct stale release references, install transcript versions, and catalog-backed adapter slugs.
@@ -77,3 +77,12 @@
 - Add install/restore preflight safety checklist.
 - Align WHY, SCENARIOS, and INSTALL trust-language vocabulary.
 - Create release notes template and public clarity checklist.
+
+## v1.1.2 (Project Reset / Skill Quality - Planned)
+
+- Keep public release metadata aligned with the stable `v1.1.1` baseline.
+- Archive completed root order and playbook files under `docs/history/`.
+- Treat `_order.md` and `_playbook.md` as overwrite-only current slots.
+- Keep `PROJECT_TASKS.md` as a compact live state board, not a release log.
+- Start skill-depth refactors with long skills that benefit from thinner entry points.
+- Defer public growth artifacts such as issue templates, FAQ expansion, and star-oriented polish unless real usage demands them.

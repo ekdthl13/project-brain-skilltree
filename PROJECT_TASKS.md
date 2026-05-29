@@ -2,31 +2,25 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v1.1.1 Released / post-v1.1.1 planning** state.
+Project Brain Skilltree is in **v1.1.1 stable / v1.1.2 planning** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
 - Latest published GitHub Release: `v1.1.1`
-- Next planned release: post-v1.1.1 productization
 - Latest stable tag: `v1.1.1`
 - Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.1`
 - Release commit: `e69433d336b9fef40a6aa2e4b24a2aeadaafb90d`
-- Latest remote CI: GitHub Actions `validate` matrix PASS on Ubuntu, Windows, and macOS for `e69433d336b9fef40a6aa2e4b24a2aeadaafb90d`
+- Latest verified remote CI: GitHub Actions `validate` matrix passed on Ubuntu, Windows, and macOS for the release commit.
 
 Current decision:
-- Completed **v0.4.0 Operational Hardening** before v1.0.0 stable-contract freeze.
-- v0.4.0 was a hardening and productization milestone, not a new-skill expansion milestone.
-- Physical Core / Domain / Personal restructuring is not approved for v0.4.0; impact analysis is documented for a later post-v1.0 move.
-- External surface verification on 2026-05-28 found no blocking v0.4.1 issue: remote `main`, tag dereference, `package.json`, README raw formatting, release assets, and latest `validate` check are correct.
-- Completed **v0.5.0 First Success Demo** before the v1.0.0 contract freeze, so the first external-user success path was proven before contracts were frozen.
-- v1.0.0 version bump, release commits, CI, tag push, and GitHub Release publication with 5 assets are 100% complete and verified.
-- Post-v1 v1.1.0 productization work is published with release assets.
-- v1.1.1 public clarity patch is published with release assets.
-- GitHub Release v1.1.1 is published and verified.
+- Pause the release-machine loop after v1.1.1.
+- Keep public docs trustworthy, but stop expanding open-source packaging surface unless it protects real usage.
+- Turn the next work toward skill quality, judgment support, and slimmer operating documents.
+- Treat `_order.md` and `_playbook.md` as overwrite slots. Completed contents move to `docs/history/` before a new order or playbook replaces them.
 
 ## Source Of Truth Rules
 
-- `source/` is the canonical root.
+- `source/` is the canonical human-edited root.
 - `adapters/` are generated artifacts and must not be edited by hand.
 - Run `npm run build:adapters` after source or catalog edits.
 - Run `npm run check` before claiming completion.
@@ -34,33 +28,29 @@ Current decision:
 - Preserve the published `v0.3.0`, `v0.4.0`, `v0.5.0`, `v1.0.0`, `v1.1.0`, and `v1.1.1` tags and GitHub Release assets as public baselines.
 - Do not retag any published release unless an explicit rollback/recovery decision is made.
 - Keep full worker prompts in `_order.md`; keep this file focused on state, decisions, queues, and short execution summaries.
-- Long historical detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
+- Long historical detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`, `docs/history/orders/`, and `docs/history/playbooks/`.
 
 ## Installed State
 
 | Environment | Status | Notes |
 |-------------|--------|-------|
-| Codex | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.codex\skills`; `.system` was preserved; latest backup `%USERPROFILE%\.codex\skills.backup-20260527T015823` |
-| Antigravity/Gemini | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.gemini\config\skills`; latest backup `%USERPROFILE%\.gemini\config\skills.backup-20260527T015748` |
-| Claude Code | Installed + verified | Generated adapter entries are installed under `%USERPROFILE%\.claude\skills`; 37 files hash-match generated adapter; zero missing/changed/extra; verified on 2026-05-27 |
+| Codex | Installed + verified | Generated adapter entries were installed under `%USERPROFILE%\.codex\skills`; `.system` preserved |
+| Antigravity/Gemini | Installed + verified | Generated adapter entries were installed under `%USERPROFILE%\.gemini\config\skills` |
+| Claude Code | Installed + verified | Generated adapter entries were installed under `%USERPROFILE%\.claude\skills`; generated adapter hash match previously verified |
 
 ## Phase Summary
 
 | Phase | Status | Goal / Evidence |
 |-------|--------|-----------------|
-| 0. Local audit and stabilization | Done | Drift, version mismatch, packaging conflicts, and oversized skills identified and resolved |
-| 1. GitHub canonical repo | Done | Public repo, `source/`, generated adapters, validation, and CI established |
-| 2. Post-release verification | Done | Codex, Antigravity/Gemini, and Claude Code installs verified |
-| 3. Skill content hardening | Done | Escalation protocol and orchestration docs merged through `source/` |
-| 4. Structural refactor review | Done | Keep `암행어사` and `출시점검` separate; defer physical core/plugin split |
-| 5. Pressure scenario automation | Done | Static guardrails and pressure checks included in `npm run check` |
-| 6. Public polish and examples | Done | Minimal examples, comparison docs, install transcript, quickstarts |
-| 7. Release system | Done | Tags, changelog, artifact zips, checksums, GitHub Release v1.0.0 published |
+| 0-7. Repo foundation through release system | Done | Canonical repo, adapters, install safety, quality gates, release artifacts |
 | 8. Advanced quality system | Foundation done | Scorecards, schema stability guard, forward-testing harness, new-skill CLI |
-| 9. Operational hardening | Released | External-user onboarding, install/release UX, behavioral fixtures, v1.0 freeze readiness |
-| 10. First success demo | Done locally | Deterministic `npm run demo` path gives new users a successful local experience without installing into user agent directories |
+| 9. Operational hardening | Released | External-user onboarding, install/release UX, behavioral fixtures |
+| 10. First success demo | Released | Deterministic `npm run demo` path proves the pipeline without installing into real agent directories |
+| 11. Stable contract | Released | v1.0.0 stable release with adapter/package/release contract baseline |
+| 12. Productization and clarity | Released | v1.1.0 and v1.1.1 public trust path improvements |
+| 13. Project reset | Active | Document operations diet and shift back to core skill quality |
 
-Historical detail for completed phases is archived in [docs/history/PROJECT_TASKS_ARCHIVE.md](docs/history/PROJECT_TASKS_ARCHIVE.md).
+Historical details are archived in [docs/history/PROJECT_TASKS_ARCHIVE.md](docs/history/PROJECT_TASKS_ARCHIVE.md).
 
 ## PRD Coverage Board
 
@@ -69,143 +59,62 @@ Historical detail for completed phases is archived in [docs/history/PROJECT_TASK
 | P0: Canonical public repo | Done | Public repo, `main`, `source/`, CI validate |
 | P0: Adapter generation | Done | Antigravity, Codex, and Claude Code adapters build from catalog/source |
 | P0: Quality gate | Done | `npm run check` builds, tests, validates, audits |
-| P1: Safe local install | Done | Installer works; Codex, Antigravity/Gemini, and Claude Code installs verified |
-| P1: Session continuity | Active | PRD, roadmap, this file, `_order.md`, and archive policy carry current state |
-| P2: Automated pressure testing | Strengthened | Static guardrails plus six deterministic JSON forward-tests in CI |
-| P2: Public presentation | Strengthening | README quickstart, terminology guidance, Korean briefing, WHY/SCENARIOS docs, and public clarity SVG exist |
-| P3: Release system | v1.1.0 published | Releases, adapter zips, checksums, release policy, and multi-OS CI validation exist |
+| P1: Safe local install | Done | Installer and restore UX support dry-runs, backup, and rollback rehearsal |
+| P1: Session continuity | Active | PRD, roadmap, this file, `_order.md`, and history policy carry current state |
+| P2: Automated pressure testing | Foundation done | Deterministic fixture replay and static guardrails, not live agent simulation |
+| P2: Public presentation | Stable enough | README, INSTALL, WHY, SCENARIOS, and release notes template carry public trust path |
+| P3: Release system | Done | Tags, changelog, adapter zips, checksums, multi-OS CI validation |
+| P4: Skill quality | Active | Refactor long skills into thin entry points with support files where it improves judgment |
 
 ## Active Queue
 
-### Milestone v0.4.0 (Operational Hardening - Released)
+### #028 Project Reset - Completed Locally
 
-- [x] Simplify the README top-level quickstart into a 3-minute external-user path.
-- [x] Refresh `docs/INSTALL.md` and `docs/NEW_SKILL_CLI.md` examples against the v0.3.0 baseline.
-- [x] Execute Worker Order #002: release policy alignment, forward-testing scenario expansion, Core / Domain / Personal impact analysis, bilingual terminology guidance, and v1.0 freeze checklist.
-- [x] Prepare and publish v0.4.0 release after explicit PM/user approval.
+- [x] Archive completed root `_order.md` and `_playbook*` files under `docs/history/`.
+- [x] Re-establish `_order.md` and `_playbook.md` as overwrite-only current slots.
+- [x] Compact `PROJECT_TASKS.md` back into a live state board.
+- [x] Refresh PRD, SECURITY, ROADMAP, FORWARD_TESTING, and RELEASE docs for the v1.1.1 baseline.
+- [x] Add overwrite-slot rules to the project-manager source skill and templates.
 
-### Milestone v0.5.0 (First Success Demo - Completed)
+### #029 Skill Capability Audit - Completed Locally
 
-- [x] Create a safe `npm run demo` command that runs locally without writing to user skill directories.
-- [x] Use a deterministic local sandbox fixture as the first-success proof path.
-- [x] Show clear success output that teaches `source/` canonical discipline and the next useful commands.
-- [x] Document the demo path in README or the appropriate quickstart/install docs.
-- [x] Keep v0.5.0 focused on demo/onboarding proof; do not freeze v1.0 contracts in this milestone.
+- [x] Pause the worker refactor order until the current skill system is audited.
+- [x] Assess current skill capability, token cost, loading burden, judgment support, and over-control risk.
+- [x] Save audit report: `docs/history/skilltree_capability_audit_2026-05-29.md`.
+- [x] Use the audit result to select `코딩가이드` as the first 총괄-owned pattern refactor.
+- [x] Refactor `코딩가이드` into thin `SKILL.md` + detailed `REFERENCES.md` + final `CHECKLIST.md`.
+- [x] Replace the paused worker order with a review-only handoff for the 총괄 refactor.
+- [x] Review the refactor for weakened rules before applying the pattern to other skills.
 
-### Milestone v1.0.0 (Stable Release - Released)
+### #031 Skill Index Version Guard - Completed Locally
 
-- [x] Audit the current stable-contract candidates across catalog schema, layouts, installer safety, packaging, and rollback rules.
-- [x] Classify contract areas and document targeted pre-v1 code fixes in `docs/v1_freeze_checklist.md`.
-- [x] Execute Worker Order #005: pre-v1 contract guard hardening.
-- [x] Execute Worker Order #006: sandbox execution hardening and pre-RC gate cleanup.
-- [x] Execute Worker Order #007: integrate the accepted pre-v1 hardening baseline and confirm remote CI.
-- [x] Execute Worker Order #008: final v1.0.0 release-candidate readiness decision.
-- [x] Execute Worker Order #009: prepare release commits and push `v1.0.0` tag.
-- [x] Execute Worker Order #010: publish the existing `v1.0.0` GitHub Release and upload assets.
+- [x] Add validation for `source/SKILL_INDEX.md` version rows against `catalog/skills.yaml`.
+- [x] Allow legitimate repeated rows only when every listed version matches the catalog.
+- [x] Add unit tests for matched, mismatched, repeated, missing, and extracted version rows.
 
-### Milestone v1.0.1 (Documentation Consistency - Completed)
+### #032 Inspector Thin-Entry Refactor - Completed Locally
 
-- [x] Align public documentation with the released v1.0.0 stable baseline.
-- [x] Correct stale release references and catalog-backed adapter slug names.
-- [x] Re-run `npm run check`, `npm run test:forward`, and `npm run demo`.
-
-### Post-v1 Local Batch (A/B/D/C - PM Review Passed)
-
-- [x] `#013` Real user onboarding polish.
-- [x] `#014` Rollback CLI / restore UX.
-- [x] `#015` Public docs polish / Korean briefing docs.
-- [x] `#016` Cross-platform release packaging.
-- [x] `#017` Fix PM review blockers before commit.
-- [x] PM integrated review after blocker fixes.
-
-### Post-v1 Productization Round 2 (PM Review Passed)
-
-- [x] `#018` Real user scenario examples.
-- [x] `#019` GitHub Actions matrix hardening.
-- [x] `#020` Install/restore command UX polish, pass 2.
-- [x] `#021` Skill quality score report improvements.
-- [x] `#022` Public "Why This Exists" page.
-- [x] PM blocker fix: active restore CLI no longer fails after cleaning added adapter entries.
-
-### Milestone v1.1.0 (Productization Polish - Released)
-
-- [x] Publish post-v1 productization work as `v1.1.0`.
-- [x] Confirm GitHub Actions validate matrix passes on Ubuntu, Windows, and macOS.
-- [x] Upload 5 GitHub Release assets for `v1.1.0`.
-
-### Milestone v1.1.1 (Public Clarity Patch - Released)
-
-- [x] Add README overview SVG showing `source/` -> quality gate -> `adapters/`.
-- [x] Align README, WHY, SCENARIOS, and INSTALL around demo proof, drift guard, rollback path, and CI matrix.
-- [x] Run final local gates and commit without pushing.
-- [x] Execute Worker Order #026: complete install/restore preflight, README five-minute route, release notes trust template, and public clarity checklist.
-- [x] PM review and direct fixes for #026 completed.
-- [x] Execute Worker Order #027: publish `v1.1.1` with release commit, push, CI confirmation, tag, GitHub Release, assets, and post-release tracking.
-
-## External Review Triage
-
-### Accepted Findings
-
-- Public product positioning is still early: the repo is a strong personal/multi-agent operating system, not yet a polished third-party product.
-- External onboarding still feels heavy for new users; README and quickstarts need a shorter first-run path.
-- A first-time user still needs a concrete "I ran it and it worked" success moment; `npm run demo` should close that gap before v1.0 contract freeze.
-- Korean source skill names and internal operating terms are powerful locally but need consistent English labels in public-facing docs.
-- The next milestone should emphasize hardening, proof, and simplification instead of adding more skills.
-
-### Partially Accepted Findings
-
-- Core / Domain / Personal separation is directionally correct, but physical restructuring is deferred until adapter contracts, slug stability, installer behavior, and runtime discovery are revalidated.
-
-### Outdated Findings
-
-- `v0.1.0` and `v0.3.0` GitHub Releases are published.
-- Release tags, checksums, and adapter artifacts exist.
-- Claude Code local installation is verified.
-- Codex and Antigravity/Gemini runtime verification is complete.
-- Public quickstarts and GitHub metadata docs exist, and v0.4.0 simplified the first-run path.
-
-## Definition Of Done
-
-### Project v0.4.0 (Operational Hardening)
-
-- The public README has a short, low-friction first-run path for external users.
-- Install, new-skill, and release docs are aligned with the v0.3.0 tooling and test output.
-- Forward-testing covers at least three additional operational failure scenarios.
-- Core / Domain / Personal separation has an impact report and explicit no-go criteria for physical restructuring.
-- Public terminology consistently pairs Korean skill identities with English role labels where useful.
-- v1.0 stable-contract freeze criteria are drafted but not prematurely locked.
-
-### Project v0.5.0 (First Success Demo)
-
-- `npm run demo` exists and completes successfully on a fresh checkout with no user-directory install.
-- The demo uses deterministic local fixtures or temporary output and cleans up or clearly scopes generated files.
-- The demo output gives a newcomer a clear success signal and points to the next useful commands.
-- README or quickstart docs mention the demo as the recommended first proof path.
-- `npm run check` passes after the demo work.
-
-### Project v1.0.0
-
-- Skill manifest schema is stable.
-- Adapter contract is stable.
-- Full CI quality gate is required for release tags.
-- Compatibility promises are documented and supported by v0.4.0 evidence.
+- [x] Select `암행어사` as the next high-leverage skill after the `코딩가이드` pattern passed review.
+- [x] Refactor `암행어사` into thin `SKILL.md` + detailed `REFERENCES.md` + final `CHECKLIST.md`.
+- [x] Bump `암행어사` to v2.1.0 in `catalog/skills.yaml` and `source/SKILL_INDEX.md`.
+- [x] Review the refactor for weakened rules before applying the pattern to another skill.
 
 ## Current Worker Order
 
 - Current order file: `_order.md`
-- Latest completed order: `#027` v1.1.1 release execution.
-- Active implementation order: none; next order is not yet issued.
-- Last release playbook: `_playbook_v1_1_1_release.md`
-- Release/push status: `v1.1.1` was committed, pushed, tagged, released, verified, and followed by a pushed post-release tracking commit.
-- Rule: keep full worker prompts out of this file. `PROJECT_TASKS.md` tracks state, decisions, queues, and execution summaries only.
+- Current playbook file: `_playbook.md`
+- Latest completed order: `#033` `암행어사` v2.1.0 총괄 refactor review, PASS.
+- Latest direct 총괄 work: `#031` `SKILL_INDEX.md` version-row validation guard.
+- Active worker order: `#034` local install rollout, verification, commit, push, and v1.1.2 release decision.
+- Rule: `_order.md` and `_playbook.md` are current slots only. Archive completed content before overwriting them.
 
 ## Archive Policy
 
-- Keep `PROJECT_TASKS.md` as the live operating state board, ideally under 250 lines.
-- Keep only the active milestone, current decision, current worker order pointer, and short recent execution summaries here.
-- Move completed phase detail, old next-session prompts, and long execution logs to `docs/history/PROJECT_TASKS_ARCHIVE.md`.
+- Keep `PROJECT_TASKS.md` as the live operating state board, ideally under 160 lines.
+- Keep only current position, source rules, active queue, current worker order pointer, and short recent summaries here.
+- Move completed phase detail, old worker prompts, old playbooks, and long execution logs to `docs/history/`.
 - Keep public release history in `CHANGELOG.md` and generated verification evidence in `reports/`.
-- When a new milestone starts, archive the previous milestone's detailed queue and leave a one-line summary here.
+- When a new order or playbook is issued, overwrite `_order.md` or `_playbook.md`; do not create numbered root variants.
 
 ## Next Session Prompt
 
@@ -216,182 +125,39 @@ source/ 가 canonical root, adapters/ 는 생성물이다.
 
 현재 상태:
 - Latest published GitHub Release: v1.1.1
-  https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.1
 - Latest stable tag: v1.1.1
 - v1.1.1 release commit: e69433d336b9fef40a6aa2e4b24a2aeadaafb90d
-- Full worker prompts live in `_order.md`; PROJECT_TASKS.md is now a compact state board.
-- Historical execution detail is archived in `docs/history/PROJECT_TASKS_ARCHIVE.md`.
+- 루트 `_order.md`와 `_playbook.md`는 항상 현재 슬롯으로 덮어쓴다.
+- 완료된 오더/플레이북은 `docs/history/orders/`, `docs/history/playbooks/`에 둔다.
 
 Next work:
-1. Receive next worker order.
+1. 작업자가 `_playbook.md` #034를 실행한다.
+2. 총괄이 설치/검증/커밋/푸시/릴리즈 결과를 검수한다.
 ```
 
 ## Recent Execution Summary
 
+### 2026-05-29: #028 Project Reset
+
+- [x] Paused release expansion after v1.1.1 and shifted the operating direction toward core skill quality.
+- [x] Moved completed root order/playbook files to `docs/history/`.
+- [x] Rebuilt live documentation around a compact state board and overwrite-only order/playbook slots.
+- [x] Prepared #029 worker order for the first skill-depth refactor.
+
+### 2026-05-29: #029 Skill Capability Audit Started
+
+- [x] Paused the worker refactor order.
+- [x] Audited current skills for capability, token cost, loading burden, judgment support, and over-control risk.
+- [x] Saved the audit report under `docs/history/` so it is available as evidence without becoming an always-read operating document.
+- [x] Applied the first 총괄-owned pattern refactor to `코딩가이드`, preserving execution rules while moving detailed protocols into support files.
+- [x] Worker review passed `코딩가이드` v1.7.0, and the completed #030 order was archived under `docs/history/orders/`.
+- [x] Added #031 validation so future `source/SKILL_INDEX.md` version-row drift against `catalog/skills.yaml` fails during `npm run validate`.
+- [x] Started #032 by applying the approved thin-entry pattern to `암행어사` v2.1.0.
+- [x] Worker review passed `암행어사` v2.1.0, and the completed #033 order was archived under `docs/history/orders/`.
+- [ ] Issued #034 worker playbook for local install rollout, installed-version verification, final validation, commit, push, and v1.1.2 release decision.
+
 ### 2026-05-28: v1.1.1 Release Published
 
-- [x] Published `v1.1.1` GitHub Release with 5 release assets.
+- [x] Published `v1.1.1` GitHub Release with release assets.
 - [x] Confirmed GitHub Actions `validate` matrix passed on Ubuntu, Windows, and macOS for the release commit.
-- [x] Tagged release commit `e69433d336b9fef40a6aa2e4b24a2aeadaafb90d` with annotated tag `v1.1.1` and pushed to remote.
-- [x] Updated all release metadata to `v1.1.1` (package.json, README, INSTALL, ROADMAP, CHANGELOG).
-
-### 2026-05-28: v1.1.0 Release Published and v1.1.1 Public Clarity Patch Started
-
-- [x] Published `v1.1.0` GitHub Release with 5 release assets.
-- [x] Confirmed GitHub Actions `validate` matrix passed on Ubuntu, Windows, and macOS after cross-platform test script fix.
-- [x] Started local-only public clarity patch to improve the first 10 seconds of external understanding.
-- [x] Finished local gates and prepared the clarity patch for local commit without pushing.
-- [x] Issued Worker Order #026 and `_playbook_public_clarity_completion.md` for the remaining public trust path.
-- [x] PM-reviewed #026, fixed overclaiming/safety wording, and committed the completed trust path.
-- [x] Issued Worker Order #027 and `_playbook_v1_1_1_release.md` for release execution through GitHub Release publication.
-
-### 2026-05-28: Worker Orders #013-#017 Post-v1 Local Batch PM Review Passed
-
-- [x] Accepted onboarding polish, restore CLI, Korean briefing docs, and cross-platform packaging hardening after blocker fixes.
-- [x] Verified restore now preserves backup folders and validates explicit backup paths against destination-scoped sibling backup names.
-- [x] Verified non-Windows release packaging fallback now uses an argv-based command plan instead of assembled shell strings.
-- [x] Re-ran `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`; all passed.
-- [x] Confirmed no tracked drift in `source/`, `catalog/`, `adapters/`, or `reports/`.
-
-### 2026-05-28: Worker Order #011 v1.0.1 Documentation Consistency Review Completed
-
-- [x] Aligned README, PRD, ROADMAP, INSTALL, terminology, and PROJECT_TASKS with the published `v1.0.0` baseline.
-- [x] Confirmed public docs no longer imply `v1.0.0` is pending or future work.
-- [x] Confirmed terminology slugs match `catalog/skills.yaml` for `prd-generator` and `content-planning`.
-- [x] Re-ran `npm run check`, `npm run test:forward`, `npm run demo`, and `git diff --check`; all passed.
-- [x] Confirmed no `source/`, `catalog/`, `adapters/`, or `reports/` drift.
-
-### 2026-05-28: Worker Order #010 Publish v1.0.0 GitHub Release Assets Completed
-
-- [x] Verified local `HEAD` and remote `origin/main` are at `8c1fdaf`, in sync.
-- [x] Verified tag `v1.0.0` dereferences to `dd2f38ab856980bb29c4bf85cab8a29587fa663c`.
-- [x] Detected that the invalid `GITHUB_TOKEN` environment variable caused `gh` credential blocks; bypassed it by setting `$env:GITHUB_TOKEN=$null` to utilize keyring authentication.
-- [x] Verified keyring credential for `ekdthl13` has active repo/workflow scopes.
-- [x] Successfully created GitHub Release `v1.0.0` and uploaded all 5 expected release assets from `reports/`.
-- [x] Verified the public Release URL `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.0.0` and verified all 5 assets are present and checksums match perfectly.
-
-### 2026-05-28: Worker Order #009 v1.0.0 Release Preparation and Publication Completed
-
-- [x] Bumped package version from `0.5.0` to `1.0.0` inside `package.json`.
-- [x] Drafted and appended the official release changelog section `## [1.0.0] - 2026-05-28` in `CHANGELOG.md`, summarizing stable contract freezing, adapter layout, backup installer safety, and testing.
-- [x] Re-ran release quality gates: `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`. All gates passed with exit code 0; generated 4 zip packages and checksum signatures under `reports/`.
-- [x] Audited and checked off all 18 boxes in `docs/v1_freeze_checklist.md`, checking the final `CI Pipeline Pass` box on the actual release candidate commit.
-- [x] Staged and committed release preparation files: `release: v1.0.0 stable contract freeze` and pushed to `origin/main` successfully (commit SHA `b3e3a7c`).
-- [x] Pushed final checklist lock commit to `origin/main` (commit SHA `dd2f38a`).
-- [x] Created annotated release tag `v1.0.0` pointing to the release commit `dd2f38a` and pushed the tag successfully to `origin/main`.
-- [x] PM verified the remote `v1.0.0` tag exists and dereferences to `dd2f38ab856980bb29c4bf85cab8a29587fa663c`.
-- [x] PM verified GitHub Actions `validate` success for the release-related commits.
-- [x] PM verified local `reports/` contains the 4 v1.0.0 zip assets and `release-artifact-checksums.txt`.
-- [x] Published GitHub Release `v1.0.0` with assets after bypassing invalid GITHUB_TOKEN environment variable (Worker Order #010).
-
-### 2026-05-28: Worker Order #008 v1.0.0 Release-Candidate Readiness Decision Completed
-
-- [x] Verified current active branch is `main` and local `HEAD` is 100% in sync with remote `origin/main` at commit `4674f49b5195db03f065908ef823798539966426`.
-- [x] Re-ran the complete sequence of local gates: `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`. All checks returned exit code 0 successfully; all 55 unit tests, 6/6 sandboxed pressure scenarios, and onboarding sandbox demo passed cleanly.
-- [x] Performed programmatically isolated staging installations for all 3 target adapters (`antigravity`, `codex`, `claude-code`) inside a newly created temporary staging directory, verifying conflict backup creations, correct directory mapping, and preservation of unrelated files. Cleaned up all sandboxes entirely.
-- [x] Audited the public surface: verified `package.json` version remains exactly `0.5.0`, `README.md` Quickstart points to `npm run demo`, and `CHANGELOG.md` has no premature `v1.0.0` releases.
-- [x] Audited `docs/v1_freeze_checklist.md`; PM corrected release-gate checkboxes to remain open until the actual v1.0.0 release candidate and release commit, while preserving the GO recommendation from pre-RC evidence.
-- [x] Formulated a definitive `GO` recommendation and recommended Worker Order `#009 v1.0.0 Release Preparation and Publication` as the next step.
-
-### 2026-05-28: Worker Order #007 Integrate Pre-v1 Hardening Baseline Completed
-
-- [x] Verified before staging that the current branch was `main` and both local `HEAD` and `origin/main` were synchronized at commit `dffcfb3`.
-- [x] Confirmed the working tree contains exactly the 13 modified files comprising the accepted `#005` and `#006` hardening baselines.
-- [x] Ran final sequence of local gates: `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`. All 55 unit tests, 6/6 sandboxed forward-testing scenarios, local onboarding sandbox demo, and Windows zipping packaging passed flawlessly.
-- [x] Integrated all changes by staging and committing to `main` with prefix `chore: harden pre-v1 contract and sandbox gates` and pushing successfully to `origin/main`.
-- [x] Confirmed GitHub Actions validation workflow finished successfully, checking off the active queue.
-- [x] PM verification confirmed local `HEAD` and `origin/main` at `4674f49b5195db03f065908ef823798539966426`, working tree clean, commit scope limited to the accepted 13 files, package version still `0.5.0`, and GitHub Actions `validate` completed successfully.
-- [x] PM re-ran `npm run check`, `npm run test:forward`, `npm run demo`, `node tools/pack-release.js`, and `git diff --check`; all passed, with no leftover `project-brain-sandbox-*` temp folders.
-- [x] Created Worker Order #008 for the final v1.0.0 release-candidate readiness decision.
-
-### 2026-05-28: Worker Order #006 Pre-v1 Sandbox and RC Gate Hardening Completed
-
-- [x] Hardened `createSandbox` in `tools/lib/sandbox.js` to utilize Node's native `fs.mkdtempSync` API, achieving absolute collision resistance.
-- [x] Retained the system temporary path structure contract: sandbox directories reside under `os.tmpdir()` and start with `project-brain-sandbox-`.
-- [x] Added robust regression tests in `tools/sandbox.test.js` asserting consecutive unique sandbox folders and proving pre-existing temp directories of the same prefix are never reused or overwritten.
-- [x] Audited sandbox lifecycles in `tools/run-demo.js` and `tools/forward-tester.js`, wrapping all file preparation, installer execution, and validations in strict, error-proof `try-finally` scopes to ensure absolute cleanup.
-- [x] Updated `docs/v1_freeze_checklist.md` to lock down Sandboxed execution as fully verified and complete.
-- [x] Ran aggregate quality verification (`git diff --check`, `npm run check`, `npm run test:forward`, and `npm run demo`); all passed flawlessly.
-- [x] Deferred zip packaging execution since no release packaging code or packaging docs were changed in this order.
-- [x] PM verification re-ran `git diff --check`, `npm run check`, `npm run test:forward`, and `npm run demo`; all passed with 55 tests and 6/6 forward scenarios.
-- [x] PM checked `%TEMP%` for `project-brain-sandbox-*`; no leftover sandbox directories were found after verification.
-- [x] Created Worker Order #007 to integrate the accepted #005/#006 hardening baseline and confirm remote CI before any v1.0.0 RC decision.
-
-### 2026-05-28: Worker Order #005 Pre-v1 Contract Guard Hardening Completed
-
-- [x] Hardened the YAML-compatible JSON contract assertion in `schema-stability.test.js` and `validate-skilltree.js` to prevent accidental conversions.
-- [x] Implemented extensive adapter structure and integrity checks in `validate-skilltree.js`, validating placement of system docs, canonical target indexes, strict frontmatter shapes, and 100% exact body/support files copies.
-- [x] Created relative path destination and mixed slash normalization tests in `install-adapter.test.js` and proved 100% path resolution correctness.
-- [x] Standardized installer test isolation by dynamically scaffolding a temporary repository layout, eliminating parallel test concurrency races.
-- [x] Hardened PowerShell packaging zipping execution arguments (`-NoProfile`, `-NonInteractive`, `-ExecutionPolicy Bypass`, single quote sanitizing) and formally documented Windows specificity.
-- [x] Expanded `docs/INSTALL.md` with explicit cmd/PowerShell commands for manual whole-folder and conflict-only partial restores.
-- [x] Updated `docs/v1_freeze_checklist.md`, locking down compiled file constraints, path normalization evidence, and Windows packaging.
-- [x] PM verification re-ran `git diff --check`, `npm run check`, `npm run test:forward`, `npm run demo`, and `node tools/pack-release.js`; all passed after a minor trailing-whitespace cleanup.
-- [x] Created Worker Order #006 for the remaining pre-v1 sandboxed-execution hardening.
-
-### 2026-05-28: Milestone v1.0.0 Stable Contract Audit Completed
-
-- [x] Conducted a thorough contract audit across the catalog registry, layouts, installer safety, packaging, and rollback guidelines.
-- [x] Evaluated and classified each candidate target into 'Lock now', 'Needs work before v1', or 'Defer until after v1'.
-- [x] Documented diagnostic audit tables and proposed pre-v1 fixes directly in `docs/v1_freeze_checklist.md`.
-- [x] PM corrected over-broad recommendations: do not rewrite `catalog/skills.yaml` to free-form YAML for v1, do not treat rollback CLI as a v1 blocker, and keep final v1 checklist boxes open until the v1 release candidate.
-- [x] Re-ran full quality gate checking (`npm run check`, `npm run test:forward`, `npm run demo`); all tests passed.
-- [x] Created Worker Order #005 for focused pre-v1 contract guard hardening.
-
-### 2026-05-28: Milestone v0.5.0 First Success Demo Released
-
-- [x] Designed and implemented `tools/run-demo.js` as the local first-success demo.
-- [x] Spawns a secure OS sandbox and validates build adapter, conflict backup, and user preservation scripts.
-- [x] Created `tools/run-demo.test.js` to assert silent run execution, invalid paths, and package.json scripts configuration.
-- [x] Registered `"demo": "node tools/run-demo.js"` inside `package.json` under scripts.
-- [x] Updated `README.md` and `docs/INSTALL.md` onboarding documentations to highlight `npm run demo` as the recommended first proof path.
-- [x] Re-ran full quality check suite (`npm run check`); all 52 tests, validation, and audit checks passed successfully.
-- [x] Designed `tools/pack-release.js` packaging script using Node and PowerShell commands.
-- [x] Bumped package version to `0.5.0` and appended changes in `CHANGELOG.md`.
-- [x] Committed all changes, tagged release `v0.5.0`, and pushed commits/tags to remote GitHub repository.
-- [x] Published official GitHub Release `v0.5.0` with 4 packaged adapter zips and standard checksum lists.
-- [x] PM re-ran `npm run demo` standalone; demo completed successfully after avoiding parallel build races.
-- [x] `npm run test:forward` was not re-run because no forward-testing fixtures, runner behavior, or behavioral scenarios changed.
-
-### 2026-05-28: External Surface Verification and v0.5.0 Decision
-
-- [x] Verified remote `main` at `6b2ef7f` and `v0.4.0^{}` dereferences to the same release commit.
-- [x] Confirmed GitHub raw `main` and `v0.4.0` `package.json` both report version `0.4.0`.
-- [x] Confirmed GitHub raw README preserves normal Markdown line breaks; the external raw-format concern was not reproduced.
-- [x] Confirmed GitHub Release `v0.4.0` exposes 5 expected assets and latest `validate` on `main` succeeded.
-- [x] Ran `npm run check`; 49 tests passed, validation and audit passed.
-- [x] Selected v0.5.0 First Success Demo as the next milestone before v1.0.0 contract freeze.
-
-### 2026-05-27: Worker Order #002 PM Review
-
-- [x] Accepted release policy alignment, forward-testing runner extension, three new forward-testing scenarios, Core / Domain / Personal impact analysis, bilingual terminology guidance, and v1 freeze checklist.
-- [x] PM hardening patch added missing expected signals for forbidden `git commit` and `git push` violations and documented `requiredWrites` in `docs/FORWARD_TESTING.md`.
-- [x] Re-ran `npm run check`; 49 tests passed, validation and audit passed.
-- [x] Re-ran `npm run test:forward`; all 6 scenarios passed.
-- [x] Confirmed no `source/`, `catalog/`, or `adapters/` files were changed.
-
-### 2026-05-27: Worker Order #001 PM Review
-
-- [x] Accepted README quickstart simplification, `docs/INSTALL.md` v0.3.0 output alignment, and `docs/NEW_SKILL_CLI.md` post-create verification flow.
-- [x] Confirmed `docs/ROADMAP.md` required no additional worker edits beyond the already-recorded v0.4.0 direction.
-- [x] Re-ran `npm run check`; 49 tests passed, validation and audit passed.
-- [x] Re-ran `npm run test:forward`; all 3 scenarios passed.
-- [x] Confirmed no `source/`, `catalog/`, or `adapters/` files were changed.
-
-### 2026-05-27: Worker Order #002 Created
-
-- [x] Expanded the next order into a v0.4.0 productization proof batch.
-- [x] Scope includes release policy alignment, forward-testing scenario expansion, Core / Domain / Personal impact analysis, bilingual terminology guidance, and v1.0 freeze checklist.
-- [x] Scope still forbids physical `source/` restructuring, adapter edits, catalog schema changes, version bumps, tags, releases, and local installs.
-
-### 2026-05-27: PM Cleanup - PROJECT_TASKS Diet and Archive Policy
-
-- [x] Split full worker prompts out of `PROJECT_TASKS.md`; active worker order lives in `_order.md`.
-- [x] Archived completed work detail, completed milestone queues, historical prompts, and long execution logs to `docs/history/PROJECT_TASKS_ARCHIVE.md`.
-- [x] Added archive policy: `PROJECT_TASKS.md` remains the live state board, while long history moves to `docs/history/`.
-
-### 2026-05-27: Post-v0.3.0 Direction Decision
-
-- [x] Reviewed core project docs and accepted external GPT review as strategic input.
-- [x] Chose **v0.4.0 Operational Hardening** before v1.0.0 stable contract preparation.
-- [x] Created `_order.md` as the dedicated active worker order file.
+- [x] Updated release metadata to `v1.1.1`.

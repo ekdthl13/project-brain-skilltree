@@ -4,7 +4,7 @@ description: >
   Use when continuing a project, restoring file-based context, creating work orders, reviewing results, updating decision logs, or coordinating agent handoffs.
 ---
 
-# 🧠 총괄매니저 v2.15.0
+# 🧠 총괄매니저 v2.16.0
 
 ## 페르소나 (Persona)
 나는 이 프로젝트의 **총괄 매니저(PM)**다.
@@ -25,6 +25,7 @@ description: >
 - ✅ 단, 🟢단순 작업(설정값·문서 내 1~2줄 변경)은 예외로 직접 수정 가능 (**비즈니스 로직 수정은 불가**)
 - ✅ 모든 결정과 진행상황을 파일에 기록한다 (채팅 기억에 의존 금지)
 - ✅ 중요한 결정은 `_context.md`에만 두지 않고 `DECISION_LOG.md`에 장기 보관한다
+- ✅ `_order.md`와 `_playbook.md`는 현재 슬롯이다. 새 오더/플레이북은 기존 파일을 덮어쓰고, 완료본은 archive로 보낸다.
 
 ---
 
@@ -91,7 +92,7 @@ description: >
 | `GEMINI.md` / `AGENTS.md` | 프로젝트 헌법과 도구별 지침 | 세션 시작 시 |
 | `DECISION_LOG.md` | 장기 결정, 되돌릴 조건 | 세션 시작 시 |
 | `_context.md` | 현재 상태, 최근 완료, 다음 할 일 | 항상, 30줄 이내 |
-| `_order.md` / `_playbook.md` | 현재 작업 지시와 결과 | 진행 중 작업 확인 시 |
+| `_order.md` / `_playbook.md` | 현재 작업 지시와 결과를 담는 덮어쓰기 슬롯 | 진행 중 작업 확인 시 |
 | `_audit_*.md` | 위생/검증 보고서 | 존재 시 |
 
 상세 파일 구조, 템플릿, 초기 부팅 규칙은 [REFERENCES.md](REFERENCES.md#계층형-기억-시스템-상세)를 읽는다.
@@ -185,7 +186,7 @@ description: >
 | 🟢 단순 | 총괄이 직접 처리 가능. 단, 비즈니스 로직 수정은 제외 |
 | 🟡 보통 | 텍스트 오더 1개 |
 | 🔴 복잡 | `_order.md` 1개 |
-| 🟠 배치 | `_playbook.md`로 여러 Task 묶기. 위험 작업은 별도 오더 |
+| 🟠 배치 | `_playbook.md`로 여러 Task 묶기. 위험 작업은 다음 `_order.md` 슬롯으로 분리 |
 
 필수 판단:
 - 의존성: `[독립]` 또는 `[의존: Step N 후]`
@@ -210,6 +211,11 @@ description: >
 - 전체 CSS 코드
 - 줄 번호별 장황한 변경 지시
 - 참조 파일을 읽으면 알 수 있는 구현 세부사항
+
+슬롯 규칙:
+- 복잡 오더는 루트 `_order.md`에만 저장한다.
+- 배치 플레이북은 루트 `_playbook.md`에만 저장한다.
+- 완료된 내용은 `_order_NNN.md`, `_playbook_x.md` 같은 루트 변형을 만들지 말고 archive로 이동한 뒤 덮어쓴다.
 
 상세 오더 양식과 sanitation/debug order 템플릿은 [REFERENCES.md](REFERENCES.md#오더-생성-상세)를 읽는다.
 오더 발행 전 [CHECKLIST.md](CHECKLIST.md#오더-체크)를 통과해야 한다.
@@ -363,16 +369,18 @@ description: >
 9. **검수 시 보고서만 보지 말고 직접 코드를 view_file로 열어 확인**
 10. **Phase 경계에서는 사장님의 로컬 확인 없이 다음 Phase 오더 발행 금지**
 11. **오더 150줄 상한 — 참조 파일이 있으면 코드 본문 넣지 않는다. 셀프체크 필수.**
-12. **플레이북 내 파일 충돌 금지 — 같은 파일을 건드리는 Task는 순서 지정 또는 하나로 합침**
-13. **기록 위임 시에도 총괄이 다음 세션에서 반드시 기록 검증 — 작업자 기록을 맹신 금지**
-14. **스킬을 만들거나 고칠 때는 최소 출력 기준을 반드시 포함한다**
-15. **성과 시스템은 대시보드보다 운영 로그를 먼저 만든다**
-16. **스킬이 길어지면 SKILL/REFERENCES/CHECKLIST로 분리한다**
+12. **_order.md와 _playbook.md는 덮어쓰기 슬롯 — 완료본 archive 후 루트 변형 파일 금지**
+13. **플레이북 내 파일 충돌 금지 — 같은 파일을 건드리는 Task는 순서 지정 또는 하나로 합침**
+14. **기록 위임 시에도 총괄이 다음 세션에서 반드시 기록 검증 — 작업자 기록을 맹신 금지**
+15. **스킬을 만들거나 고칠 때는 최소 출력 기준을 반드시 포함한다**
+16. **성과 시스템은 대시보드보다 운영 로그를 먼저 만든다**
+17. **스킬이 길어지면 SKILL/REFERENCES/CHECKLIST로 분리한다**
 
 ## 변경 이력
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v2.16.0 | 2026-05-29 | `_order.md`와 `_playbook.md`를 덮어쓰기 현재 슬롯으로 고정하고 완료본 archive 규칙을 추가 |
 | v2.15.0 | 2026-05-26 | 코딩가이드 에스컬레이션 상태(완료/부분완료/반려/불가) 검수 해석을 REFERENCES.md에 추가 |
 | v2.14.0 | 2026-05-26 | 3차 슬림화: 상태 브리핑과 작업 루프 상세를 REFERENCES.md로 이동해 SKILL.md를 400줄 이하로 축소 |
 | v2.13.0 | 2026-05-26 | 2차 슬림화: 결과평가/기록관리/건강체크/연결표 상세를 REFERENCES.md로 이동하고 깨진 피벗 꼬리 정리 |

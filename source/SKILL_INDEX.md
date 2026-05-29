@@ -1,10 +1,10 @@
 ---
 name: 스킬 인덱스
-version: "2.0.7"
+version: "2.0.10"
 description: Project Brain Skilltree의 요청 라우터이자 시스템 지도. Codex와 Antigravity가 어떤 상황에서 어떤 스킬을 읽고, 어떤 문서를 기준으로 판단해야 하는지 결정한다.
 ---
 
-# 스킬 인덱스 (Skill Router) v2.0.7
+# 스킬 인덱스 (Skill Router) v2.0.10
 
 > 새 AI 세션이 가장 먼저 읽어야 할 문서다.
 > 이 문서는 단순 목록이 아니라 "요청 → 스킬 → 문서 → 검증"을 연결하는 라우터다.
@@ -67,8 +67,8 @@ graph TD
 | 1 | [오피스아워](오피스아워/SKILL.md) | v1.3.0 | 아이디어 검증 · 방향 설정 | 아이디어 (대화) | `PROJECT_BRIEF.md` |
 | 2 | [PRD생성](PRD생성/SKILL.md) | v1.1.1 | 실행 가능한 요구사항 명세 | `PROJECT_BRIEF.md` | `PRD_v1.0.md` |
 | 3 | [디자인시스템](디자인시스템/SKILL.md) | v2.3.0 | 디자인 토큰 · 스타일 규칙 · 안티-슬롭 · 프리뷰 | `PRD_v1.0.md` | `DESIGN_SYSTEM.md`, `DESIGN_PREVIEW.html` |
-| 4 | [총괄매니저](총괄매니저/SKILL.md) | v2.15.0 | 작업 분배 · 판단 · 기록 · 장기 결정 관리 | `_context.md` | `_order.md`, `_playbook.md`, `_context.md`, `DECISION_LOG.md`, `CHECKLIST.md` |
-| 5 | [코딩가이드](코딩가이드/SKILL.md) | v1.6.0 | 코딩 실행 계약 · 에스컬레이션 · 금지 패턴 · 검증 | `_order.md` | 코드 파일 + 작업 결과 또는 반려/부분완료 보고 |
+| 4 | [총괄매니저](총괄매니저/SKILL.md) | v2.16.0 | 작업 분배 · 판단 · 기록 · 장기 결정 관리 | `_context.md` | `_order.md`, `_playbook.md`, `_context.md`, `DECISION_LOG.md`, `CHECKLIST.md` |
+| 5 | [코딩가이드](코딩가이드/SKILL.md) | v1.7.0 | 코딩 실행 계약 · 에스컬레이션 · 금지 패턴 · 검증 | `_order.md` | 코드 파일 + 작업 결과 또는 반려/부분완료 보고 |
 | 6 | [출시점검](출시점검/SKILL.md) | v2.5.0 | 배포 품질 관문 · 런타임 스모크 테스트 | 코드 전체 | `_launch_check.md` |
 
 ---
@@ -77,7 +77,7 @@ graph TD
 
 | 스킬 | 버전 | 역할 | 주요 출력 |
 |------|------|------|-----------|
-| [암행어사](암행어사/SKILL.md) | v2.0.0 | 프로젝트/아이디어/전문가 렌즈/스킬트리 감사 | `_audit_YYYY-MM-DD.md` |
+| [암행어사](암행어사/SKILL.md) | v2.1.0 | 프로젝트/아이디어/전문가 렌즈/스킬트리 감사 | `_audit_YYYY-MM-DD.md`, `_skilltree_audit_YYYY-MM-DD.md` |
 | [출시점검](출시점검/SKILL.md) | v2.5.0 | 배포 전 품질 점검과 GO/NO-GO | `_launch_check.md` |
 
 ---
@@ -179,6 +179,9 @@ graph TD
 
 | 버전 | 날짜 | 변경 내용 |
 |------|------|----------|
+| v2.0.10 | 2026-05-29 | 암행어사 v2.1.0 반영: 모드 라우터 중심 진입점, 상세 감찰 절차 REFERENCES 분리, 최종 CHECKLIST 재정리 |
+| v2.0.9 | 2026-05-29 | 코딩가이드 v1.7.0 반영: 능력 보존형 슬림화, CHECKLIST 추가, 상세 규칙 REFERENCES 분리 |
+| v2.0.8 | 2026-05-29 | 총괄매니저 v2.16.0 반영: `_order.md`/`_playbook.md` overwrite-slot 운영 규칙 동기화 |
 | v2.0.7 | 2026-05-26 | 총괄매니저 v2.15.0, 코딩가이드 v1.6.0 에스컬레이션 프로토콜, ORCHESTRATION.md 멀티모델 문서 반영 |
 | v2.0.6 | 2026-05-26 | 블로그엔진 v4.1.0 반영: SKILL/REFERENCES/CHECKLIST 구조로 분리 |
 | v2.0.5 | 2026-05-26 | 총괄매니저 v2.14.0 반영: SKILL.md 400줄 이하 축소 |

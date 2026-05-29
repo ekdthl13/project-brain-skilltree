@@ -12,6 +12,18 @@ This file preserves historical detail moved out of `PROJECT_TASKS.md` so the mai
 
 ## Completed Work
 
+### 2026-05-29: #028 Project Reset and Document Operations Diet
+
+- Paused the release-machine loop after the stable `v1.1.1` public clarity release.
+- Reframed the next milestone around skill quality and document operations hygiene.
+- Archived completed root order/playbook files into:
+  - `docs/history/orders/`
+  - `docs/history/playbooks/`
+- Re-established `_order.md` and `_playbook.md` as overwrite-only current slots.
+- Compacted `PROJECT_TASKS.md` back into a live state board.
+- Refreshed PRD, security, release, roadmap, and forward-testing language for the v1.1.1 baseline.
+- Prepared worker order `#029` for the first skill-depth refactor.
+
 ### Phase 0: Local Audit and Stabilization
 
 - Confirmed the original local skilltree had a strong document-first operating

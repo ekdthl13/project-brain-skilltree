@@ -1,6 +1,8 @@
 # Forward-Testing Harness Guidelines
 
-This document outlines the architectural plan for the Project Brain Skilltree **Forward-Testing Harness**.
+This document outlines the current deterministic forward-testing harness and the
+future direction for richer agent simulation. The current suite is a guarded
+fixture replay system; it does not call live AI agents.
 
 ## Scope Limitation (Phase 8-A)
 
@@ -12,7 +14,10 @@ This document outlines the architectural plan for the Project Brain Skilltree **
 
 ## Future Dynamic Simulation Architecture
 
-The long-term goal of the forward-testing harness is to simulate agent interactions under high-pressure scenarios to verify that the agent respects repository rules, boundary checks, and quality gates.
+The long-term goal is to simulate agent interactions under high-pressure
+scenarios. That future layer would provide stronger behavioral evidence that an
+agent respects repository rules, boundary checks, and quality gates. It is not
+the current implementation.
 
 ```text
                   ┌───────────────────────────┐
@@ -61,14 +66,16 @@ Once the subagent finishes or triggers a command:
 
 ## Current Static Integrity Verification
 
-Under the current static quality system:
+Under the current quality system:
 - Scenario markdown files in `tests/scenarios/*.md` are parsed to ensure they contain standard specification headers (`## Prompt`, `## Expected Behavior`, `## Failure Signal`).
 - JSON simulation profiles are parsed to verify they conform to the schema required for future runner execution.
-- Checks are run via `tools/forward-testing.test.js` to assert that mock scenario fixtures can be read and parsed without runtime errors.
+- JSON profiles are replayed deterministically through local sandbox fixtures where applicable.
+- Checks assert expected writes, forbidden writes, required commands, forbidden commands, and expected validation signals.
+- No active agent calls, external API requests, browser automation, or network operations are performed.
 
 ---
 
-## Dynamic Forward-Testing Specification (v0.3.0)
+## Deterministic Forward-Testing Specification (v0.3.0)
 
 This section details the architecture and specifications for the deterministic simulation runner implemented in Milestone v0.3.0.
 
@@ -140,12 +147,12 @@ npm run test:forward
 ### Executable Scenarios (JSON Profiles)
 
 The forward-testing harness automatically discovers and executes all `.json` scenario profiles under `tests/scenarios/`:
-- **`adapters-direct-modification-attempt`** ([forward-test-fixture.json](../tests/scenarios/forward-test-fixture.json)): Simulates direct manual edits to a generated adapter file. Verified statically.
-- **`path-leakage`** ([path-leakage.json](../tests/scenarios/path-leakage.json)): Simulates private user path leakage into source files. Verified dynamically by checkCommand output matching.
-- **`unvalidated-claim`** ([unvalidated-claim.json](../tests/scenarios/unvalidated-claim.json)): Simulates committing changes without running the validation script. Verified statically.
-- **`source-vs-adapter-confusion`** ([source-vs-adapter-confusion.json](../tests/scenarios/source-vs-adapter-confusion.json)): Simulates direct adapter modification. Verified statically via `forbiddenWrites`.
-- **`incomplete-reporting`** ([incomplete-reporting.json](../tests/scenarios/incomplete-reporting.json)): Simulates committing changes without updating `_order.md` with the completion report. Verified statically via `requiredWrites`.
-- **`validation-skipping-pressure`** ([validation-skipping-pressure.json](../tests/scenarios/validation-skipping-pressure.json)): Simulates bypassing validation gates to push changes under user pressure. Verified statically via `requiredCommands` and `forbiddenCommands`.
+- **`adapters-direct-modification-attempt`** ([forward-test-fixture.json](../tests/scenarios/forward-test-fixture.json)): Replays a direct generated-adapter edit attempt and expects validation signals.
+- **`path-leakage`** ([path-leakage.json](../tests/scenarios/path-leakage.json)): Replays private user path leakage into source files and checks validation output matching.
+- **`unvalidated-claim`** ([unvalidated-claim.json](../tests/scenarios/unvalidated-claim.json)): Replays a completion claim without the required validation command.
+- **`source-vs-adapter-confusion`** ([source-vs-adapter-confusion.json](../tests/scenarios/source-vs-adapter-confusion.json)): Replays direct adapter modification and checks `forbiddenWrites`.
+- **`incomplete-reporting`** ([incomplete-reporting.json](../tests/scenarios/incomplete-reporting.json)): Replays missing worker result reporting and checks `requiredWrites`.
+- **`validation-skipping-pressure`** ([validation-skipping-pressure.json](../tests/scenarios/validation-skipping-pressure.json)): Replays pressure to bypass validation gates and checks required/forbidden command assertions.
 
 ### 5. Risks and Mitigations
 

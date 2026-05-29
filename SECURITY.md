@@ -2,7 +2,9 @@
 
 ## Supported Versions
 
-Security fixes target the current `main` branch until tagged releases are added.
+Security fixes target the current `main` branch and the latest tagged stable
+release. Older tags remain public baselines but are not maintained as separate
+security branches unless an explicit recovery decision is made.
 
 ## Reporting a Problem
 
@@ -22,7 +24,7 @@ that introduce:
 - adapter-only edits that are not generated from `source/`
 - remote code execution instructions without explicit user approval gates
 
-Run before publishing:
+Run before publishing or installing into a real agent directory:
 
 ```bash
 npm run check

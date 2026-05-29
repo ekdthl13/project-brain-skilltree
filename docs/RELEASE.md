@@ -42,8 +42,12 @@ This utility scans the built `adapters/` directory and creates the following rep
 Before publishing a GitHub Release, the adapter assets must be packaged into zip archives for distribution:
 
 > [!NOTE]
-> **Windows Environment Requirement**:
-> The release packaging utility (`tools/pack-release.js`) relies on PowerShell's native `Compress-Archive` cmdlet and is explicitly designed for Windows. Bypassing/hardening parameters (`-NoProfile`, `-NonInteractive`, `-ExecutionPolicy Bypass`) are embedded for safety. Cross-platform support is deferred until post-v1.0.0.
+> **Packaging Platform Behavior**:
+> On Windows, `tools/pack-release.js` uses PowerShell's native `Compress-Archive`
+> cmdlet with hardened parameters (`-NoProfile`, `-NonInteractive`,
+> `-ExecutionPolicy Bypass`). On macOS/Linux, it uses the native `zip` command
+> through an argv-based command plan. Verify the packaging command on the target
+> release environment before publishing assets.
 
 1. **Packaging Command**: Create zip archives of the compiled adapters. The release expects four zip files matching the baseline pattern:
    - `project-brain-skilltree-v<version>-adapters.zip` (All generated adapters)
@@ -55,9 +59,9 @@ Before publishing a GitHub Release, the adapter assets must be packaged into zip
 
 ---
 
-## Versioning Rules (SemVer for pre-release v0.x)
+## Versioning Rules (Conservative SemVer)
 
-Project Brain adheres to a conservative Semantic Versioning (SemVer) policy for the `v0.x` pre-release phase:
+Project Brain adheres to a conservative Semantic Versioning (SemVer) policy:
 
 ### 1. Source Skill Versions
 - Defined in `SKILL.md` frontmatter and synchronized with `catalog/skills.yaml`.
@@ -71,7 +75,8 @@ Project Brain adheres to a conservative Semantic Versioning (SemVer) policy for 
   - The generated output directory layout changes.
   - New agent targets are added or existing targets are deprecated.
   - Frontmatter formatting changes.
-- During the `v0.x` phase, adapter contract changes must not trigger a major version change in the root package unless a breaking multi-agent API change occurs.
+- Adapter contract changes do not automatically require a root-package major
+  bump unless they create a breaking multi-agent API change.
 
 ### 3. Tooling / Root Package Version
 - Defined in `package.json` (`version` field).
