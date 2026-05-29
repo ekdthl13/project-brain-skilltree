@@ -1,6 +1,15 @@
 # Worker Order
 
-Status: Active playbook handoff.
+Status: Completed.
+
+## Handoff Summary
+
+The batch rollout under playbook #034 has been successfully completed:
+- All 5 local agent installations updated and verified.
+- Pre-flight and post-install validations passed (`npm run check` and `npm run test:forward`).
+- Version bumped to `1.1.2` in `package.json` and `CHANGELOG.md` updated.
+- Commited and pushed to remote branch `main` (commit `af66d45`).
+- GitHub Release `v1.1.2` created successfully on GitHub with zip assets.
 
 ## Current Handoff
 

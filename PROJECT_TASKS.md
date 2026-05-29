@@ -2,15 +2,15 @@
 
 ## Current Position
 
-Project Brain Skilltree is in **v1.1.1 stable / v1.1.2 planning** state.
+Project Brain Skilltree is in **v1.1.2 stable** state.
 
 Public baseline:
 - GitHub repo: `https://github.com/ekdthl13/project-brain-skilltree`
-- Latest published GitHub Release: `v1.1.1`
-- Latest stable tag: `v1.1.1`
-- Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.1`
-- Release commit: `e69433d336b9fef40a6aa2e4b24a2aeadaafb90d`
-- Latest verified remote CI: GitHub Actions `validate` matrix passed on Ubuntu, Windows, and macOS for the release commit.
+- Latest published GitHub Release: `v1.1.2`
+- Latest stable tag: `v1.1.2`
+- Release URL: `https://github.com/ekdthl13/project-brain-skilltree/releases/tag/v1.1.2`
+- Release commit: `af66d4563c9bcbb7b343def483e55fe8cebc608b`
+- Latest verified remote CI: GitHub Actions `validate` workflow runs successfully on the target commit.
 
 Current decision:
 - Pause the release-machine loop after v1.1.1.
@@ -103,9 +103,9 @@ Historical details are archived in [docs/history/PROJECT_TASKS_ARCHIVE.md](docs/
 
 - Current order file: `_order.md`
 - Current playbook file: `_playbook.md`
-- Latest completed order: `#033` `암행어사` v2.1.0 총괄 refactor review, PASS.
+- Latest completed order: `#034` local install rollout, verification, commit, push, and v1.1.2 release decision.
 - Latest direct 총괄 work: `#031` `SKILL_INDEX.md` version-row validation guard.
-- Active worker order: `#034` local install rollout, verification, commit, push, and v1.1.2 release decision.
+- Active worker order: None (Pending next strategy session).
 - Rule: `_order.md` and `_playbook.md` are current slots only. Archive completed content before overwriting them.
 
 ## Archive Policy
@@ -154,7 +154,7 @@ Next work:
 - [x] Added #031 validation so future `source/SKILL_INDEX.md` version-row drift against `catalog/skills.yaml` fails during `npm run validate`.
 - [x] Started #032 by applying the approved thin-entry pattern to `암행어사` v2.1.0.
 - [x] Worker review passed `암행어사` v2.1.0, and the completed #033 order was archived under `docs/history/orders/`.
-- [ ] Issued #034 worker playbook for local install rollout, installed-version verification, final validation, commit, push, and v1.1.2 release decision.
+- [x] Executed #034 worker playbook for local install rollout, installed-version verification, final validation, commit, push, and v1.1.2 release publication.
 
 ### 2026-05-28: v1.1.1 Release Published
 
